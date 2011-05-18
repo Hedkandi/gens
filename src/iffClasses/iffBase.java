@@ -12,6 +12,10 @@ import java.io.IOException;
 /**
  *
  * @author hedkandi
+ * 
+ * This structure is a combination of my own "research" along with the thread
+ * over at ragezone and some finishing touches by Tsukasa.
+ * 
  */
 public class iffBase {
 

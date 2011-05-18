@@ -17,7 +17,6 @@ import java.util.List;
  */
 public final class iffAuxPart extends iffClasses.iffBase {
 
-
     public short U14 = 0; 
     public short U33 = 0; 
     public short U34 = 0; 
