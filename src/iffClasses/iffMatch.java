@@ -57,6 +57,10 @@ public class iffMatch {
         return this.colNames.length;
     }
 
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+    
     private void getItem(byte[] inData) {
         try {
             isValid = uData.getBool(inData[0]);

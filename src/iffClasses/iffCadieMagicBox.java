@@ -6,9 +6,6 @@
 package iffClasses;
 
 import gens.uData;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *
@@ -85,6 +82,10 @@ public class iffCadieMagicBox {
         return this.colNames.length;
     }
 
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+    
     private void getItem(String[] inData) {
         Index = uData.getInt(Long.parseLong(inData[0]));
         Valid = uData.getInt(Long.parseLong(inData[1]));

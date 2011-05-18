@@ -17,20 +17,21 @@ public class iffBase {
 
     public boolean isValid = false;
     public int ItemID = 0;
-    public String ItemName = "";
+    public String itemName = "";
     public byte lvlReq = 0;
+    public boolean isMaxLVL = false;
     public String Icon = "";
     public byte U2 = 0;
     public byte U3 = 0;
     public byte U4 = 0;
-    public int ItemPrice = 0;
+    public int itemPrice = 0;
     public int DiscountPrice = 0;
-    public int U7 = 0;
-    public byte shopFlag = 0;
+    public int UsedPrice = 0;
     public byte moneyFlag = 0;
-    public short U9 = 0;
-    public short U12 = 0;
-    public short U13 = 0;
+    public byte shopFlag = 0;
+    public byte timeFlag = 0;
+    public byte Time = 0;
+    public int Point = 0;
     public short fYear = 0;
     public short fMonth = 0;
     public short fZero = 0;
@@ -47,22 +48,23 @@ public class iffBase {
     public short tMinute = 0;
     public short tSecond = 0;
     public short tMSecond = 0;
-    public String[] colNames = new String[] {  "Valid?",
+    public String[] colNames = new String[] {  "Use",
                                         "ItemID",
                                         "ItemName",
                                         "lvlReq",
+                                        "isMaxLVL",
                                         "Icon",
-                                        "NA",
-                                        "NA",
-                                        "NA",
+                                        "Not Used",
+                                        "Not Used",
+                                        "Not Used",
                                         "Price",
                                         "Discount Price",
-                                        "NA",
-                                        "Shop Flags",
+                                        "Used Price",
                                         "Money Flags",
-                                        "NA",
-                                        "NA",
-                                        "NA",
+                                        "Shop Flags",
+                                        "Time Flags",
+                                        "Time",
+                                        "Point",
                                         "From Year",
                                         "From Month",
                                         "From 0",
@@ -84,42 +86,49 @@ public class iffBase {
         
     }
 
+    public int getColNum() {
+        return this.colNames.length;
+    }
+    
     public void getItem(String[] inData) {
         try {
             if (inData[0].equals("true")) {
                 isValid = true;
             }
             ItemID = uData.getInt(Long.parseLong(inData[1]));
-            ItemName = inData[2];
+            itemName = inData[2];
             lvlReq = uData.getByte(Short.parseShort(inData[3]));
-            Icon = inData[4];
-            U2 = uData.getByte(Short.parseShort(inData[5]));
-            U3 = uData.getByte(Short.parseShort(inData[6]));
-            U4 = uData.getByte(Short.parseShort(inData[7]));
-            ItemPrice = uData.getInt(Long.parseLong(inData[8]));
-            DiscountPrice = uData.getInt(Long.parseLong(inData[9]));
-            U7 = uData.getInt(Long.parseLong(inData[10]));
-            shopFlag = uData.getByte(Short.parseShort(inData[11]));
+            if (inData[4].equals("true")) {
+                isMaxLVL = true;
+            }
+            Icon = inData[5];
+            U2 = uData.getByte(Short.parseShort(inData[6]));
+            U3 = uData.getByte(Short.parseShort(inData[7]));
+            U4 = uData.getByte(Short.parseShort(inData[8]));
+            itemPrice = uData.getInt(Long.parseLong(inData[9]));
+            DiscountPrice = uData.getInt(Long.parseLong(inData[10]));
+            UsedPrice = uData.getInt(Long.parseLong(inData[11]));
             moneyFlag = uData.getByte(Short.parseShort(inData[12]));
-            U9 = uData.getShort(Integer.parseInt(inData[13]));
-            U12 = uData.getShort(Integer.parseInt(inData[14]));
-            U13 = uData.getShort(Integer.parseInt(inData[15]));
-            fYear = uData.getShort(Integer.parseInt(inData[16]));
-            fMonth = uData.getShort(Integer.parseInt(inData[17]));
-            fZero = uData.getShort(Integer.parseInt(inData[18]));
-            fDay = uData.getShort(Integer.parseInt(inData[19]));
-            fHour = uData.getShort(Integer.parseInt(inData[20]));
-            fMinute = uData.getShort(Integer.parseInt(inData[21]));
-            fSecond = uData.getShort(Integer.parseInt(inData[22]));
-            fMSecond = uData.getShort(Integer.parseInt(inData[23]));
-            tYear = uData.getShort(Integer.parseInt(inData[24]));
-            tMonth = uData.getShort(Integer.parseInt(inData[25]));
-            tZero = uData.getShort(Integer.parseInt(inData[26]));
-            tDay = uData.getShort(Integer.parseInt(inData[27]));
-            tHour = uData.getShort(Integer.parseInt(inData[28]));
-            tMinute = uData.getShort(Integer.parseInt(inData[29]));
-            tSecond = uData.getShort(Integer.parseInt(inData[30]));
-            tMSecond = uData.getShort(Integer.parseInt(inData[31]));
+            shopFlag = uData.getByte(Short.parseShort(inData[13]));
+            timeFlag = uData.getByte(Short.parseShort(inData[14]));
+            Time = uData.getByte(Short.parseShort(inData[15]));
+            Point = uData.getInt(Long.parseLong(inData[16]));
+            fYear = uData.getShort(Integer.parseInt(inData[17]));
+            fMonth = uData.getShort(Integer.parseInt(inData[18]));
+            fZero = uData.getShort(Integer.parseInt(inData[19]));
+            fDay = uData.getShort(Integer.parseInt(inData[20]));
+            fHour = uData.getShort(Integer.parseInt(inData[21]));
+            fMinute = uData.getShort(Integer.parseInt(inData[22]));
+            fSecond = uData.getShort(Integer.parseInt(inData[23]));
+            fMSecond = uData.getShort(Integer.parseInt(inData[24]));
+            tYear = uData.getShort(Integer.parseInt(inData[25]));
+            tMonth = uData.getShort(Integer.parseInt(inData[26]));
+            tZero = uData.getShort(Integer.parseInt(inData[27]));
+            tDay = uData.getShort(Integer.parseInt(inData[28]));
+            tHour = uData.getShort(Integer.parseInt(inData[29]));
+            tMinute = uData.getShort(Integer.parseInt(inData[30]));
+            tSecond = uData.getShort(Integer.parseInt(inData[31]));
+            tMSecond = uData.getShort(Integer.parseInt(inData[32]));
         } catch (Exception ex) {
             //throw new IOException("Failed to read base data.");
         }
@@ -129,22 +138,22 @@ public class iffBase {
         try {
             isValid = uData.getBool(inData[0]);
             ItemID = uData.getInt(new byte[]{inData[4], inData[5], inData[6], inData[7]});
-            ItemName = uData.getString(new ByteArrayInputStream(inData, 8, uData.stringLength));
+            itemName = uData.getString(new ByteArrayInputStream(inData, 8, uData.stringLength));
             lvlReq = inData[48];
+            isMaxLVL = ((inData[48] & 0x80) == 128);
             Icon = uData.getString(new ByteArrayInputStream(inData, 49, uData.stringLength));
+            // Bytes 89-91 isnt used
             U2 = inData[89];
             U3 = inData[90];
             U4 = inData[91];
-            ItemPrice = uData.getInt(new byte[]{inData[92], inData[93], inData[94], inData[95]});
+            itemPrice = uData.getInt(new byte[]{inData[92], inData[93], inData[94], inData[95]});
             DiscountPrice = uData.getInt(new byte[]{inData[96], inData[97], inData[98], inData[99]});
-            U7 = uData.getInt(new byte[]{inData[100], inData[101], inData[102], inData[103]});
-            shopFlag = inData[104];
-            moneyFlag = inData[105];
-            U9 = uData.getShort(new byte[]{inData[106], inData[107]});
-            U12 = uData.getShort(new byte[]{inData[108], inData[109]});
-            U13 = uData.getShort(new byte[]{inData[110], inData[111]});
-            //System.out.println(uData.getHexString(new byte[]{inData[112], inData[113]}));
-            //System.out.println(uData.getShort(new byte[]{inData[112], inData[113]}));
+            UsedPrice = uData.getInt(new byte[]{inData[100], inData[101], inData[102], inData[103]});
+            moneyFlag = inData[104];
+            shopFlag = inData[105];
+            timeFlag = inData[106];
+            Time = inData[107];
+            Point = uData.getInt(new byte[]{inData[108], inData[109], inData[110], inData[111]});
             fYear = uData.getShort(new byte[]{inData[112], inData[113]});
             fMonth = uData.getShort(new byte[]{inData[114], inData[115]});
             fZero = uData.getShort(new byte[]{inData[116], inData[117]});
@@ -167,6 +176,10 @@ public class iffBase {
         }
     }
 
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+    
     public Object getValue(int colIndex) {
         switch (colIndex) {
             case 0:
@@ -174,67 +187,69 @@ public class iffBase {
             case 1:
                 return uData.getLong(this.ItemID);
             case 2:
-                return this.ItemName;
+                return this.itemName;
             case 3:
                 return uData.getShort(this.lvlReq);
             case 4:
-                return this.Icon;
+                return this.isMaxLVL;
             case 5:
-                return uData.getShort(this.U2);
+                return this.Icon;
             case 6:
-                return uData.getShort(this.U3);
+                return uData.getShort(this.U2);
             case 7:
-                return uData.getShort(this.U4);
+                return uData.getShort(this.U3);
             case 8:
-                return uData.getLong(this.ItemPrice);
+                return uData.getShort(this.U4);
             case 9:
-                return uData.getLong(this.DiscountPrice);
+                return uData.getLong(this.itemPrice);
             case 10:
-                return uData.getLong(this.U7);
+                return uData.getLong(this.DiscountPrice);
             case 11:
-                return uData.getShort(this.shopFlag);
+                return uData.getLong(this.UsedPrice);
             case 12:
                 return uData.getShort(this.moneyFlag);
             case 13:
-                return uData.getInt(this.U9);
+                return uData.getShort(this.shopFlag);
             case 14:
-                return uData.getInt(this.U12);
+                return uData.getInt(this.timeFlag);
             case 15:
-                return uData.getInt(this.U13);
+                return uData.getInt(this.Time);
             case 16:
-                return uData.getInt(this.fYear);
+                return uData.getInt(this.Point);
             case 17:
-                return uData.getInt(this.fMonth);
+                return uData.getInt(this.fYear);
             case 18:
-                return uData.getInt(this.fZero);
+                return uData.getInt(this.fMonth);
             case 19:
-                return uData.getInt(this.fDay);
+                return uData.getInt(this.fZero);
             case 20:
-                return uData.getInt(this.fHour);
+                return uData.getInt(this.fDay);
             case 21:
-                return uData.getInt(this.fMinute);
+                return uData.getInt(this.fHour);
             case 22:
-                return uData.getInt(this.fSecond);
+                return uData.getInt(this.fMinute);
             case 23:
-                return uData.getInt(this.fMSecond);
+                return uData.getInt(this.fSecond);
             case 24:
-                return uData.getInt(this.tYear);
+                return uData.getInt(this.fMSecond);
             case 25:
-                return uData.getInt(this.tMonth);
+                return uData.getInt(this.tYear);
             case 26:
-                return uData.getInt(this.tZero);
+                return uData.getInt(this.tMonth);
             case 27:
-                return uData.getInt(this.tDay);
+                return uData.getInt(this.tZero);
             case 28:
-                return uData.getInt(this.tHour);
+                return uData.getInt(this.tDay);
             case 29:
-                return uData.getInt(this.tMinute);
+                return uData.getInt(this.tHour);
             case 30:
-                return uData.getInt(this.tSecond);
+                return uData.getInt(this.tMinute);
             case 31:
+                return uData.getInt(this.tSecond);
+            case 32:
                 return uData.getInt(this.tMSecond);
             default:
-                return "";
+                return "!";
         }
     }
 
@@ -247,93 +262,96 @@ public class iffBase {
                 this.ItemID = uData.getInt((Long)value);
                 break;
             case 2:
-                this.ItemName = (String)value;
+                this.itemName = (String)value;
                 break;
             case 3:
                 this.lvlReq = uData.getByte((Short)value);
                 break;
             case 4:
-                this.Icon = (String)value;
+                this.isMaxLVL = (Boolean)value;
                 break;
             case 5:
-                this.U2 = uData.getByte((Short)value);
+                this.Icon = (String)value;
                 break;
             case 6:
-                this.U3 = uData.getByte((Short)value);
+                this.U2 = uData.getByte((Short)value);
                 break;
             case 7:
-                this.U4 = uData.getByte((Short)value);
+                this.U3 = uData.getByte((Short)value);
                 break;
             case 8:
-                this.ItemPrice = uData.getInt((Long)value);
+                this.U4 = uData.getByte((Short)value);
                 break;
             case 9:
-                this.DiscountPrice = uData.getInt((Long)value);
+                this.itemPrice = uData.getInt((Long)value);
                 break;
             case 10:
-                this.U7 = uData.getInt((Long)value);
+                this.DiscountPrice = uData.getInt((Long)value);
                 break;
             case 11:
-                this.shopFlag = uData.getByte((Short)value);
+                this.UsedPrice = uData.getInt((Long)value);
                 break;
             case 12:
                 this.moneyFlag = uData.getByte((Short)value);
                 break;
             case 13:
-                this.U9 = uData.getShort((Integer)value);
+                this.shopFlag = uData.getByte((Short)value);
                 break;
             case 14:
-                this.U12 = uData.getShort((Integer)value);
+                this.timeFlag = uData.getByte((Short)value);
                 break;
             case 15:
-                this.U13 = uData.getShort((Integer)value);
+                this.Time = uData.getByte((Short)value);
                 break;
             case 16:
-                this.fYear = uData.getShort((Integer)value);
+                this.Point = uData.getShort((Integer)value);
                 break;
             case 17:
-                this.fMonth = uData.getShort((Integer)value);
+                this.fYear = uData.getShort((Integer)value);
                 break;
             case 18:
-                this.fZero = uData.getShort((Integer)value);
+                this.fMonth = uData.getShort((Integer)value);
                 break;
             case 19:
-                this.fDay = uData.getShort((Integer)value);
+                this.fZero = uData.getShort((Integer)value);
                 break;
             case 20:
-                this.fHour = uData.getShort((Integer)value);
+                this.fDay = uData.getShort((Integer)value);
                 break;
             case 21:
-                this.fMinute = uData.getShort((Integer)value);
+                this.fHour = uData.getShort((Integer)value);
                 break;
             case 22:
-                this.fSecond = uData.getShort((Integer)value);
+                this.fMinute = uData.getShort((Integer)value);
                 break;
             case 23:
-                this.fMSecond = uData.getShort((Integer)value);
+                this.fSecond = uData.getShort((Integer)value);
                 break;
             case 24:
-                this.tYear = uData.getShort((Integer)value);
+                this.fMSecond = uData.getShort((Integer)value);
                 break;
             case 25:
-                this.tMonth = uData.getShort((Integer)value);
+                this.tYear = uData.getShort((Integer)value);
                 break;
             case 26:
-                this.tZero = uData.getShort((Integer)value);
+                this.tMonth = uData.getShort((Integer)value);
                 break;
             case 27:
-                this.tDay = uData.getShort((Integer)value);
+                this.tZero = uData.getShort((Integer)value);
                 break;
             case 28:
-                this.tHour = uData.getShort((Integer)value);
+                this.tDay = uData.getShort((Integer)value);
                 break;
             case 29:
-                this.tMinute = uData.getShort((Integer)value);
+                this.tHour = uData.getShort((Integer)value);
                 break;
             case 30:
-                this.tSecond = uData.getShort((Integer)value);
+                this.tMinute = uData.getShort((Integer)value);
                 break;
             case 31:
+                this.tSecond = uData.getShort((Integer)value);
+                break;
+            case 32:
                 this.tMSecond = uData.getShort((Integer)value);
                 break;
         }

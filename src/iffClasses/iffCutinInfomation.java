@@ -62,6 +62,10 @@ public final class iffCutinInfomation {
         return this.colNames.length;
     }
     
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+    
     public void getItem(byte[] inData) {
         try {
             U1 = uData.getInt(new byte[]{inData[0], inData[1], inData[2], inData[3]});

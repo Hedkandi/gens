@@ -39,6 +39,10 @@ public class iffCadieMagicBoxRandom {
         return this.colNames.length;
     }
 
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+    
     private void getItem(String[] inData) {
         numItemOne = uData.getInt(Long.parseLong(inData[0]));
         itemOne = uData.getInt(Long.parseLong(inData[1]));

@@ -32,7 +32,11 @@ public class iffDesc {
     public int getColNum() {
         return this.colNames.length;
     }
-    
+
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
+    }
+        
     private void getItem(byte[] inData) {
         try {
             itemID = uData.getInt(new byte[]{inData[0], inData[1], inData[2], inData[3]});

@@ -5,3 +5,6 @@ A tool to convert .iff-files from a game called PangYa to and from .csv
 It is built in NetBeans 6.9: http://netbeans.org/
 
 All .iff-files structures are discussed here: http://forum.ragezone.com/f512/iff-files-719889/
+
+
+When running with default config Textdelimiter is "'" and row delimiter it "\r\n", default output dir is the filename up to the last ".".

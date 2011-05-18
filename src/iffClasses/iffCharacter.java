@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -67,7 +65,11 @@ public final class iffCharacter extends iffBase {
     public iffCharacter(byte[] inData) {
         super();
         buildColNames();
-        getItem(inData);
+        try {
+            getItem(inData);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public iffCharacter(String[] inData) {
@@ -90,8 +92,14 @@ public final class iffCharacter extends iffBase {
         temp = null;
     }
 
+    @Override
     public int getColNum() {
         return this.colNames.length;
+    }
+    
+    @Override
+    public String getTitle(int titleIndex) {
+        return colNames[titleIndex];
     }
     
     @Override
@@ -142,7 +150,7 @@ public final class iffCharacter extends iffBase {
     }
 
     @Override
-    public void getItem(byte[] inData) {
+    public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);
             Sprite2Name = uData.getString(new ByteArrayInputStream(inData, 144, uData.stringLength));
@@ -188,392 +196,242 @@ public final class iffCharacter extends iffBase {
             U72 = uData.getShort(new byte[]{inData[368], inData[369]});
             U73 = uData.getShort(new byte[]{inData[370], inData[371]});
         } catch (IOException ex) {
-            Logger.getLogger(iffCharacter.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex);
         }
 
     }
 
     @Override
     public Object getValue(int colIndex) {
-        switch (colIndex) {
-            case 0:
-                return this.isValid;
-            case 1:
-                return uData.getLong(this.ItemID);
-            case 2:
-                return this.ItemName;
-            case 3:
-                return uData.getShort(this.lvlReq);
-            case 4:
-                return this.Icon;
-            case 5:
-                return uData.getShort(this.U2);
-            case 6:
-                return uData.getShort(this.U3);
-            case 7:
-                return uData.getShort(this.U4);
-            case 8:
-                return uData.getLong(this.ItemPrice);
-            case 9:
-                return uData.getLong(this.DiscountPrice);
-            case 10:
-                return uData.getLong(this.U7);
-            case 11:
-                return uData.getShort(this.shopFlag);
-            case 12:
-                return uData.getShort(this.moneyFlag);
-            case 13:
-                return uData.getInt(this.U9);
-            case 14:
-                return uData.getInt(this.U12);
-            case 15:
-                return uData.getInt(this.U13);
-            case 16:
-                return uData.getInt(this.fYear);
-            case 17:
-                return uData.getInt(this.fMonth);
-            case 18:
-                return uData.getInt(this.fZero);
-            case 19:
-                return uData.getInt(this.fDay);
-            case 20:
-                return uData.getInt(this.fHour);
-            case 21:
-                return uData.getInt(this.fMinute);
-            case 22:
-                return uData.getInt(this.fSecond);
-            case 23:
-                return uData.getInt(this.fMSecond);
-            case 24:
-                return uData.getInt(this.tYear);
-            case 25:
-                return uData.getInt(this.tMonth);
-            case 26:
-                return uData.getInt(this.tZero);
-            case 27:
-                return uData.getInt(this.tDay);
-            case 28:
-                return uData.getInt(this.tHour);
-            case 29:
-                return uData.getInt(this.tMinute);
-            case 30:
-                return uData.getInt(this.tSecond);
-            case 31:
-                return uData.getInt(this.tMSecond);
-            case 32:
-                return this.Sprite2Name;
-            case 33:
-                return this.GFX1;
-            case 34:
-                return this.GFX2;
-            case 35:
-                return this.GFX3;
-            case 36:
-                return uData.getInt(this.firstPower);
-            case 37:
-                return uData.getInt(this.firstControl);
-            case 38:
-                return uData.getInt(this.firstAccuracy);
-            case 39:
-                return uData.getInt(this.firstSpin);
-            case 40:
-                return uData.getInt(this.firstCurve);
-            case 41:
-                return uData.getShort(this.U37);
-            case 42:
-                return uData.getShort(this.U38);
-            case 43:
-                return uData.getShort(this.U39);
-            case 44:
-                return uData.getShort(this.U43);
-            case 45:
-                return uData.getShort(this.U44);
-            case 46:
-                return uData.getShort(this.U45);
-            case 47:
-                return uData.getLong(this.U46);
-            case 48:
-                return uData.getShort(this.initPower);
-            case 49:
-                return uData.getShort(this.initControl);
-            case 50:
-                return uData.getShort(this.initAccuracy);
-            case 51:
-                return uData.getShort(this.initSpin);
-            case 52:
-                return uData.getShort(this.initCurve);
-            case 53:
-                return uData.getLong(this.U52);
-            case 54:
-                return uData.getShort(this.U53);
-            case 55:
-                return uData.getInt(this.U55);
-            case 56:
-                return uData.getInt(this.U56);
-            case 57:
-                return uData.getInt(this.U57);
-            case 58:
-                return uData.getInt(this.U58);
-            case 59:
-                return uData.getInt(this.U59);
-            case 60:
-                return uData.getInt(this.U60);
-            case 61:
-                return uData.getInt(this.U61);
-            case 62:
-                return uData.getInt(this.U62);
-            case 63:
-                return uData.getInt(this.U63);
-            case 64:
-                return uData.getInt(this.U64);
-            case 65:
-                return uData.getInt(this.U65);
-            case 66:
-                return uData.getInt(this.U66);
-            case 67:
-                return uData.getInt(this.U67);
-            case 68:
-                return uData.getInt(this.U68);
-            case 69:
-                return uData.getInt(this.U69);
-            case 70:
-                return uData.getInt(this.U70);
-            case 71:
-                return uData.getInt(this.U71);
-            case 72:
-                return uData.getInt(this.U72);
-            case 73:
-                return uData.getInt(this.U73);
-            default:
-                return -1;
+        if (colIndex < super.getColNum()) {
+            return super.getValue(colIndex);
+        }
+        else {
+            switch (colIndex) {
+                case 32:
+                    return this.Sprite2Name;
+                case 33:
+                    return this.GFX1;
+                case 34:
+                    return this.GFX2;
+                case 35:
+                    return this.GFX3;
+                case 36:
+                    return uData.getInt(this.firstPower);
+                case 37:
+                    return uData.getInt(this.firstControl);
+                case 38:
+                    return uData.getInt(this.firstAccuracy);
+                case 39:
+                    return uData.getInt(this.firstSpin);
+                case 40:
+                    return uData.getInt(this.firstCurve);
+                case 41:
+                    return uData.getShort(this.U37);
+                case 42:
+                    return uData.getShort(this.U38);
+                case 43:
+                    return uData.getShort(this.U39);
+                case 44:
+                    return uData.getShort(this.U43);
+                case 45:
+                    return uData.getShort(this.U44);
+                case 46:
+                    return uData.getShort(this.U45);
+                case 47:
+                    return uData.getLong(this.U46);
+                case 48:
+                    return uData.getShort(this.initPower);
+                case 49:
+                    return uData.getShort(this.initControl);
+                case 50:
+                    return uData.getShort(this.initAccuracy);
+                case 51:
+                    return uData.getShort(this.initSpin);
+                case 52:
+                    return uData.getShort(this.initCurve);
+                case 53:
+                    return uData.getLong(this.U52);
+                case 54:
+                    return uData.getShort(this.U53);
+                case 55:
+                    return uData.getInt(this.U55);
+                case 56:
+                    return uData.getInt(this.U56);
+                case 57:
+                    return uData.getInt(this.U57);
+                case 58:
+                    return uData.getInt(this.U58);
+                case 59:
+                    return uData.getInt(this.U59);
+                case 60:
+                    return uData.getInt(this.U60);
+                case 61:
+                    return uData.getInt(this.U61);
+                case 62:
+                    return uData.getInt(this.U62);
+                case 63:
+                    return uData.getInt(this.U63);
+                case 64:
+                    return uData.getInt(this.U64);
+                case 65:
+                    return uData.getInt(this.U65);
+                case 66:
+                    return uData.getInt(this.U66);
+                case 67:
+                    return uData.getInt(this.U67);
+                case 68:
+                    return uData.getInt(this.U68);
+                case 69:
+                    return uData.getInt(this.U69);
+                case 70:
+                    return uData.getInt(this.U70);
+                case 71:
+                    return uData.getInt(this.U71);
+                case 72:
+                    return uData.getInt(this.U72);
+                case 73:
+                    return uData.getInt(this.U73);
+                default:
+                    return "&";
+            }
         }
     }
 
     @Override
     public void setValue(int colIndex, Object value) {
-        switch (colIndex) {
-            case 0:
-                this.isValid = (Boolean)value;
-                break;
-            case 1:
-                this.ItemID = uData.getInt((Long)value);
-                break;
-            case 2:
-                this.ItemName = (String)value;
-                break;
-            case 3:
-                this.lvlReq = uData.getByte((Short)value);
-                break;
-            case 4:
-                this.Icon = (String)value;
-                break;
-            case 5:
-                this.U2 = uData.getByte((Short)value);
-                break;
-            case 6:
-                this.U3 = uData.getByte((Short)value);
-                break;
-            case 7:
-                this.U4 = uData.getByte((Short)value);
-                break;
-            case 8:
-                this.ItemPrice = uData.getInt((Long)value);
-                break;
-            case 9:
-                this.DiscountPrice = uData.getInt((Long)value);
-                break;
-            case 10:
-                this.U7 = uData.getInt((Long)value);
-                break;
-            case 11:
-                this.shopFlag = uData.getByte((Short)value);
-                break;
-            case 12:
-                this.moneyFlag = uData.getByte((Short)value);
-                break;
-            case 13:
-                this.U9 = uData.getShort((Integer)value);
-                break;
-            case 14:
-                this.U12 = uData.getShort((Integer)value);
-                break;
-            case 15:
-                this.U13 = uData.getShort((Integer)value);
-                break;
-            case 16:
-                this.fYear = uData.getShort((Integer)value);
-                break;
-            case 17:
-                this.fMonth = uData.getShort((Integer)value);
-                break;
-            case 18:
-                this.fZero = uData.getShort((Integer)value);
-                break;
-            case 19:
-                this.fDay = uData.getShort((Integer)value);
-                break;
-            case 20:
-                this.fHour = uData.getShort((Integer)value);
-                break;
-            case 21:
-                this.fMinute = uData.getShort((Integer)value);
-                break;
-            case 22:
-                this.fSecond = uData.getShort((Integer)value);
-                break;
-            case 23:
-                this.fMSecond = uData.getShort((Integer)value);
-                break;
-            case 24:
-                this.tYear = uData.getShort((Integer)value);
-                break;
-            case 25:
-                this.tMonth = uData.getShort((Integer)value);
-                break;
-            case 26:
-                this.tZero = uData.getShort((Integer)value);
-                break;
-            case 27:
-                this.tDay = uData.getShort((Integer)value);
-                break;
-            case 28:
-                this.tHour = uData.getShort((Integer)value);
-                break;
-            case 29:
-                this.tMinute = uData.getShort((Integer)value);
-                break;
-            case 30:
-                this.tSecond = uData.getShort((Integer)value);
-                break;
-            case 31:
-                this.tMSecond = uData.getShort((Integer)value);
-                break;
-            case 32:
-                this.Sprite2Name = (String)value;
-                break;
-            case 33:
-                this.GFX1 = (String)value;
-                break;
-            case 34:
-                this.GFX2 = (String)value;
-                break;
-            case 35:
-                this.GFX3 = (String)value;
-                break;
-            case 36:
-                this.firstPower = uData.getShort((Integer)value);
-                break;
-            case 37:
-                this.firstControl = uData.getShort((Integer)value);
-                break;
-            case 38:
-                this.firstAccuracy = uData.getShort((Integer)value);
-                break;
-            case 39:
-                this.firstSpin = uData.getShort((Integer)value);
-                break;
-            case 40:
-                this.firstCurve = uData.getShort((Integer)value);
-                break;
-            case 41:
-                this.U37 = uData.getByte((Short)value);
-                break;
-            case 42:
-                this.U38 = uData.getByte((Short)value);
-                break;
-            case 43:
-                this.U39 = uData.getByte((Short)value);
-                break;
-            case 44:
-                this.U43 = uData.getByte((Short)value);
-                break;
-            case 45:
-                this.U44 = uData.getByte((Short)value);
-                break;
-            case 46:
-                this.U45 = uData.getByte((Short)value);
-                break;
-            case 47:
-                this.U46 = uData.getInt((Long)value);
-                break;
-            case 48:
-                this.initPower = uData.getByte((Short)value);
-                break;
-            case 49:
-                this.initControl = uData.getByte((Short)value);
-                break;
-            case 50:
-                this.initAccuracy = uData.getByte((Short)value);
-                break;
-            case 51:
-                this.initSpin = uData.getByte((Short)value);
-                break;
-            case 52:
-                this.initCurve = uData.getByte((Short)value);
-                break;
-            case 53:
-                this.U52 = uData.getInt((Long)value);
-                break;
-            case 54:
-                this.U53 = uData.getByte((Short)value);
-                break;
-            case 55:
-                this.U55 = uData.getShort((Integer)value);
-                break;
-            case 56:
-                this.U56 = uData.getShort((Integer)value);
-                break;
-            case 57:
-                this.U57 = uData.getShort((Integer)value);
-                break;
-            case 58:
-                this.U58 = uData.getShort((Integer)value);
-                break;
-            case 59:
-                this.U59 = uData.getShort((Integer)value);
-                break;
-            case 60:
-                this.U60 = uData.getShort((Integer)value);
-                break;
-            case 61:
-                this.U61 = uData.getShort((Integer)value);
-                break;
-            case 62:
-                this.U62 = uData.getShort((Integer)value);
-                break;
-            case 63:
-                this.U63 = uData.getShort((Integer)value);
-                break;
-            case 64:
-                this.U64 = uData.getShort((Integer)value);
-                break;
-            case 65:
-                this.U65 = uData.getShort((Integer)value);
-                break;
-            case 66:
-                this.U66 = uData.getShort((Integer)value);
-                break;
-            case 67:
-                this.U67 = uData.getShort((Integer)value);
-                break;
-            case 68:
-                this.U68 = uData.getShort((Integer)value);
-                break;
-            case 69:
-                this.U69 = uData.getShort((Integer)value);
-                break;
-            case 70:
-                this.U70 = uData.getShort((Integer)value);
-                break;
-            case 71:
-                this.U71 = uData.getShort((Integer)value);
-                break;
-            case 72:
-                this.U72 = uData.getShort((Integer)value);
-                break;
-            case 73:
-                this.U73 = uData.getShort((Integer)value);
-                break;
+        if (colIndex < super.getColNum()) {
+            super.setValue(colIndex,value);
+        }
+        else {
+            switch (colIndex) {
+                case 32:
+                    this.Sprite2Name = (String)value;
+                    break;
+                case 33:
+                    this.GFX1 = (String)value;
+                    break;
+                case 34:
+                    this.GFX2 = (String)value;
+                    break;
+                case 35:
+                    this.GFX3 = (String)value;
+                    break;
+                case 36:
+                    this.firstPower = uData.getShort((Integer)value);
+                    break;
+                case 37:
+                    this.firstControl = uData.getShort((Integer)value);
+                    break;
+                case 38:
+                    this.firstAccuracy = uData.getShort((Integer)value);
+                    break;
+                case 39:
+                    this.firstSpin = uData.getShort((Integer)value);
+                    break;
+                case 40:
+                    this.firstCurve = uData.getShort((Integer)value);
+                    break;
+                case 41:
+                    this.U37 = uData.getByte((Short)value);
+                    break;
+                case 42:
+                    this.U38 = uData.getByte((Short)value);
+                    break;
+                case 43:
+                    this.U39 = uData.getByte((Short)value);
+                    break;
+                case 44:
+                    this.U43 = uData.getByte((Short)value);
+                    break;
+                case 45:
+                    this.U44 = uData.getByte((Short)value);
+                    break;
+                case 46:
+                    this.U45 = uData.getByte((Short)value);
+                    break;
+                case 47:
+                    this.U46 = uData.getInt((Long)value);
+                    break;
+                case 48:
+                    this.initPower = uData.getByte((Short)value);
+                    break;
+                case 49:
+                    this.initControl = uData.getByte((Short)value);
+                    break;
+                case 50:
+                    this.initAccuracy = uData.getByte((Short)value);
+                    break;
+                case 51:
+                    this.initSpin = uData.getByte((Short)value);
+                    break;
+                case 52:
+                    this.initCurve = uData.getByte((Short)value);
+                    break;
+                case 53:
+                    this.U52 = uData.getInt((Long)value);
+                    break;
+                case 54:
+                    this.U53 = uData.getByte((Short)value);
+                    break;
+                case 55:
+                    this.U55 = uData.getShort((Integer)value);
+                    break;
+                case 56:
+                    this.U56 = uData.getShort((Integer)value);
+                    break;
+                case 57:
+                    this.U57 = uData.getShort((Integer)value);
+                    break;
+                case 58:
+                    this.U58 = uData.getShort((Integer)value);
+                    break;
+                case 59:
+                    this.U59 = uData.getShort((Integer)value);
+                    break;
+                case 60:
+                    this.U60 = uData.getShort((Integer)value);
+                    break;
+                case 61:
+                    this.U61 = uData.getShort((Integer)value);
+                    break;
+                case 62:
+                    this.U62 = uData.getShort((Integer)value);
+                    break;
+                case 63:
+                    this.U63 = uData.getShort((Integer)value);
+                    break;
+                case 64:
+                    this.U64 = uData.getShort((Integer)value);
+                    break;
+                case 65:
+                    this.U65 = uData.getShort((Integer)value);
+                    break;
+                case 66:
+                    this.U66 = uData.getShort((Integer)value);
+                    break;
+                case 67:
+                    this.U67 = uData.getShort((Integer)value);
+                    break;
+                case 68:
+                    this.U68 = uData.getShort((Integer)value);
+                    break;
+                case 69:
+                    this.U69 = uData.getShort((Integer)value);
+                    break;
+                case 70:
+                    this.U70 = uData.getShort((Integer)value);
+                    break;
+                case 71:
+                    this.U71 = uData.getShort((Integer)value);
+                    break;
+                case 72:
+                    this.U72 = uData.getShort((Integer)value);
+                    break;
+                case 73:
+                    this.U73 = uData.getShort((Integer)value);
+                    break;
+            }
         }
     }
 }
