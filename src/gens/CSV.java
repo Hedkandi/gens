@@ -9,8 +9,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -22,7 +20,7 @@ final class CSV {
     private boolean bAppend = false;
     private String sTargetDir = "";
     private String sColDelimiter = ";";
-    private String sTextDelimiter = "\"";
+    private String sTextDelimiter = "";
     private String sRowDelimiter = "\r\n";
     private FileWriter fwStream;
     private BufferedWriter bwOut;
@@ -88,23 +86,18 @@ final class CSV {
         }
     }
 
-    private void writeRow(String[] inData) throws IOException {
-        Pattern integerPattern = Pattern.compile("^[0-9].*$");        
+    private void writeRow(String[] inData) throws IOException {       
         for(int k=0;k<inData.length;k++) {
-            if (!this.sTextDelimiter.equals("") || this.sTextDelimiter != null) {
-                Matcher matchesInteger = integerPattern.matcher(inData[k]);
-                if (!matchesInteger.matches()) {
-                    inData[k] = sTextDelimiter + inData[k].toString() + sTextDelimiter;
-                }
-            }
-            if (k==inData.length-1) {
-                bwOut.write(inData[k]);
-            }
-            else {
-                bwOut.write(inData[k] + getDelimiter());
+            bwOut.write(getTextDelimiter());
+            bwOut.write(inData[k]);
+            bwOut.write(getTextDelimiter());
+            if (k!=inData.length-1) {
+                bwOut.write(getColDelimiter());
             }
         }
-        bwOut.write(getsRowDelimiter());
+        //bwOut.write(getRowDelimiter());
+        bwOut.newLine();
+        //bwOut.newLine();
     }
 
     public void close() throws IOException {
@@ -153,15 +146,15 @@ final class CSV {
     /**
      * @return the sDelimiter
      */
-    public String getDelimiter() {
+    public String getColDelimiter() {
         return sColDelimiter;
     }
 
     /**
      * @param sDelimiter the sDelimiter to set
      */
-    public void setDelimiter(String sDelimiter) {
-        this.sColDelimiter = sDelimiter;
+    public void setColDelimiter(String sColDelimiter) {
+        this.sColDelimiter = sColDelimiter;
     }
 
     /**
@@ -181,14 +174,14 @@ final class CSV {
     /**
      * @return the sRowDelimiter
      */
-    public String getsRowDelimiter() {
+    public String getRowDelimiter() {
         return sRowDelimiter;
     }
 
     /**
      * @param sRowDelimiter the sRowDelimiter to set
      */
-    public void setsRowDelimiter(String sRowDelimiter) {
+    public void setRowDelimiter(String sRowDelimiter) {
         this.sRowDelimiter = sRowDelimiter;
     }
 

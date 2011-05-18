@@ -46,7 +46,39 @@ public class iffHandler {
                     Method mthdGetValue = newInstance.getClass().getMethod("getValue", Integer.TYPE);
                     retData[i]= new String[colLength];
                     for(int n=0;n<colLength;n++) {
-                        retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
+                        Object colValue = mthdGetValue.invoke(newInstance, n);
+                        //retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
+                        if (colValue instanceof Boolean) {
+                            if (!(Boolean) colValue) {
+                                retData[i][n] = "0";
+                            }
+                            else {
+                                retData[i][n] = "1";
+                            }
+                        }
+                        else if (colValue instanceof Long) {
+                            //System.out.println(colValue);
+                            retData[i][n] = Long.toString((Long)colValue);
+                        }
+                        else if (colValue instanceof Integer) {
+                            //System.out.println(colValue);
+                            retData[i][n] = Integer.toString((Integer)colValue);
+                        }
+                        else if (colValue instanceof Short) {
+                            //System.out.println(colValue);
+                            retData[i][n] = Short.toString((Short)colValue);
+                        }
+                        else if (colValue instanceof Byte) {
+                            //System.out.println(colValue);
+                            retData[i][n] = Byte.toString((Byte)colValue);
+                        }
+                        else if (colValue instanceof String) {
+                            retData[i][n] = (String) colValue;
+                        }
+                        else {
+                            System.out.println("row: " + i + " column: " + n);
+                            System.out.println("Class not handled.");
+                        }
                     }
                     newInstance = null;
                     iffConstructor = null;
@@ -107,9 +139,9 @@ public class iffHandler {
                             if(n>15&&n<32&&(Integer)mthdGetValue.invoke(newInstance, n)>0){
                                 System.out.println("n: " + uData.getInt((Integer)mthdGetValue.invoke(newInstance, n)));
                             }*/
-                            //Object colValue =mthdGetValue.invoke(newInstance, n);
-                            retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
-                            /*
+                            Object colValue =mthdGetValue.invoke(newInstance, n);
+                            //retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
+                            
                             if (colValue instanceof Boolean) {
                                 if (!(Boolean) colValue) {
                                     retData[i][n] = "0";
@@ -134,15 +166,20 @@ public class iffHandler {
                                 //System.out.println(colValue);
                                 retData[i][n] = Byte.toString((Byte)colValue);
                             }
-                            else {
+                            else if (colValue instanceof String) {
                                 retData[i][n] = (String) colValue;
                             }
-                            //System.out.println("i: " + i + " n: " + n);
-                             *
-                             */
+                            else {
+                                System.out.println("row: " + i + " column: " + n);
+                                System.out.println("Class not handled.");
+                            }
+
                         }
+                        /*
                         newInstance = null;
                         iffConstructor = null;
+                         * 
+                         */
                     } catch (Exception ex) {
                         throw new Exception(ex);
                     }

@@ -7,8 +7,6 @@ package gens;
 
 import iffClasses.iffHandler;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipException;
 
 /**
@@ -20,9 +18,10 @@ public class Main {
     private static boolean bDoOverwrite = true;
     private static boolean bAppend = false;
     private static String sInFilename = "";
-    private static String sTextDelimiter = "\"";
+    private static String sTextDelimiter = "\'";
     private static String sRowDelimiter = "\r\n";
-    private static String sTargetDir = "csv";
+    private static String sTargetDir = "";
+    private static String sVersion = "0.1";
     /**
      * @param args the command line arguments
      */
@@ -75,7 +74,7 @@ public class Main {
     public static void printUsage() {
         StringBuilder sUsage = new StringBuilder();
         sUsage.append("**********************\n");
-        sUsage.append("**     gens v0.1    **\n");
+        sUsage.append("**     gens ").append(sVersion).append("     **\n");
         sUsage.append("**********************\n");
         sUsage.append("Usage example: gens.jar -iz input.iff -oc\n");
         sUsage.append("Input parameters:\n");
@@ -96,9 +95,9 @@ public class Main {
             iffZipper iz = new iffZipper(sInFilename, sTargetDir, bDoOverwrite);
             iz.doExtract();
         } catch (ZipException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -112,7 +111,7 @@ public class Main {
                 csv.setFilename(t[i].substring(0, t[i].indexOf(".")) + ".csv");
                 csv.setOverwrite(bDoOverwrite);
                 csv.setAppend(bAppend);
-                csv.setsRowDelimiter(sRowDelimiter);
+                csv.setRowDelimiter(sRowDelimiter);
                 csv.setTextDelimiter(sTextDelimiter);
                 csv.setTargetDir(sTargetDir);
                 csv.writeCSV(ih.readIff(iz.doExtract(t[i]), t[i]));

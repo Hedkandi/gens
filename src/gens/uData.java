@@ -6,11 +6,15 @@
 package gens;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.util.Locale;
 
 /**
  *
@@ -149,7 +153,10 @@ public class uData {
         } catch (IOException ex) {
             throw new IOException("Failed to read string.");
         }
-        String retString = "";
+        String retString = "";//String.format(Locale.TAIWAN, "%s", temp);
+
+        //bytesout.toString("TH");
+        //System.out.println(bytes);
         for (int m=0;m<temp.length;m++) {
             if (temp[m] != 0x0) {
                 retString += (char)temp[m];
