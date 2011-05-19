@@ -21,19 +21,34 @@ import java.lang.reflect.Method;
  * @author hedkandi
  */
 public class iffHandler {
-
     private boolean bWriteTitles = false;
     
     public iffHandler() {
-
+        
+    }
+    
+    public String getRegion(short Rev, short Magic) throws IOException {
+        if (Rev == 0 && Magic == 11) {
+            return "TH";
+        }
+        else if (Rev == 32322 && Magic == 11) {
+            return "TH";
+        }
+        else {
+            throw new IOException("Unknown region.");
+        }
     }
 
     public String[][] readIff(byte[] extractedData, String sFilename) throws Exception {
         String[][] retData;
         short numRecords = uData.getShort(new byte[]{extractedData[0], extractedData[1]});
+        short revision = uData.getShort(new byte[]{extractedData[2], extractedData[3]});
+        byte magicNum = extractedData[4];
+        String Region = getRegion(revision,magicNum);
+
         if ((extractedData.length-8) > 0 && numRecords > 0) {
             int itemSize = (int) ((extractedData.length-8)/(int)numRecords);
-            //System.out.println(itemSize);
+            System.out.println("Region: " + Region + ", File size: " + extractedData.length + ", Record size: " + itemSize + ", Number of records: " + numRecords);
             if (isWriteTitles()) {
                 retData = new String[numRecords+1][];
             }
