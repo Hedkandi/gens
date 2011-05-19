@@ -17,6 +17,9 @@ import java.util.List;
  * @author hedkandi
  */
 public final class iffPart extends iffBase {
+    
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public String Sprite2Name = ""; 
     public byte numStat1 = 0; 
     public byte numStat2 = 0; 
@@ -176,77 +179,77 @@ public final class iffPart extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return this.Sprite2Name;
-                case 33:
+                case (base+1):
                     return uData.getShort(this.numStat1);
-                case 34:
+                case (base+2):
                     return uData.getShort(this.numStat2);
-                case 35:
+                case (base+3):
                     return uData.getShort(this.numStat3);
-                case 36:
+                case (base+4):
                     return uData.getShort(this.numStat4);
-                case 37:
+                case (base+5):
                     return uData.getShort(this.numStat5);
-                case 38:
+                case (base+6):
                     return uData.getShort(this.numStat6);
-                case 39:
+                case (base+7):
                     return uData.getShort(this.numStat7);
-                case 40:
+                case (base+8):
                     return uData.getShort(this.numStat8);
-                case 41:
+                case (base+9):
                     return uData.getShort(this.numStat9);
-                case 42:
+                case (base+10):
                     return uData.getShort(this.numStat10);
-                case 43:
+                case (base+11):
                     return uData.getShort(this.numStat11);
-                case 44:
+                case (base+12):
                     return uData.getShort(this.numStat12);
-                case 45:
+                case (base+13):
                     return this.Sprite3Name;
-                case 46:
+                case (base+14):
                     return this.Sprite4Name;
-                case 47:
+                case (base+15):
                     return this.Sprite5Name;
-                case 48:
+                case (base+16):
                     return this.Sprite6Name;
-                case 49:
+                case (base+17):
                     return this.Sprite7Name;
-                case 50:
+                case (base+18):
                     return this.Sprite8Name;
-                case 51:
+                case (base+19):
                     return uData.getInt(this.U33);
-                case 52:
+                case (base+20):
                     return uData.getInt(this.U34);
-                case 53:
+                case (base+21):
                     return uData.getInt(this.U35);
-                case 54:
+                case (base+22):
                     return uData.getInt(this.U36);
-                case 55:
+                case (base+23):
                     return uData.getInt(this.U37);
-                case 56:
+                case (base+24):
                     return uData.getInt(this.U38);
-                case 57:
+                case (base+25):
                     return uData.getInt(this.U39);
-                case 58:
+                case (base+26):
                     return uData.getInt(this.U40);
-                case 59:
+                case (base+27):
                     return uData.getInt(this.U41);
-                case 60:
+                case (base+28):
                     return uData.getInt(this.U42);
-                case 61:
+                case (base+29):
                     return this.UString1;
-                case 62:
+                case (base+30):
                     return uData.getLong(this.equipWith1);
-                case 63:
+                case (base+31):
                     return uData.getLong(this.equipWith2);
-                case 64:
+                case (base+32):
                     return uData.getInt(this.U67);
-                case 65:
+                case (base+33):
                     return uData.getInt(this.U68);
-                case 66:
+                case (base+34):
                     return uData.getInt(this.U69);
-                case 67:
+                case (base+35):
                     return uData.getInt(this.U70);
                 default:
                     return "";
@@ -261,112 +264,112 @@ public final class iffPart extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.Sprite2Name = (String)value;
                     break;
-                case 33:
+                case (base+1):
                     this.numStat1 = uData.getByte((Short)value);
                     break;
-                case 34:
+                case (base+2):
                     this.numStat2 = uData.getByte((Short)value);
                     break;
-                case 35:
+                case (base+3):
                     this.numStat3 = uData.getByte((Short)value);
                     break;
-                case 36:
+                case (base+4):
                     this.numStat4 = uData.getByte((Short)value);
                     break;
-                case 37:
+                case (base+5):
                     this.numStat5 = uData.getByte((Short)value);
                     break;
-                case 38:
+                case (base+6):
                     this.numStat6 = uData.getByte((Short)value);
                     break;
-                case 39:
+                case (base+7):
                     this.numStat7 = uData.getByte((Short)value);
                     break;
-                case 40:
+                case (base+8):
                     this.numStat8 = uData.getByte((Short)value);
                     break;
-                case 41:
+                case (base+9):
                     this.numStat9 = uData.getByte((Short)value);
                     break;
-                case 42:
+                case (base+10):
                     this.numStat10 = uData.getByte((Short)value);
                     break;
-                case 43:
+                case (base+11):
                     this.numStat11 = uData.getByte((Short)value);
                     break;
-                case 44:
+                case (base+12):
                     this.numStat12 = uData.getByte((Short)value);
                     break;
-                case 45:
+                case (base+13):
                     this.Sprite3Name = (String)value;
                     break;
-                case 46:
+                case (base+14):
                     this.Sprite4Name = (String)value;
                     break;
-                case 47:
+                case (base+15):
                     this.Sprite5Name = (String)value;
                     break;
-                case 48:
+                case (base+16):
                     this.Sprite6Name = (String)value;
                     break;
-                case 49:
+                case (base+17):
                     this.Sprite7Name = (String)value;
                     break;
-                case 50:
+                case (base+18):
                     this.Sprite8Name = (String)value;
                     break;
-                case 51:
+                case (base+19):
                     this.U33 = uData.getShort((Integer)value);
                     break;
-                case 52:
+                case (base+20):
                     this.U34 = uData.getShort((Integer)value);
                     break;
-                case 53:
+                case (base+21):
                     this.U35 = uData.getShort((Integer)value);
                     break;
-                case 54:
+                case (base+22):
                     this.U36 = uData.getShort((Integer)value);
                     break;
-                case 55:
+                case (base+23):
                     this.U37 = uData.getShort((Integer)value);
                     break;
-                case 56:
+                case (base+24):
                     this.U38 = uData.getShort((Integer)value);
                     break;
-                case 57:
+                case (base+25):
                     this.U39 = uData.getShort((Integer)value);
                     break;
-                case 58:
+                case (base+26):
                     this.U40 = uData.getShort((Integer)value);
                     break;
-                case 59:
+                case (base+27):
                     this.U41 = uData.getShort((Integer)value);
                     break;
-                case 60:
+                case (base+28):
                     this.U42 = uData.getShort((Integer)value);
                     break;
-                case 61:
+                case (base+29):
                     this.UString1 = (String)value;
                     break;
-                case 62:
+                case (base+30):
                     this.equipWith1 = uData.getInt((Long)value);
                     break;
-                case 63:
+                case (base+31):
                     this.equipWith2 = uData.getInt((Long)value);
                     break;
-                case 64:
+                case (base+32):
                     this.U67 = uData.getShort((Integer)value);
                     break;
-                case 65:
+                case (base+33):
                     this.U68 = uData.getShort((Integer)value);
                     break;
-                case 66:
+                case (base+34):
                     this.U69 = uData.getShort((Integer)value);
                     break;
-                case 67:
+                case (base+35):
                     this.U70 = uData.getShort((Integer)value);
                     break;
             }

@@ -16,6 +16,9 @@ import java.util.List;
  * @author hedkandi
  */
 public final class iffOfflineShop extends iffBase {
+    
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public int numRef = 0;
     public int ref1 = 0;
     public int ref2 = 0;
@@ -109,33 +112,33 @@ public final class iffOfflineShop extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return uData.getLong(this.numRef);
-                case 33:
+                case (base+1):
                     return uData.getLong(this.ref1);
-                case 34:
+                case (base+2):
                     return uData.getLong(this.ref2);
-                case 35:
+                case (base+3):
                     return uData.getLong(this.ref3);
-                case 36:
+                case (base+4):
                     return uData.getLong(this.ref4);
-                case 37:
+                case (base+5):
                     return uData.getLong(this.ref5);
-                case 38:
+                case (base+6):
                     return uData.getLong(this.ref6);
-                case 39:
+                case (base+7):
                     return uData.getLong(this.ref7);
-                case 40:
+                case (base+8):
                     return uData.getLong(this.ref8);
-                case 41:
+                case (base+9):
                     return uData.getLong(this.ref9);
-                case 42:
+                case (base+10):
                     return uData.getLong(this.ref10);
-                case 43:
+                case (base+11):
                     return uData.getLong(this.ref11);
-                case 44:
+                case (base+12):
                     return uData.getLong(this.ref12);
-                case 45:
+                case (base+13):
                     return uData.getLong(this.ref13);
                 default:
                     return "";
@@ -150,43 +153,43 @@ public final class iffOfflineShop extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.numRef = uData.getInt((Long)value);
                     break;
-                case 33:
+                case (base+1):
                     this.ref1 = uData.getInt((Long)value);
                     break;
-                case 34:
+                case (base+2):
                     this.ref2 = uData.getInt((Long)value);
                     break;
-                case 35:
+                case (base+3):
                     this.ref3 = uData.getInt((Long)value);
                     break;
-                case 36:
+                case (base+4):
                     this.ref4 = uData.getInt((Long)value);
                     break;
-                case 37:
+                case (base+5):
                     this.ref6 = uData.getInt((Long)value);
                     break;
-                case 38:
+                case (base+6):
                     this.ref7 = uData.getInt((Long)value);
                     break;
-                case 39:
+                case (base+7):
                     this.ref8 = uData.getInt((Long)value);
                     break;
-                case 40:
+                case (base+8):
                     this.ref9 = uData.getInt((Long)value);
                     break;
-                case 41:
+                case (base+9):
                     this.ref10 = uData.getInt((Long)value);
                     break;
-                case 42:
+                case (base+10):
                     this.ref11 = uData.getInt((Long)value);
                     break;
-                case 43:
+                case (base+11):
                     this.ref12 = uData.getInt((Long)value);
                     break;
-                case 44:
+                case (base+12):
                     this.ref13 = uData.getInt((Long)value);
                     break;
             }

@@ -18,6 +18,8 @@ import java.util.List;
  */
 public final class iffCaddie extends iffBase {
     
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public int Salary = 0; // 2 bytes - byte 110-111
     public String Icon2 = ""; // 40 bytes - bytes 144-184
     public short Power = 0; // 2 bytes COM1? - bytes 187-188
@@ -108,21 +110,21 @@ public final class iffCaddie extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return uData.getLong(this.Salary);
-                case 33:
+                case (base+1):
                     return this.Icon2;
-                case 34:
+                case (base+2):
                     return uData.getInt(this.Power);
-                case 35:
+                case (base+3):
                     return uData.getInt(this.Control);
-                case 36:
+                case (base+4):
                     return uData.getInt(this.Accuracy);
-                case 37:
+                case (base+5):
                     return uData.getInt(this.Spin);
-                case 38:
+                case (base+6):
                     return uData.getInt(this.Curve);
-                case 39:
+                case (base+7):
                     return uData.getInt(this.U39);
                 default:
                     return "&";
@@ -137,28 +139,28 @@ public final class iffCaddie extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.Salary = uData.getInt((Long)value);
                     break;
-                case 33:
+                case (base+1):
                     this.Icon2 = (String)value;
                     break;
-                case 34:
+                case (base+2):
                     this.Power = uData.getShort((Integer)value);
                     break;
-                case 35:
+                case (base+3):
                     this.Control = uData.getShort((Integer)value);
                     break;
-                case 36:
+                case (base+4):
                     this.Accuracy = uData.getShort((Integer)value);
                     break;
-                case 37:
+                case (base+5):
                     this.Spin = uData.getShort((Integer)value);
                     break;
-                case 38:
+                case (base+6):
                     this.Curve = uData.getShort((Integer)value);
                     break;
-                case 39:
+                case (base+7):
                     this.U39 = uData.getShort((Integer)value);
                     break;
             }

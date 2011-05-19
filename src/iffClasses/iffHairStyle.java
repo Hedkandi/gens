@@ -16,6 +16,9 @@ import java.util.List;
  * @author hedkandi
  */
 public final class iffHairStyle extends iffBase {
+    
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public byte colorID = 0;
     public byte numChar = 0;
     public byte U35 = 0;
@@ -79,13 +82,13 @@ public final class iffHairStyle extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return uData.getShort(this.colorID);
-                case 33:
+                case (base+1):
                     return uData.getShort(this.numChar);
-                case 34:
+                case (base+2):
                     return uData.getShort(this.U35);
-                case 35:
+                case (base+3):
                     return uData.getShort(this.U36);
                 default:
                     return "";
@@ -100,16 +103,16 @@ public final class iffHairStyle extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.colorID = uData.getByte((Short)value);
                     break;
-                case 33:
+                case (base+1):
                     this.numChar = uData.getByte((Short)value);
                     break;
-                case 34:
+                case (base+2):
                     this.U35 = uData.getByte((Short)value);
                     break;
-                case 35:
+                case (base+3):
                     this.U36 = uData.getByte((Short)value);
                     break;
             }

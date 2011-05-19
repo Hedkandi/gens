@@ -17,6 +17,8 @@ import java.util.List;
  */
 public final class iffClubSet extends iffBase {
     
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public int clubWood = 0; // 40 bytes - bytes 144-184
     public int clubIron = 0; // 40 bytes - bytes 144-184
     public int clubWedge = 0; // 40 bytes - bytes 144-184
@@ -113,33 +115,33 @@ public final class iffClubSet extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return uData.getLong(this.clubWood);
-                case 33:
+                case (base+1):
                     return uData.getLong(this.clubIron);
-                case 34:
+                case (base+2):
                     return uData.getLong(this.clubWedge);
-                case 35:
+                case (base+3):
                     return uData.getLong(this.clubPutter);
-                case 36:
+                case (base+4):
                     return uData.getInt(this.initPower);
-                case 37:
+                case (base+5):
                     return uData.getInt(this.initControl);
-                case 38:
+                case (base+6):
                     return uData.getInt(this.initAccuracy);
-                case 39:
+                case (base+7):
                     return uData.getInt(this.initSpin);
-                case 40:
+                case (base+8):
                     return uData.getInt(this.initCurve);
-                case 41:
+                case (base+9):
                     return uData.getInt(this.maxPower);
-                case 42:
+                case (base+10):
                     return uData.getInt(this.maxControl);
-                case 43:
+                case (base+11):
                     return uData.getInt(this.maxAccuracy);
-                case 44:
+                case (base+12):
                     return uData.getInt(this.maxSpin);
-                case 45:
+                case (base+13):
                     return uData.getInt(this.maxCurve);
                 default:
                     return "";
@@ -154,46 +156,46 @@ public final class iffClubSet extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.clubWood = uData.getInt((Long)value);
                     break;
-                case 33:
+                case (base+1):
                     this.clubIron = uData.getInt((Long)value);
                     break;
-                case 34:
+                case (base+2):
                     this.clubWedge = uData.getInt((Long)value);
                     break;
-                case 35:
+                case (base+3):
                     this.clubPutter = uData.getInt((Long)value);
                     break;
-                case 36:
+                case (base+4):
                     this.initPower = uData.getShort((Integer)value);
                     break;
-                case 37:
+                case (base+5):
                     this.initControl = uData.getShort((Integer)value);
                     break;
-                case 38:
+                case (base+6):
                     this.initAccuracy = uData.getShort((Integer)value);
                     break;
-                case 39:
+                case (base+7):
                     this.initSpin = uData.getShort((Integer)value);
                     break;
-                case 40:
+                case (base+8):
                     this.initCurve = uData.getShort((Integer)value);
                     break;
-                case 41:
+                case (base+9):
                     this.maxPower = uData.getShort((Integer)value);
                     break;
-                case 42:
+                case (base+10):
                     this.maxControl = uData.getShort((Integer)value);
                     break;
-                case 43:
+                case (base+11):
                     this.maxAccuracy = uData.getShort((Integer)value);
                     break;
-                case 44:
+                case (base+12):
                     this.maxSpin = uData.getShort((Integer)value);
                     break;
-                case 45:
+                case (base+13):
                     this.maxCurve = uData.getShort((Integer)value);
                     break;
             }

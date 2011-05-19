@@ -18,6 +18,8 @@ import java.util.List;
  */
 public final class iffCourse extends iffBase {
     
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public String enName = ""; // 40 bytes - bytes 144-184
     public String thName = ""; // 40 bytes - bytes 144-184
     public byte bitFlag = 0;
@@ -90,21 +92,21 @@ public final class iffCourse extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return this.enName;
-                case 33:
+                case (base+1):
                     return this.thName;
-                case 34:
+                case (base+2):
                     return this.bitFlag;
-                case 35:
+                case (base+3):
                     return this.xmlFile;
-                case 36:
+                case (base+4):
                     return uData.getInt(this.U34);
-                case 37:
+                case (base+5):
                     return uData.getShort(this.U35);
-                case 38:
+                case (base+6):
                     return uData.getLong(this.U36);
-                case 39:
+                case (base+7):
                     return this.seqFile;
                 default:
                     return "&";
@@ -119,31 +121,31 @@ public final class iffCourse extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.enName = (String)value;
                     break;
-                case 33:
+                case (base+1):
                     this.thName = (String)value;
                     break;
-                case 34:
+                case (base+2):
                     this.bitFlag = (Byte)value;
                     break;
-                case 35:
+                case (base+3):
                     this.Amount = (Short)value;
                     break;
-                case 36:
+                case (base+4):
                     this.xmlFile = (String)value;
                     break;
-                case 37:
+                case (base+5):
                     this.U34 = uData.getShort((Integer)value);
                     break;
-                case 38:
+                case (base+6):
                     this.U35 = uData.getByte((Short)value);
                     break;
-                case 39:
+                case (base+7):
                     this.U36 = uData.getInt((Long)value);
                     break;
-                case 40:
+                case (base+8):
                     this.seqFile = (String)value;
                     break;
             }

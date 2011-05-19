@@ -17,6 +17,8 @@ import java.util.List;
  */
 public final class iffSetItem extends iffBase {
     
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public int numRef = 0;
     public int refItem1 = 0;
     public int refItem2 = 0;
@@ -150,59 +152,59 @@ public final class iffSetItem extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return uData.getLong(this.numRef);
-                case 33:
+                case (base+1):
                     return uData.getLong(this.refItem1);
-                case 34:
+                case (base+2):
                     return uData.getLong(this.refItem2);
-                case 35:
+                case (base+3):
                     return uData.getLong(this.refItem3);
-                case 36:
+                case (base+4):
                     return uData.getLong(this.refItem4);
-                case 37:
+                case (base+5):
                     return uData.getLong(this.refItem5);
-                case 38:
+                case (base+6):
                     return uData.getLong(this.refItem6);
-                case 39:
+                case (base+7):
                     return uData.getLong(this.refItem7);
-                case 40:
+                case (base+8):
                     return uData.getLong(this.refItem8);
-                case 41:
+                case (base+9):
                     return uData.getLong(this.refItem9);
-                case 42:
+                case (base+10):
                     return uData.getLong(this.refItem10);
-                case 43:
+                case (base+11):
                     return uData.getInt(this.Amount);
-                case 44:
+                case (base+12):
                     return uData.getInt(this.U33);
-                case 45:
+                case (base+13):
                     return uData.getInt(this.U34);
-                case 46:
+                case (base+14):
                     return uData.getInt(this.U35);
-                case 47:
+                case (base+15):
                     return uData.getInt(this.U36);
-                case 48:
+                case (base+16):
                     return uData.getInt(this.U37);
-                case 49:
+                case (base+17):
                     return uData.getInt(this.U38);
-                case 50:
+                case (base+18):
                     return uData.getInt(this.U39);
-                case 51:
+                case (base+19):
                     return uData.getInt(this.U40);
-                case 52:
+                case (base+20):
                     return uData.getInt(this.U41);
-                case 53:
+                case (base+21):
                     return uData.getInt(this.U42);
-                case 54:
+                case (base+22):
                     return uData.getInt(this.U43);
-                case 55:
+                case (base+23):
                     return uData.getInt(this.U44);
-                case 56:
+                case (base+24):
                     return uData.getInt(this.U45);
-                case 57:
+                case (base+25):
                     return uData.getInt(this.U46);
-                case 58:
+                case (base+26):
                     return uData.getInt(this.U47);
                 default:
                     return "&";
@@ -217,85 +219,85 @@ public final class iffSetItem extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 33:
+                case base:
                     this.numRef = uData.getInt((Long)value);
                     break;
-                case 34:
+                case (base+1):
                     this.refItem1 = uData.getInt((Long)value);
                     break;
-                case 35:
+                case (base+2):
                     this.refItem2 = uData.getInt((Long)value);
                     break;
-                case 36:
+                case (base+3):
                     this.refItem3 = uData.getInt((Long)value);
                     break;
-                case 37:
+                case (base+4):
                     this.refItem4 = uData.getInt((Long)value);
                     break;
-                case 38:
+                case (base+5):
                     this.refItem5 = uData.getInt((Long)value);
                     break;
-                case 39:
+                case (base+6):
                     this.refItem6 = uData.getInt((Long)value);
                     break;
-                case 40:
+                case (base+7):
                     this.refItem7 = uData.getInt((Long)value);
                     break;
-                case 41:
+                case (base+8):
                     this.refItem8 = uData.getInt((Long)value);
                     break;
-                case 42:
+                case (base+9):
                     this.refItem9 = uData.getInt((Long)value);
                     break;
-                case 43:
+                case (base+10):
                     this.refItem10 = uData.getInt((Long)value);
                     break;
-                case 44:
+                case (base+11):
                     this.Amount = uData.getShort((Integer)value);
                     break;
-                case 45:
+                case (base+12):
                     this.U33 = uData.getShort((Integer)value);
                     break;
-                case 46:
+                case (base+13):
                     this.U34 = uData.getShort((Integer)value);
                     break;
-                case 47:
+                case (base+14):
                     this.U35 = uData.getShort((Integer)value);
                     break;
-                case 48:
+                case (base+15):
                     this.U36 = uData.getShort((Integer)value);
                     break;
-                case 49:
+                case (base+16):
                     this.U37 = uData.getShort((Integer)value);
                     break;
-                case 50:
+                case (base+17):
                     this.U38 = uData.getShort((Integer)value);
                     break;
-                case 51:
+                case (base+18):
                     this.U39 = uData.getShort((Integer)value);
                     break;
-                case 52:
+                case (base+19):
                     this.U40 = uData.getShort((Integer)value);
                     break;
-                case 53:
+                case (base+20):
                     this.U41 = uData.getShort((Integer)value);
                     break;
-                case 54:
+                case (base+21):
                     this.U42 = uData.getShort((Integer)value);
                     break;
-                case 55:
+                case (base+22):
                     this.U43 = uData.getShort((Integer)value);
                     break;
-                case 56:
+                case (base+23):
                     this.U44 = uData.getShort((Integer)value);
                     break;
-                case 57:
+                case (base+24):
                     this.U45 = uData.getShort((Integer)value);
                     break;
-                case 58:
+                case (base+25):
                     this.U46 = uData.getShort((Integer)value);
                     break;
-                case 59:
+                case (base+26):
                     this.U47 = uData.getShort((Integer)value);
                     break;
             }

@@ -18,6 +18,8 @@ import java.util.List;
  */
 public final class iffCaddieItem extends iffBase {
     
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public String GFX1 = ""; // 40 bytes - bytes 144-184
     public String GFX2 = ""; // 40 bytes - bytes 144-184
     public short price1Day = 0; // 2 bytes - byte 110-111
@@ -108,21 +110,21 @@ public final class iffCaddieItem extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return this.GFX1;
-                case 33:
+                case (base+1):
                     return this.GFX2;
-                case 34:
+                case (base+2):
                     return uData.getInt(this.price1Day);
-                case 35:
+                case (base+3):
                     return uData.getInt(this.U33);
-                case 36:
+                case (base+4):
                     return uData.getInt(this.price7Days);
-                case 37:
+                case (base+5):
                     return uData.getInt(this.price30Days);
-                case 38:
+                case (base+6):
                     return uData.getInt(this.Amount);
-                case 39:
+                case (base+7):
                     return uData.getInt(this.U37);
                 default:
                     return "&";
@@ -137,28 +139,28 @@ public final class iffCaddieItem extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.GFX1 = (String)value;
                     break;
-                case 33:
+                case (base+1):
                     this.GFX2 = (String)value;
                     break;
-                case 34:
+                case (base+2):
                     this.price1Day = uData.getShort((Integer)value);
                     break;
-                case 35:
+                case (base+3):
                     this.U33 = uData.getShort((Integer)value);
                     break;
-                case 36:
+                case (base+4):
                     this.price7Days = uData.getShort((Integer)value);
                     break;
-                case 37:
+                case (base+5):
                     this.price30Days = uData.getShort((Integer)value);
                     break;
-                case 38:
+                case (base+6):
                     this.Amount = uData.getShort((Integer)value);
                     break;
-                case 39:
+                case (base+7):
                     this.U37 = uData.getShort((Integer)value);
                     break;
             }

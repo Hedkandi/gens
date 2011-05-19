@@ -17,6 +17,8 @@ import java.util.List;
  */
 public final class iffAuxPart extends iffClasses.iffBase {
 
+    // base should be equal to iffBase.getColNum()
+    private final int base = iffBase.base;
     public short U14 = 0; 
     public short U33 = 0; 
     public short U34 = 0; 
@@ -145,39 +147,40 @@ public final class iffAuxPart extends iffClasses.iffBase {
         }
         else {
             switch (colIndex) {
-                case 33:
+                case base:
                     return uData.getInt(this.U14);
-                case 34:
+                case (base+1):
                     return uData.getInt(this.U33);
-                case 35:
+                case (base+2):
                     return uData.getInt(this.U34);
-                case 36:
+                case (base+3):
                     return uData.getInt(this.U35);
-                case 37:
+                case (base+4):
                     return uData.getInt(this.U36);
-                case 38:
+                case (base+5):
                     return uData.getInt(this.U37);
-                case 39:
+                case (base+6):
                     return uData.getInt(this.U38);
-                case 40:
+                case (base+7):
                     return uData.getInt(this.U39);
-                case 41:
+                case (base+8):
                     return uData.getInt(this.U40);
-                case 42:
+                case (base+9):
                     return uData.getInt(this.U41);
-                case 43:
+                case (base+10):
                     return uData.getInt(this.U42);
-                case 44:
+                case (base+11):
                     return uData.getInt(this.U43);
-                case 45:
+                case (base+12):
                     return uData.getInt(this.U44);
-                case 46:
+                case (base+13):
                     return uData.getInt(this.U45);
-                case 47:
+                case (base+14):
                     return uData.getInt(this.U46);
-                case 48:
+                case (base+15):
                     return uData.getInt(this.U47);
                 default:
+                    // Return something that easily can identify missed values
                     return "&";
             }
         }
@@ -190,52 +193,52 @@ public final class iffAuxPart extends iffClasses.iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.U14 = uData.getShort((Integer)value);
                     break;
-                case 33:
+                case (base+1):
                     this.U33 = uData.getShort((Integer)value);
                     break;
-                case 34:
+                case (base+2):
                     this.U34 = uData.getShort((Integer)value);
                     break;
-                case 35:
+                case (base+3):
                     this.U35 = uData.getShort((Integer)value);
                     break;
-                case 36:
+                case (base+4):
                     this.U36 = uData.getShort((Integer)value);
                     break;
-                case 37:
+                case (base+5):
                     this.U37 = uData.getShort((Integer)value);
                     break;
-                case 38:
+                case (base+6):
                     this.U38 = uData.getShort((Integer)value);
                     break;
-                case 39:
+                case (base+7):
                     this.U39 = uData.getShort((Integer)value);
                     break;
-                case 40:
+                case (base+8):
                     this.U40 = uData.getShort((Integer)value);
                     break;
-                case 41:
+                case (base+9):
                     this.U41 = uData.getShort((Integer)value);
                     break;
-                case 42:
+                case (base+10):
                     this.U42 = uData.getShort((Integer)value);
                     break;
-                case 43:
+                case (base+11):
                     this.U43 = uData.getShort((Integer)value);
                     break;
-                case 44:
+                case (base+12):
                     this.U44 = uData.getShort((Integer)value);
                     break;
-                case 45:
+                case (base+13):
                     this.U45 = uData.getShort((Integer)value);
                     break;
-                case 46:
+                case (base+14):
                     this.U46 = uData.getShort((Integer)value);
                     break;
-                case 47:
+                case (base+15):
                     this.U47 = uData.getShort((Integer)value);
                     break;
             }

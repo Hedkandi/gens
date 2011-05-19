@@ -17,8 +17,10 @@ import java.io.IOException;
  * over at ragezone and some finishing touches by Tsukasa.
  * 
  */
+
 public class iffBase {
 
+    public static final int base = 25;
     public boolean isValid = false;
     public int ItemID = 0;
     public String itemName = "";
@@ -31,11 +33,26 @@ public class iffBase {
     public int itemPrice = 0;
     public int DiscountPrice = 0;
     public int UsedPrice = 0;
-    public byte moneyFlag = 0;
-    public byte shopFlag = 0;
+    /*
+     * public byte moneyFlag = 0;
+     * Cookies, Pang, Free makes moneyFlag
+     */
+    public boolean Cookies = false;
+    public boolean Pang = false;
+    public boolean Free = false;
+    /*
+     * public byte shopFlag = 0;
+     * inStock, disableGift, showSpecial, showNew, showHot makes shopFlag
+     */
+    public boolean inStock = false;
+    public boolean disableGift = false;
+    public boolean showSpecial = false;
+    public boolean showNew = false;
+    public boolean showHot = false;
     public byte timeFlag = 0;
     public byte Time = 0;
     public int Point = 0;
+    public iffDateTime startDateTime = new iffDateTime();
     public short fYear = 0;
     public short fMonth = 0;
     public short fZero = 0;
@@ -44,6 +61,7 @@ public class iffBase {
     public short fMinute = 0;
     public short fSecond = 0;
     public short fMSecond = 0;
+    public iffDateTime endDateTime = new iffDateTime();
     public short tYear = 0;
     public short tMonth = 0;
     public short tZero = 0;
@@ -64,27 +82,19 @@ public class iffBase {
                                         "Price",
                                         "Discount Price",
                                         "Used Price",
-                                        "Money Flags",
-                                        "Shop Flags",
+                                        "Cookies",
+                                        "Pang",
+                                        "Free",
+                                        "In Stock",
+                                        "Disable Gift",
+                                        "Show Special",
+                                        "Show New",
+                                        "Show Hot",
                                         "Time Flags",
                                         "Time",
                                         "Point",
-                                        "From Year",
-                                        "From Month",
-                                        "From 0",
-                                        "From Day",
-                                        "From Hour",
-                                        "From Minute",
-                                        "From Second",
-                                        "From Millisecond",
-                                        "To Year",
-                                        "To Month",
-                                        "To 0",
-                                        "To Day",
-                                        "To Hour",
-                                        "To Minute",
-                                        "To Second",
-                                        "To Millisecond"};
+                                        "Start Date",
+                                        "End Date"};
 
     public iffBase() {
         
@@ -112,8 +122,9 @@ public class iffBase {
             itemPrice = uData.getInt(Long.parseLong(inData[9]));
             DiscountPrice = uData.getInt(Long.parseLong(inData[10]));
             UsedPrice = uData.getInt(Long.parseLong(inData[11]));
-            moneyFlag = uData.getByte(Short.parseShort(inData[12]));
-            shopFlag = uData.getByte(Short.parseShort(inData[13]));
+            // TODO Read the booleans instead of byte
+            //moneyFlag = uData.getByte(Short.parseShort(inData[12]));
+            //shopFlag = uData.getByte(Short.parseShort(inData[13]));
             timeFlag = uData.getByte(Short.parseShort(inData[14]));
             Time = uData.getByte(Short.parseShort(inData[15]));
             Point = uData.getInt(Long.parseLong(inData[16]));
@@ -144,7 +155,7 @@ public class iffBase {
             ItemID = uData.getInt(new byte[]{inData[4], inData[5], inData[6], inData[7]});
             itemName = uData.getString(new ByteArrayInputStream(inData, 8, uData.stringLength));
             lvlReq = inData[48];
-            isMaxLVL = ((inData[48] & 0x80) == 128);
+            isMaxLVL = ((inData[48] & 0x80) == 0x80);
             Icon = uData.getString(new ByteArrayInputStream(inData, 49, uData.stringLength));
             // Bytes 89-91 isnt used
             U2 = inData[89];
@@ -153,29 +164,36 @@ public class iffBase {
             itemPrice = uData.getInt(new byte[]{inData[92], inData[93], inData[94], inData[95]});
             DiscountPrice = uData.getInt(new byte[]{inData[96], inData[97], inData[98], inData[99]});
             UsedPrice = uData.getInt(new byte[]{inData[100], inData[101], inData[102], inData[103]});
-            moneyFlag = inData[104];
-            shopFlag = inData[105];
+            //moneyFlag = inData[104];
+            Cookies = ((inData[104] & 0x1) == 0x1);
+            Pang = ((inData[104] & 0x2) == 0x2);
+            Free = ((inData[104]) == 0x0);
+            //shopFlag = inData[105];
+            inStock = ((inData[105] & 0x1) == 0x1);
+            disableGift = ((inData[105] & 0x2) == 0x2);
+            showSpecial = ((inData[105] & 0x4) == 0x4);
+            showNew = ((inData[105] & 0x8) == 0x8);
+            showHot = ((inData[105] & 0x10) == 0x10);
             timeFlag = inData[106];
             Time = inData[107];
             Point = uData.getInt(new byte[]{inData[108], inData[109], inData[110], inData[111]});
-            fYear = uData.getShort(new byte[]{inData[112], inData[113]});
-            fMonth = uData.getShort(new byte[]{inData[114], inData[115]});
-            fZero = uData.getShort(new byte[]{inData[116], inData[117]});
-            fDay = uData.getShort(new byte[]{inData[118], inData[119]});
-            fHour = uData.getShort(new byte[]{inData[120], inData[121]});
-            fMinute = uData.getShort(new byte[]{inData[122], inData[123]});
-            fSecond = uData.getShort(new byte[]{inData[124], inData[125]});
-            fMSecond = uData.getShort(new byte[]{inData[126], inData[127]});
-            tYear = uData.getShort(new byte[]{inData[128], inData[129]});
-            tMonth = uData.getShort(new byte[]{inData[130], inData[131]});
-            tZero = uData.getShort(new byte[]{inData[132], inData[133]});
-            tDay = uData.getShort(new byte[]{inData[134], inData[135]});
-            tHour = uData.getShort(new byte[]{inData[136], inData[137]});
-            tMinute = uData.getShort(new byte[]{inData[138], inData[139]});
-            tSecond = uData.getShort(new byte[]{inData[140], inData[141]});
-            tMSecond = uData.getShort(new byte[]{inData[142], inData[143]});
-        }
-         catch (IOException ex) {
+            startDateTime.setValue(0, uData.getShort(new byte[]{inData[112], inData[113]}));
+            startDateTime.setValue(1, uData.getShort(new byte[]{inData[114], inData[115]}));
+            startDateTime.setValue(2, uData.getShort(new byte[]{inData[116], inData[117]}));
+            startDateTime.setValue(3, uData.getShort(new byte[]{inData[118], inData[119]}));
+            startDateTime.setValue(4, uData.getShort(new byte[]{inData[120], inData[121]}));
+            startDateTime.setValue(5, uData.getShort(new byte[]{inData[122], inData[123]}));
+            startDateTime.setValue(6, uData.getShort(new byte[]{inData[124], inData[125]}));
+            startDateTime.setValue(7, uData.getShort(new byte[]{inData[126], inData[127]}));
+            endDateTime.setValue(0, uData.getShort(new byte[]{inData[128], inData[129]}));
+            endDateTime.setValue(1, uData.getShort(new byte[]{inData[130], inData[131]}));
+            endDateTime.setValue(2, uData.getShort(new byte[]{inData[132], inData[133]}));
+            endDateTime.setValue(3, uData.getShort(new byte[]{inData[134], inData[135]}));
+            endDateTime.setValue(4, uData.getShort(new byte[]{inData[136], inData[137]}));
+            endDateTime.setValue(5, uData.getShort(new byte[]{inData[138], inData[139]}));
+            endDateTime.setValue(6, uData.getShort(new byte[]{inData[140], inData[141]}));
+            endDateTime.setValue(7, uData.getShort(new byte[]{inData[142], inData[143]}));
+        } catch (IOException ex) {
             throw new IOException("Failed to read base data.");
         }
     }
@@ -211,47 +229,31 @@ public class iffBase {
             case 11:
                 return uData.getLong(this.UsedPrice);
             case 12:
-                return uData.getShort(this.moneyFlag);
+                return this.Cookies;
             case 13:
-                return uData.getShort(this.shopFlag);
+                return this.Pang;
             case 14:
-                return uData.getInt(this.timeFlag);
+                return this.Free;
             case 15:
-                return uData.getInt(this.Time);
+                return this.inStock;
             case 16:
-                return uData.getInt(this.Point);
+                return this.disableGift;
             case 17:
-                return uData.getInt(this.fYear);
+                return this.showSpecial;
             case 18:
-                return uData.getInt(this.fMonth);
+                return this.showNew;
             case 19:
-                return uData.getInt(this.fZero);
+                return this.showHot;
             case 20:
-                return uData.getInt(this.fDay);
+                return uData.getInt(this.timeFlag);
             case 21:
-                return uData.getInt(this.fHour);
+                return uData.getInt(this.Time);
             case 22:
-                return uData.getInt(this.fMinute);
+                return uData.getInt(this.Point);
             case 23:
-                return uData.getInt(this.fSecond);
+                return this.startDateTime.getTime();
             case 24:
-                return uData.getInt(this.fMSecond);
-            case 25:
-                return uData.getInt(this.tYear);
-            case 26:
-                return uData.getInt(this.tMonth);
-            case 27:
-                return uData.getInt(this.tZero);
-            case 28:
-                return uData.getInt(this.tDay);
-            case 29:
-                return uData.getInt(this.tHour);
-            case 30:
-                return uData.getInt(this.tMinute);
-            case 31:
-                return uData.getInt(this.tSecond);
-            case 32:
-                return uData.getInt(this.tMSecond);
+                return this.endDateTime.getTime();
             default:
                 return "!";
         }
@@ -296,67 +298,43 @@ public class iffBase {
                 this.UsedPrice = uData.getInt((Long)value);
                 break;
             case 12:
-                this.moneyFlag = uData.getByte((Short)value);
+                this.Cookies = (Boolean)value;
                 break;
             case 13:
-                this.shopFlag = uData.getByte((Short)value);
+                this.Pang = (Boolean)value;
                 break;
             case 14:
-                this.timeFlag = uData.getByte((Short)value);
+                this.Free = (Boolean)value;
                 break;
             case 15:
-                this.Time = uData.getByte((Short)value);
+                this.inStock = (Boolean)value;
                 break;
             case 16:
-                this.Point = uData.getShort((Integer)value);
+                this.disableGift = (Boolean)value;
                 break;
             case 17:
-                this.fYear = uData.getShort((Integer)value);
+                this.showSpecial = (Boolean)value;
                 break;
             case 18:
-                this.fMonth = uData.getShort((Integer)value);
+                this.showNew = (Boolean)value;
                 break;
             case 19:
-                this.fZero = uData.getShort((Integer)value);
+                this.showHot = (Boolean)value;
                 break;
             case 20:
-                this.fDay = uData.getShort((Integer)value);
+                this.timeFlag = uData.getByte((Short)value);
                 break;
             case 21:
-                this.fHour = uData.getShort((Integer)value);
+                this.Time = uData.getByte((Short)value);
                 break;
             case 22:
-                this.fMinute = uData.getShort((Integer)value);
+                this.Point = uData.getShort((Integer)value);
                 break;
             case 23:
-                this.fSecond = uData.getShort((Integer)value);
+                this.startDateTime.setTime((String)value);
                 break;
             case 24:
-                this.fMSecond = uData.getShort((Integer)value);
-                break;
-            case 25:
-                this.tYear = uData.getShort((Integer)value);
-                break;
-            case 26:
-                this.tMonth = uData.getShort((Integer)value);
-                break;
-            case 27:
-                this.tZero = uData.getShort((Integer)value);
-                break;
-            case 28:
-                this.tDay = uData.getShort((Integer)value);
-                break;
-            case 29:
-                this.tHour = uData.getShort((Integer)value);
-                break;
-            case 30:
-                this.tMinute = uData.getShort((Integer)value);
-                break;
-            case 31:
-                this.tSecond = uData.getShort((Integer)value);
-                break;
-            case 32:
-                this.tMSecond = uData.getShort((Integer)value);
+                this.endDateTime.setTime((String)value);
                 break;
         }
     }

@@ -17,6 +17,9 @@ import java.util.List;
  * @author hedkandi
  */
 public final class iffClub extends iffBase {
+    
+    // base should be equal to iffBase.getColNum()
+    private static final int base = iffBase.base;
     public String Sprite2Name = "";
     public short clubNum = 0;
     public short U33 = 0;
@@ -103,17 +106,17 @@ public final class iffClub extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     return this.Sprite2Name;
-                case 33:
+                case (base+1):
                     return uData.getInt(this.clubNum);
-                case 34:
+                case (base+2):
                     return uData.getInt(this.U33);
-                case 35:
+                case (base+3):
                     return uData.getInt(this.U34);
-                case 36:
+                case (base+4):
                     return uData.getInt(this.U35);
-                case 37:
+                case (base+5):
                     return uData.getInt(this.U36);
                 default:
                     return "";
@@ -128,22 +131,22 @@ public final class iffClub extends iffBase {
         }
         else {
             switch (colIndex) {
-                case 32:
+                case base:
                     this.Sprite2Name = (String)value;
                     break;
-                case 33:
+                case (base+1):
                     this.clubNum = uData.getShort((Integer)value);
                     break;
-                case 34:
+                case (base+2):
                     this.U33 = uData.getShort((Integer)value);
                     break;
-                case 35:
+                case (base+3):
                     this.U34 = uData.getShort((Integer)value);
                     break;
-                case 36:
+                case (base+4):
                     this.U35 = uData.getShort((Integer)value);
                     break;
-                case 37:
+                case (base+5):
                     this.U36 = uData.getShort((Integer)value);
                     break;
             }
