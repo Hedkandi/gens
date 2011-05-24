@@ -28,10 +28,7 @@ public class iffHandler {
     }
     
     public String getRegion(short Rev, short Magic) throws IOException {
-        if (Rev == 0 && Magic == 11) {
-            return "TH";
-        }
-        else if (Rev == 32322 && Magic == 11) {
+        if ((Rev == 0 || Rev == 32322) && Magic == 11) {
             return "TH";
         }
         else {
