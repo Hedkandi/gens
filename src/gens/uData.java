@@ -6,15 +6,12 @@
 package gens;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.Charset;
-import java.util.Locale;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -171,17 +168,37 @@ public class uData {
         (byte)'c', (byte)'d', (byte)'e', (byte)'f'
         };
 
-    public static String getHexString(byte[] raw)
-    throws UnsupportedEncodingException
-    {
-    byte[] hex = new byte[2 * raw.length];
-    int index = 0;
-
-    for (byte b : raw) {
-      int v = b & 0xFF;
-      hex[index++] = HEX_CHAR_TABLE[v >>> 4];
-      hex[index++] = HEX_CHAR_TABLE[v & 0xF];
+    public static String getFilesize(int size) {
+        String[] nameSizes = new String[] {"B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"};
+        double tmpSize = size;
+        int pos = 0;
+        while (tmpSize > 1) {
+            if (Math.floor(tmpSize / 1000) > 1.0) {
+                tmpSize = tmpSize / 1000;
+                pos++;
+            }
+            else {
+                break;
+            }
+        }
+        return String.format("%s %s", ((new DecimalFormat("#######.00").format(tmpSize))),nameSizes[pos]);
     }
-    return new String(hex, "ASCII");
+    
+    public static String getHexString(byte[] raw)
+        throws UnsupportedEncodingException
+        {
+        byte[] hex = new byte[2 * raw.length];
+        int index = 0;
+
+        for (byte b : raw) {
+          int v = b & 0xFF;
+          hex[index++] = HEX_CHAR_TABLE[v >>> 4];
+          hex[index++] = HEX_CHAR_TABLE[v & 0xF];
+        }
+        return new String(hex, "ASCII");
+    }
+
+    static String getSeconds(long l) {
+        return String.format("%f", (double)l/1000);
     }
 }
