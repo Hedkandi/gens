@@ -19,30 +19,31 @@ public class Main {
     private static boolean bDoOverwrite = true;
     private static boolean bAppend = false;
     private static boolean bWriteTitles = true;
-    private static String sInFilename = "";
+    private static String sFilename = "";
     private static String sTextDelimiter = "\'";
     private static String sRowDelimiter = "\r\n";
-    private static String sTargetDir = "";
+    private static String sDir = "";
     private static String sVersion = "0.1";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {        
         try {
+            long beginTime = System.currentTimeMillis();
             if (args.length >= 3) {
                 if (args[0].equals("-ii") || args[0].equals("--in-iff")) {
-                    sInFilename = args[1];
-                    sTargetDir = sInFilename.substring(0, sInFilename.indexOf("."));
+                    sFilename = args[1];
+                    sDir = sFilename.substring(0, sFilename.indexOf("."));
                     if (args[2].equals("-oc") || args[2].equals("--out-csv")) {
                         doDirectIFFtoCSV();
-                        System.out.println("Finished writing the csv-files to directory " + sTargetDir + ".");
-                        System.exit(0);
+                        System.out.println("Finished writing the csv-files to directory " + sDir + ".");
                     }
                     else if (args[2].equals("-oi") || args[2].equals("--out-iff")) {
                         doExtract();
-                        System.out.println("Finished writing the iff-files to " + sTargetDir + ".");
-                        System.exit(0);
+                        System.out.println("Finished writing the iff-files to " + sDir + ".");
                     }
+                    System.out.println("Total processing took " + uData.getSeconds(System.currentTimeMillis() - beginTime) + " seconds");
+                    System.exit(0);
                 }
                 else if (args[1].equals("-ic") || args[1].equals("--in-csv")) {
 
@@ -94,7 +95,7 @@ public class Main {
 
     public static void doExtract() {
         try {
-            iffZipper iz = new iffZipper(sInFilename, sTargetDir, bDoOverwrite);
+            iffZipper iz = new iffZipper(sFilename, sDir, bDoOverwrite);
             iz.doExtract();
         } catch (ZipException ex) {
             System.out.println(ex.getMessage());
@@ -103,26 +104,40 @@ public class Main {
         }
     }
 
+    public static void doDirectCSVtoIFF() {
+        /*
+        try {
+            iffZipper iz = new iffZipper(sFilename, sDir, bDoOverwrite);
+            iz.doCompress(ih.readIff(csv.readCSV()));
+        } catch (ZipException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }*/
+    }
+    
     public static void doDirectIFFtoCSV() {
         try {
-            iffZipper iz = new iffZipper(sInFilename);
+            iffZipper iz = new iffZipper(sFilename);
             String[] t = iz.listZip();
             iffHandler ih = new iffHandler();
             ih.setWriteTitles(bWriteTitles);
             CSV csv = new CSV();
+            csv.setOverwrite(bDoOverwrite);
+            csv.setAppend(bAppend);
+            csv.setRowDelimiter(sRowDelimiter);
+            csv.setTextDelimiter(sTextDelimiter);
+            csv.setTargetDir(sDir);
             for (int i = 0; i < t.length; i++) {
+                long beginFileTime = System.currentTimeMillis();
                 csv.setFilename(t[i].substring(0, t[i].indexOf(".")) + ".csv");
-                csv.setOverwrite(bDoOverwrite);
-                csv.setAppend(bAppend);
-                csv.setRowDelimiter(sRowDelimiter);
-                csv.setTextDelimiter(sTextDelimiter);
-                csv.setTargetDir(sTargetDir);
-                System.out.println("File " + (i+1) + "/" + t.length + ": " + t[i] + " -> " + sTargetDir + File.separatorChar + t[i].substring(0, t[i].lastIndexOf(".")) + ".csv");
+                System.out.println("File " + (i+1) + "/" + t.length + ": " + t[i] + " -> " + sDir + File.separatorChar + t[i].substring(0, t[i].lastIndexOf(".")) + ".csv");
                 csv.writeCSV(ih.readIff(iz.doExtract(t[i]), t[i]));
                 csv.close();
+                System.out.println("   >\tProcessing took " + uData.getSeconds(System.currentTimeMillis() - beginFileTime) + " seconds");
             }
         } catch (Exception ex) {
-            //ex.printStackTrace();
+            ex.printStackTrace();
             System.out.println(ex.getMessage());
         }
     }
