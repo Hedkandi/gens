@@ -84,9 +84,6 @@ public class iffBase {
     public short tSecond = 0;
     public short tMSecond = 0;
     public String[] colNames = new String[] {  "Use",
-                                        /* TODO 
-                                         * Break out the different parts of ItemID to separate fields
-                                         */
                                         "ItemID",
                                         "iffType",
                                         "charSerial",
