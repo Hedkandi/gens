@@ -45,10 +45,11 @@ public class iffHandler {
         short revision = uData.getShort(new byte[]{extractedData[2], extractedData[3]});
         byte magicNum = extractedData[4];
         String Region = getRegion(revision,magicNum);
+        String classPath = "iffClasses.iff" + sFilename.substring(0, sFilename.indexOf("."));
 
         if ((extractedData.length-8) > 0 && numRecords > 0) {
             int itemSize = (int) ((extractedData.length-8)/(int)numRecords);
-            System.out.println("Region: " + Region + ", File size: " + extractedData.length + ", Record size: " + itemSize + ", Number of records: " + numRecords);
+            System.out.println("   >\tRegion: " + Region + ", File size: " + uData.getFilesize(extractedData.length) + ", Record size: " + itemSize + ", Number of records: " + numRecords);
             if (isWriteTitles()) {
                 retData = new String[numRecords+1][];
             }
@@ -60,64 +61,68 @@ public class iffHandler {
                 try {
                     byte[] item = new byte[itemSize];
                     InputStream test = new ByteArrayInputStream(extractedData,j,itemSize);
-                    test.read(item);
-//                    System.out.println(uData.getHexString(item));
-                    Constructor iffConstructor = Class.forName("iffClasses.iff" + sFilename.substring(0, sFilename.indexOf(".")),true,new ClassLoader() {}).getConstructor(Array.newInstance(byte.class, 0).getClass());
-                    Object newInstance = iffConstructor.newInstance(item);
-                    final Method mthdColNum = newInstance.getClass().getDeclaredMethod("getColNum");
-                    int colLength = (Integer) mthdColNum.invoke(newInstance);
-                    Method mthdGetValue = newInstance.getClass().getMethod("getValue", Integer.TYPE);
-                    Method mthdGetTitle = newInstance.getClass().getMethod("getTitle", Integer.TYPE);
-                    if(isWriteTitles() && i == 0) {
-                        retData[i]= new String[colLength];
-                        for(int n=0;n<colLength;n++) {
-                            retData[i][n] = (String)mthdGetTitle.invoke(newInstance, n);
-                        }
-                        i++;
-                    }
-                    retData[i]= new String[colLength];
-                    for(int n=0;n<colLength;n++) {
-                        Object colValue = mthdGetValue.invoke(newInstance, n);
-                        //retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
-                        if (colValue instanceof Boolean) {
-                            if (!(Boolean) colValue) {
-                                retData[i][n] = "0";
+                    if (test.read(item) > 0) {
+                        Constructor iffConstructor = Class.forName(classPath).getConstructor(Array.newInstance(byte.class, 0).getClass());
+                        Object newInstance = iffConstructor.newInstance(item);
+                        final Method mthdColNum = newInstance.getClass().getDeclaredMethod("getColNum");
+                        Method mthdGetValue = newInstance.getClass().getMethod("getValue", Integer.TYPE);
+                        Method mthdGetTitle = newInstance.getClass().getMethod("getTitle", Integer.TYPE);
+                        int colLength = (Integer) mthdColNum.invoke(newInstance);
+                        if (colLength > 0) {
+                            if(isWriteTitles() && i == 0) {
+                                retData[i]= new String[colLength];
+                                for(int n=0;n<colLength;n++) {
+                                    retData[i][n] = (String)mthdGetTitle.invoke(newInstance, n);
+                                }
+                                i++;
                             }
-                            else {
-                                retData[i][n] = "1";
+                            retData[i]= new String[colLength];
+                            for(int n=0;n<colLength;n++) {
+                                Object colValue = mthdGetValue.invoke(newInstance, n);
+                                //retData[i][n] = mthdGetValue.invoke(newInstance, n).toString();
+                                if (colValue instanceof Boolean) {
+                                    retData[i][n] = Boolean.toString((Boolean) colValue);
+                                }
+                                else if (colValue instanceof Long) {
+                                    //System.out.println(colValue);
+                                    retData[i][n] = Long.toString((Long)colValue);
+                                }
+                                else if (colValue instanceof Integer) {
+                                    //System.out.println(colValue);
+                                    retData[i][n] = Integer.toString((Integer)colValue);
+                                }
+                                else if (colValue instanceof Short) {
+                                    //System.out.println(colValue);
+                                    retData[i][n] = Short.toString((Short)colValue);
+                                }
+                                else if (colValue instanceof Byte) {
+                                    //System.out.println(colValue);
+                                    retData[i][n] = Byte.toString((Byte)colValue);
+                                }
+                                else if (colValue instanceof String) {
+                                    retData[i][n] = (String) colValue;
+                                }
+                                else {
+                                    System.out.println("row: " + i + " column: " + n);
+                                    System.out.println("Class not handled.");
+                                }
                             }
-                        }
-                        else if (colValue instanceof Long) {
-                            //System.out.println(colValue);
-                            retData[i][n] = Long.toString((Long)colValue);
-                        }
-                        else if (colValue instanceof Integer) {
-                            //System.out.println(colValue);
-                            retData[i][n] = Integer.toString((Integer)colValue);
-                        }
-                        else if (colValue instanceof Short) {
-                            //System.out.println(colValue);
-                            retData[i][n] = Short.toString((Short)colValue);
-                        }
-                        else if (colValue instanceof Byte) {
-                            //System.out.println(colValue);
-                            retData[i][n] = Byte.toString((Byte)colValue);
-                        }
-                        else if (colValue instanceof String) {
-                            retData[i][n] = (String) colValue;
                         }
                         else {
-                            System.out.println("row: " + i + " column: " + n);
-                            System.out.println("Class not handled.");
+                            throw new IOException("Not enough columns.");
                         }
+                        newInstance = null;
+                        iffConstructor = null;
                     }
-                    newInstance = null;
-                    iffConstructor = null;
+                    else {
+                        throw new IOException("Failed to read item.");
+                    }
                 } catch (Exception ex) {
                     throw new Exception(ex);
                 }
                 i++;
             }
+            extractedData = null;
             return retData;
         }
         return new String[][] {new String[] {""},new String[] {""}};
