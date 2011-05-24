@@ -22,7 +22,7 @@ import java.util.zip.ZipFile;
 public class iffZipper {
 
     private File fFile = null;
-    private String sTargetDir = "";
+    private String sDir = "";
     private boolean bDoOverwrite = false;
     private ZipFile zf = null;
 
@@ -34,7 +34,7 @@ public class iffZipper {
 
     iffZipper(String sInFilename, String sTargetDir, boolean bDoOverwrite) {
         this.fFile = new File(sInFilename);
-        this.sTargetDir = sTargetDir;
+        this.sDir = sTargetDir;
         this.bDoOverwrite = bDoOverwrite;
     }
 
@@ -66,7 +66,7 @@ public class iffZipper {
         byte[] uzFile = null;
         while (e.hasMoreElements()) {
             ZipEntry ze = (ZipEntry)e.nextElement();
-            File dir = new File(sTargetDir);
+            File dir = new File(sDir);
             if (!dir.exists()) {
                 boolean dirMade = dir.mkdirs();
             }
