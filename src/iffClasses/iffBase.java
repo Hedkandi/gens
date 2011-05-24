@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class iffBase {
 
-    public static final int base = 31;
+    public static final int base = 28;
     public boolean isValid = false;
     public int ItemID = 0;
     /*
@@ -43,9 +43,6 @@ public class iffBase {
     public byte lvlReq = 0;
     public boolean isMaxLVL = false;
     public String Icon = "";
-    public byte U2 = 0;
-    public byte U3 = 0;
-    public byte U4 = 0;
     public int itemPrice = 0;
     public int DiscountPrice = 0;
     public int UsedPrice = 0;
@@ -101,9 +98,6 @@ public class iffBase {
                                         "lvlReq",
                                         "isMaxLVL",
                                         "Icon",
-                                        "Not Used",
-                                        "Not Used",
-                                        "Not Used",
                                         "Price",
                                         "Discount Price",
                                         "Used Price",
@@ -141,9 +135,6 @@ public class iffBase {
                 isMaxLVL = true;
             }
             Icon = inData[5];
-            U2 = uData.getByte(Short.parseShort(inData[6]));
-            U3 = uData.getByte(Short.parseShort(inData[7]));
-            U4 = uData.getByte(Short.parseShort(inData[8]));
             itemPrice = uData.getInt(Long.parseLong(inData[9]));
             DiscountPrice = uData.getInt(Long.parseLong(inData[10]));
             UsedPrice = uData.getInt(Long.parseLong(inData[11]));
@@ -189,9 +180,12 @@ public class iffBase {
             isMaxLVL = ((inData[48] & 0x80) == 0x80);
             Icon = uData.getString(new ByteArrayInputStream(inData, 49, uData.stringLength));
             // Bytes 89-91 isnt used
+            /*
             U2 = inData[89];
             U3 = inData[90];
             U4 = inData[91];
+             * 
+             */
             itemPrice = uData.getInt(new byte[]{inData[92], inData[93], inData[94], inData[95]});
             DiscountPrice = uData.getInt(new byte[]{inData[96], inData[97], inData[98], inData[99]});
             UsedPrice = uData.getInt(new byte[]{inData[100], inData[101], inData[102], inData[103]});
@@ -268,42 +262,36 @@ public class iffBase {
             case 11:
                 return this.Icon;
             case 12:
-                return uData.getShort(this.U2);
-            case 13:
-                return uData.getShort(this.U3);
-            case 14:
-                return uData.getShort(this.U4);
-            case 15:
                 return uData.getLong(this.itemPrice);
-            case 16:
+            case 13:
                 return uData.getLong(this.DiscountPrice);
-            case 17:
+            case 14:
                 return uData.getLong(this.UsedPrice);
-            case 18:
+            case 15:
                 return this.Cookies;
-            case 19:
+            case 16:
                 return this.Pang;
-            case 20:
+            case 17:
                 return this.Free;
-            case 21:
+            case 18:
                 return this.inStock;
-            case 22:
+            case 19:
                 return this.disableGift;
-            case 23:
+            case 20:
                 return this.showSpecial;
-            case 24:
+            case 21:
                 return this.showNew;
-            case 25:
+            case 22:
                 return this.showHot;
-            case 26:
+            case 23:
                 return uData.getInt(this.timeFlag);
-            case 27:
+            case 24:
                 return uData.getInt(this.Time);
-            case 28:
+            case 25:
                 return uData.getInt(this.Point);
-            case 29:
+            case 26:
                 return this.startDateTime.getTime();
-            case 30:
+            case 27:
                 return this.endDateTime.getTime();
             default:
                 return "!";
@@ -329,15 +317,6 @@ public class iffBase {
                 break;
             case 5:
                 this.Icon = (String)value;
-                break;
-            case 6:
-                this.U2 = uData.getByte((Short)value);
-                break;
-            case 7:
-                this.U3 = uData.getByte((Short)value);
-                break;
-            case 8:
-                this.U4 = uData.getByte((Short)value);
                 break;
             case 9:
                 this.itemPrice = uData.getInt((Long)value);
