@@ -20,9 +20,25 @@ import java.io.IOException;
 
 public class iffBase {
 
-    public static final int base = 25;
+    public static final int base = 31;
     public boolean isValid = false;
     public int ItemID = 0;
+    /*
+     * Structure of ItemID
+     * ((((
+        ((IFFTYPE) * power((2),(26))
+        + CHAR_SERIAL * power((2),(18)))
+        + POS * power((2),(13)))
+        + GROUP * power((2),(11)))
+        + TYPE * power((2),(9)))
+        + SERIAL)
+     */
+    public byte iffType = 0;
+    public short charSerial = 0;
+    public byte itemPos = 0;
+    public byte itemGroup = 0;
+    public byte itemType = 0;
+    public short itemSerial = 0;
     public String itemName = "";
     public byte lvlReq = 0;
     public boolean isMaxLVL = false;
@@ -71,7 +87,16 @@ public class iffBase {
     public short tSecond = 0;
     public short tMSecond = 0;
     public String[] colNames = new String[] {  "Use",
+                                        /* TODO 
+                                         * Break out the different parts of ItemID to separate fields
+                                         */
                                         "ItemID",
+                                        "iffType",
+                                        "charSerial",
+                                        "itemPos",
+                                        "itemGroup",
+                                        "itemType",
+                                        "itemSerial",
                                         "ItemName",
                                         "lvlReq",
                                         "isMaxLVL",
@@ -153,6 +178,12 @@ public class iffBase {
         try {
             isValid = uData.getBool(inData[0]);
             ItemID = uData.getInt(new byte[]{inData[4], inData[5], inData[6], inData[7]});
+            iffType = (byte)((ItemID & 0xFC000000) >> 26);
+            charSerial = (short)((ItemID & 0x3CF0000) >> 18);
+            itemPos = (byte)((ItemID & 0x7E000) >> 13);
+            itemGroup = (byte)((ItemID & 0x1800) >> 11);
+            itemType = (byte)((ItemID & 0x600) >> 9);
+            itemSerial = (short)(ItemID & 0x1FF);
             itemName = uData.getString(new ByteArrayInputStream(inData, 8, uData.stringLength));
             lvlReq = inData[48];
             isMaxLVL = ((inData[48] & 0x80) == 0x80);
@@ -197,7 +228,15 @@ public class iffBase {
             throw new IOException("Failed to read base data.");
         }
     }
-
+    
+    public byte[] getItem() {
+        byte[] retData = new byte[144];
+        for (int i=0;i<getColNum();i++) {
+            retData = uData.getBytes(getValue(i));
+        }
+        return retData;
+    }
+    
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
     }
@@ -209,50 +248,62 @@ public class iffBase {
             case 1:
                 return uData.getLong(this.ItemID);
             case 2:
-                return this.itemName;
+                return uData.getShort(this.iffType);
             case 3:
-                return uData.getShort(this.lvlReq);
+                return uData.getInt(this.charSerial);
             case 4:
-                return this.isMaxLVL;
+                return uData.getShort(this.itemPos);
             case 5:
-                return this.Icon;
+                return uData.getShort(this.itemGroup);
             case 6:
-                return uData.getShort(this.U2);
+                return uData.getShort(this.itemType);
             case 7:
-                return uData.getShort(this.U3);
+                return uData.getInt(this.itemSerial);
             case 8:
-                return uData.getShort(this.U4);
+                return this.itemName;
             case 9:
-                return uData.getLong(this.itemPrice);
+                return uData.getShort(this.lvlReq);
             case 10:
-                return uData.getLong(this.DiscountPrice);
+                return this.isMaxLVL;
             case 11:
-                return uData.getLong(this.UsedPrice);
+                return this.Icon;
             case 12:
-                return this.Cookies;
+                return uData.getShort(this.U2);
             case 13:
-                return this.Pang;
+                return uData.getShort(this.U3);
             case 14:
-                return this.Free;
+                return uData.getShort(this.U4);
             case 15:
-                return this.inStock;
+                return uData.getLong(this.itemPrice);
             case 16:
-                return this.disableGift;
+                return uData.getLong(this.DiscountPrice);
             case 17:
-                return this.showSpecial;
+                return uData.getLong(this.UsedPrice);
             case 18:
-                return this.showNew;
+                return this.Cookies;
             case 19:
-                return this.showHot;
+                return this.Pang;
             case 20:
-                return uData.getInt(this.timeFlag);
+                return this.Free;
             case 21:
-                return uData.getInt(this.Time);
+                return this.inStock;
             case 22:
-                return uData.getInt(this.Point);
+                return this.disableGift;
             case 23:
-                return this.startDateTime.getTime();
+                return this.showSpecial;
             case 24:
+                return this.showNew;
+            case 25:
+                return this.showHot;
+            case 26:
+                return uData.getInt(this.timeFlag);
+            case 27:
+                return uData.getInt(this.Time);
+            case 28:
+                return uData.getInt(this.Point);
+            case 29:
+                return this.startDateTime.getTime();
+            case 30:
                 return this.endDateTime.getTime();
             default:
                 return "!";
