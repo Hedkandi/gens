@@ -185,7 +185,7 @@ public class iffBase {
             itemType = (byte)((ItemID & 0x600) >> 9);
             itemSerial = (short)(ItemID & 0x1FF);
             itemName = uData.getString(new ByteArrayInputStream(inData, 8, uData.stringLength));
-            lvlReq = inData[48];
+            lvlReq = (byte)(inData[48] & 0x7F);
             isMaxLVL = ((inData[48] & 0x80) == 0x80);
             Icon = uData.getString(new ByteArrayInputStream(inData, 49, uData.stringLength));
             // Bytes 89-91 isnt used
