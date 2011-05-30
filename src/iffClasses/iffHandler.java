@@ -22,14 +22,24 @@ import java.lang.reflect.Method;
  */
 public class iffHandler {
     private boolean bWriteTitles = false;
+    public static int stringLength = 0;
+    public static int longStringLength = 0;
     
     public iffHandler() {
         
     }
     
     public String getRegion(short Rev, short Magic) throws IOException {
+        //System.out.println(Rev + " - " + Magic);
         if ((Rev == 0 || Rev == 32322) && Magic == 11) {
+            stringLength = 40;
+            longStringLength = 512;
             return "TH";
+        }
+        else if ((Rev == 30319 || Rev == 18 || Rev == 26998 || Rev == 0) && Magic == 12) {
+            stringLength = 40;
+            longStringLength = 512;
+            return "JP";
         }
         else {
             throw new IOException("Unknown region.");
@@ -46,7 +56,7 @@ public class iffHandler {
 
         if ((extractedData.length-8) > 0 && numRecords > 0) {
             int itemSize = (int) ((extractedData.length-8)/(int)numRecords);
-            System.out.println("   >\tRegion: " + Region + ", File size: " + uData.getFilesize(extractedData.length) + ", Record size: " + itemSize + ", Number of records: " + numRecords);
+            System.out.println("   >\tRegion: " + Region + ", File size: " + uData.getFilesize(extractedData.length) + ", Record size: " + uData.getFilesize(itemSize) + ", Number of records: " + numRecords);
             if (isWriteTitles()) {
                 retData = new String[numRecords+1][];
             }
@@ -59,8 +69,15 @@ public class iffHandler {
                     byte[] item = new byte[itemSize];
                     InputStream test = new ByteArrayInputStream(extractedData,j,itemSize);
                     if (test.read(item) > 0) {
-                        Constructor iffConstructor = Class.forName(classPath).getConstructor(Array.newInstance(byte.class, 0).getClass());
-                        Object newInstance = iffConstructor.newInstance(item);
+                        Constructor iffConstructor;
+                        Object newInstance = null;
+                        try {
+                            iffConstructor = Class.forName(classPath).getConstructor(Array.newInstance(byte.class, 0).getClass());
+                            newInstance = iffConstructor.newInstance(item);
+                        } catch (ClassNotFoundException ce) {
+                            System.out.println("ERROR!\nClass: " + classPath + " wasnt found.\nRecordsize: " + uData.getFilesize(itemSize) + "\nNumber of records: " + numRecords + "\nRev: " + revision + "\nMagic: " + magicNum);
+                            System.exit(1);
+                        }
                         final Method mthdColNum = newInstance.getClass().getDeclaredMethod("getColNum");
                         Method mthdGetValue = newInstance.getClass().getMethod("getValue", Integer.TYPE);
                         Method mthdGetTitle = newInstance.getClass().getMethod("getTitle", Integer.TYPE);
@@ -98,10 +115,6 @@ public class iffHandler {
                                 }
                                 else if (colValue instanceof String) {
                                     retData[i][n] = (String) colValue;
-                                }
-                                else {
-                                    System.out.println("row: " + i + " column: " + n);
-                                    System.out.println("Class not handled.");
                                 }
                             }
                         }
