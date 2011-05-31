@@ -8,3 +8,9 @@ All .iff-files structures are discussed here: http://forum.ragezone.com/f512/iff
 
 
 When running with default config Textdelimiter is "'" and row delimiter it "\r\n", default output dir is the filename up to the last ".".
+
+Values that need explaining is documented in doc\IFFNAME
+
+If a file that hasnt existed in the game before is read the Revision, Magicnumber, size and number of records is printed.
+
+TODO - Add documentation of commandline switches
