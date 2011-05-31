@@ -11,6 +11,6 @@ When running with default config Textdelimiter is "'" and row delimiter it "\r\n
 
 Values that need explaining is documented in doc\IFFNAME
 
-If a file that hasnt existed in the game before is read the Revision, Magicnumber, size and number of records is printed.
+If a file that hasnt existed in the game before is read and the Revision, Magicnumber, size and number of records is printed.
 
 TODO - Add documentation of commandline switches
