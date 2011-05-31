@@ -129,7 +129,7 @@ public class uData {
         }
         else if (buf instanceof Short) {
             ByteBuffer bb = ByteBuffer.allocateDirect(2).order(ByteOrder.LITTLE_ENDIAN);
-            bb.putInt((Integer)buf);
+            bb.putShort((Short)buf);
             return bb.array();
         }
         else if (buf instanceof Boolean) {
