@@ -7,12 +7,9 @@ package iffClasses;
 
 import gens.uData;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -49,23 +46,22 @@ public final class iffAuxPart extends iffClasses.iffBase {
                                         "NA",
                                         "NA",
                                         "NA",
-                                        "Power+",
-                                        "Control+",
-                                        "Accuracy+",
-                                        "Spin+",
-                                        "Curve+",
+                                        "Power Up",
+                                        "Control Up",
+                                        "Accuracy Up",
+                                        "Spin Up",
+                                        "Curve Up",
                                         "Power Slot",
                                         "Control Slot",
                                         "Accuracy Slot",
                                         "Spin Slot",
                                         "Curve Slot",
-                                        "Yards+",
-                                        "Luck+",
-                                        "Wider Pangya",
-                                        "Pang+?",
-                                        "EXP+?",
+                                        "YDrive Up",
+                                        "Itemdrop Up",
+                                        "Combo Up",
+                                        "Pang Up",
+                                        "EXP Up",
                                         "NA"};
-    
 
     public iffAuxPart(byte[] inData) {
         super();
@@ -131,7 +127,7 @@ public final class iffAuxPart extends iffClasses.iffBase {
             this.Control = inData[155];
             this.Accuracy = inData[156];
             this.Spin = inData[157];
-            this.Curve = inData[158];
+            this.Curve = inData[158];   
             this.PowerSlot = inData[159];
             this.ControlSlot = inData[160];
             this.AccuracySlot = inData[161];
@@ -237,19 +233,19 @@ public final class iffAuxPart extends iffClasses.iffBase {
                     this.U36 = uData.getShort((Integer)value);
                     break;
                 case (base+5):
-                    this.Power = uData.getShort((Integer)value);
+                    this.Power = uData.getByte((Short)value);
                     break;
                 case (base+6):
-                    this.Accuracy = uData.getShort((Integer)value);
+                    this.Accuracy = uData.getByte((Short)value);
                     break;
                 case (base+7):
-                    this.Curve = uData.getShort((Integer)value);
+                    this.Curve = uData.getByte((Short)value);
                     break;
                 case (base+8):
-                    this.ControlSlot = uData.getShort((Integer)value);
+                    this.ControlSlot = uData.getByte((Short)value);
                     break;
                 case (base+9):
-                    this.SpinSlot = uData.getShort((Integer)value);
+                    this.SpinSlot = uData.getByte((Short)value);
                     break;
                 case (base+10):
                     this.DriveUp = uData.getShort((Integer)value);
