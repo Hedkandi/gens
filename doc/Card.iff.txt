@@ -1,3 +1,10 @@
+Rarity description
+
+0 - Normal
+1 - Rare
+2 - S.Rare
+3 - Secret
+
 Category description
 
 The "Category" seems to decide what the values in the "Bonus Type" column means.
@@ -8,7 +15,17 @@ the effect followed by a description.
 
 Character (0):
 
-0 - Uses Stat and Slot columns
+0 - ??
+1 - Yard -
+2 - ??
+3 - ??
+4 - ??
+5 - ??
+6 - ??
+7 - ??
+8 - ?
+9 - ??
+10 - ??
 
 Caddie (16):
 
