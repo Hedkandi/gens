@@ -58,11 +58,9 @@ public class iffHandler {
             int itemSize = (int) ((extractedData.length-8)/(int)numRecords);
             System.out.println("   >\tRegion: " + Region + ", File size: " + uData.getFilesize(extractedData.length) + ", Record size: " + uData.getFilesize(itemSize) + ", Number of records: " + numRecords);
             if (isWriteTitles()) {
-                retData = new String[numRecords+1][];
+                numRecords++;
             }
-            else {
-                retData = new String[numRecords][];
-            }
+            retData = new String[numRecords][];
             int i=0;
             for (int j=8;j<extractedData.length;j=j+itemSize) {
                 try {
