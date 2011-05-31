@@ -21,52 +21,40 @@ public final class iffCard extends iffBase {
     // base should be equal to iffBase.getColNum()
     private static final int base = iffBase.base;
     public byte cardType = 0;
-    public String Sprite2Name = ""; // 40 bytes - bytes 144-184
-    public byte U14 = 0; // 2 bytes - byte 110-111
-    public byte U15 = 0;
-    public byte U16 = 0; // 2 bytes COM0? - bytes 185-186
-    public byte U18 = 0; // 2 bytes COM1? - bytes 187-188
-    public byte U20 = 0; // 2 bytes COM2? - bytes 189-190
-    public byte U22 = 0;
-    public byte U23 = 0;
-    public byte U24 = 0;
-    public byte U25 = 0;
-    public byte U26 = 0; // 2 bytes COM4? - bytes 193-194
-    public byte U27 = 0;
+    public String Sprite2Name = "";
+    public short PowerUp = 0;
+    public short ControlUp = 0;
+    public short AccuracyUp = 0;
+    public short SpinUp = 0;
+    public short CurveUp = 0;
+    private short BonusType;
+    public short BonusAmount = 0;
     public byte U28 = 0; // 2 bytes COM4? - bytes 193-194
     public String UString1 = ""; // 2 bytes COM4? - bytes 193-194
     public String UString2 = ""; // 2 bytes COM4? - bytes 193-194
     public String UString3 = ""; // 2 bytes COM4? - bytes 193-194
-    public short U40 = 0; // 2 bytes COM4? - bytes 193-194
-    public short U41 = 0; // 2 bytes COM4? - bytes 193-194
-    public short U42 = 0; // 2 bytes COM4? - bytes 193-194
+    public short BonusTime = 0; // 2 bytes COM4? - bytes 193-194
+    public short CardPack = 0; // 2 bytes COM4? - bytes 193-194
+    public short CardNum = 0; // 2 bytes COM4? - bytes 193-194
     public short U43 = 0; // 2 bytes COM4? - bytes 193-194
-    private byte U17;
-    private byte U19;
-    private byte U21;
-    String[] colNames = new String[] {  "Type",
+    private byte U22;
+    
+    String[] colNames = new String[] {  "Rarity",
                                             "Card GFX",
                                             "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
-                                            "NA",
+                                            "Power Slot Up",
+                                            "Control Slot Up",
+                                            "Accuracy Slot Up",
+                                            "Spin Slot Up",
+                                            "Curve Slot Up",
+                                            "Bonus Type",
+                                            "Bonus Amount",
                                             "GFX1",
                                             "GFX2",
                                             "GFX3",
-                                            "NA",
-                                            "NA",
-                                            "NA",
+                                            "Time",
+                                            "Card Pack",
+                                            "Card Number",
                                             "NA"};
 
     public iffCard(byte[] inData) {
@@ -97,6 +85,7 @@ public final class iffCard extends iffBase {
         this.colNames = (String[]) temp.toArray(new String[temp.size()]);
         temp.clear();
         temp = null;
+        colNames[3] = "Category";
     }
 
     @Override
@@ -114,27 +103,20 @@ public final class iffCard extends iffBase {
         super.getItem(inData);
         cardType = uData.getByte(Short.parseShort(inData[32]));
         Sprite2Name = inData[33];
-        U14 = uData.getByte(Short.parseShort(inData[34]));
-        U15 = uData.getByte(Short.parseShort(inData[35]));
-        U16 = uData.getByte(Short.parseShort(inData[36]));
-        U17 = uData.getByte(Short.parseShort(inData[37]));
-        U18 = uData.getByte(Short.parseShort(inData[38]));
-        U19 = uData.getByte(Short.parseShort(inData[39]));
-        U20 = uData.getByte(Short.parseShort(inData[40]));
-        U21 = uData.getByte(Short.parseShort(inData[41]));
-        U22 = uData.getByte(Short.parseShort(inData[42]));
-        U23 = uData.getByte(Short.parseShort(inData[43]));
-        U24 = uData.getByte(Short.parseShort(inData[44]));
-        U25 = uData.getByte(Short.parseShort(inData[45]));
-        U26 = uData.getByte(Short.parseShort(inData[46]));
-        U27 = uData.getByte(Short.parseShort(inData[47]));
+        PowerUp = uData.getByte(Short.parseShort(inData[34]));
+        ControlUp = uData.getByte(Short.parseShort(inData[36]));
+        BonusType = uData.getByte(Short.parseShort(inData[39]));
+        AccuracyUp = uData.getByte(Short.parseShort(inData[40]));
+        SpinUp = uData.getByte(Short.parseShort(inData[43]));
+        CurveUp = uData.getByte(Short.parseShort(inData[45]));
+        BonusAmount = uData.getByte(Short.parseShort(inData[47]));
         U28 = uData.getByte(Short.parseShort(inData[48]));
         UString1 = inData[49];
         UString2 = inData[50];
         UString3 = inData[51];
-        U40 = uData.getShort(Integer.parseInt(inData[52]));
-        U41 = uData.getShort(Integer.parseInt(inData[53]));
-        U42 = uData.getShort(Integer.parseInt(inData[54]));
+        BonusTime = uData.getShort(Integer.parseInt(inData[52]));
+        CardPack = uData.getShort(Integer.parseInt(inData[53]));
+        CardNum = uData.getShort(Integer.parseInt(inData[54]));
         U43 = uData.getShort(Integer.parseInt(inData[55]));
     }
     
@@ -144,27 +126,20 @@ public final class iffCard extends iffBase {
             super.getItem(inData);
             cardType = inData[144];
             Sprite2Name = uData.getString(new ByteArrayInputStream(inData, 145, uData.stringLength));
-            U14 = inData[185];
-            U15 = inData[186];
-            U16 = inData[187];
-            U17 = inData[188];
-            U18 = inData[189];
-            U19 = inData[190];
-            U20 = inData[191];
-            U21 = inData[192];
-            U22 = inData[193];
-            U23 = inData[194];
-            U24 = inData[195];
-            U25 = inData[196];
-            U26 = inData[197];
-            U27 = inData[198];
-            U28 = inData[199];
+            U28 = inData[185];
+            PowerUp = uData.getShort(new byte[]{inData[186], inData[187]});
+            ControlUp = uData.getShort(new byte[]{inData[188], inData[189]});
+            AccuracyUp = uData.getShort(new byte[]{inData[190], inData[191]});
+            SpinUp = uData.getShort(new byte[]{inData[192], inData[193]});
+            CurveUp = uData.getShort(new byte[]{inData[194], inData[195]});
+            BonusType = uData.getShort(new byte[]{inData[196], inData[197]});
+            BonusAmount = uData.getShort(new byte[]{inData[198], inData[199]});
             UString1 = uData.getString(new ByteArrayInputStream(inData, 200, uData.stringLength));
             UString2 = uData.getString(new ByteArrayInputStream(inData, 240, uData.stringLength));
             UString3 = uData.getString(new ByteArrayInputStream(inData, 280, uData.stringLength));
-            U40 = uData.getShort(new byte[]{inData[320], inData[321]});
-            U41 = uData.getShort(new byte[]{inData[322], inData[323]});
-            U42 = uData.getShort(new byte[]{inData[324], inData[325]});
+            BonusTime = uData.getShort(new byte[]{inData[320], inData[321]});
+            CardPack = uData.getShort(new byte[]{inData[322], inData[323]});
+            CardNum = uData.getShort(new byte[]{inData[324], inData[325]});
             U43 = uData.getShort(new byte[]{inData[326], inData[327]});
         } catch (IOException ex) {
             throw new IOException(ex);
@@ -183,48 +158,34 @@ public final class iffCard extends iffBase {
                 case (base+1):
                     return this.Sprite2Name;
                 case (base+2):
-                    return uData.getShort(this.U14);
-                case (base+3):
-                    return uData.getShort(this.U15);
-                case (base+4):
-                    return uData.getShort(this.U16);
-                case (base+5):
-                    return uData.getShort(this.U17);
-                case (base+6):
-                    return uData.getShort(this.U18);
-                case (base+7):
-                    return uData.getShort(this.U19);
-                case (base+8):
-                    return uData.getShort(this.U20);
-                case (base+9):
-                    return uData.getShort(this.U21);
-                case (base+10):
-                    return uData.getShort(this.U22);
-                case (base+11):
-                    return uData.getShort(this.U23);
-                case (base+12):
-                    return uData.getShort(this.U24);
-                case (base+13):
-                    return uData.getShort(this.U25);
-                case (base+14):
-                    return uData.getShort(this.U26);
-                case (base+15):
-                    return uData.getShort(this.U27);
-                case (base+16):
                     return uData.getShort(this.U28);
-                case (base+17):
+                case (base+3):
+                    return uData.getInt(this.PowerUp);
+                case (base+4):
+                    return uData.getInt(this.ControlUp);
+                case (base+5):
+                    return uData.getInt(this.AccuracyUp);
+                case (base+6):
+                    return uData.getInt(this.SpinUp);
+                case (base+7):
+                    return uData.getInt(this.CurveUp);
+                case (base+8):
+                    return uData.getInt(this.BonusType);
+                case (base+9):
+                    return uData.getInt(this.BonusAmount);
+                case (base+10):
                     return this.UString1;
-                case (base+18):
+                case (base+11):
                     return this.UString2;
-                case (base+19):
+                case (base+12):
                     return this.UString3;
-                case (base+20):
-                    return uData.getInt(this.U40);
-                case (base+21):
-                    return uData.getInt(this.U41);
-                case (base+22):
-                    return uData.getInt(this.U42);
-                case (base+23):
+                case (base+13):
+                    return uData.getInt(this.BonusTime);
+                case (base+14):
+                    return uData.getInt(this.CardPack);
+                case (base+15):
+                    return uData.getInt(this.CardNum);
+                case (base+16):
                     return uData.getInt(this.U43);
                 default:
                     return "&";
@@ -246,63 +207,51 @@ public final class iffCard extends iffBase {
                     this.Sprite2Name = (String)value;
                     break;
                 case (base+2):
-                    this.U14 = uData.getByte((Short)value);
-                    break;
-                case (base+3):
-                    this.U16 = uData.getByte((Short)value);
-                    break;
-                case (base+4):
-                    this.U18 = uData.getByte((Short)value);
-                    break;
-                case (base+5):
-                    this.U19 = uData.getByte((Short)value);
-                    break;
-                case (base+6):
-                    this.U20 = uData.getByte((Short)value);
-                    break;
-                case (base+7):
-                    this.U21 = uData.getByte((Short)value);
-                    break;
-                case (base+8):
-                    this.U22 = uData.getByte((Short)value);
-                    break;
-                case (base+9):
-                    this.U23 = uData.getByte((Short)value);
-                    break;
-                case (base+10):
-                    this.U24 = uData.getByte((Short)value);
-                    break;
-                case (base+11):
-                    this.U25 = uData.getByte((Short)value);
-                    break;
-                case (base+12):
-                    this.U26 = uData.getByte((Short)value);
-                    break;
-                case (base+13):
-                    this.U27 = uData.getByte((Short)value);
-                    break;
-                case (base+14):
                     this.U28 = uData.getByte((Short)value);
                     break;
-                case (base+15):
+                case (base+3):
+                    this.PowerUp = uData.getByte((Short)value);
+                    break;
+                case (base+4):
+                    this.ControlUp = uData.getByte((Short)value);
+                    break;
+                case (base+5):
+                    this.AccuracyUp = uData.getByte((Short)value);
+                    break;
+                case (base+6):
+                    this.U22 = uData.getByte((Short)value);
+                    break;
+                case (base+7):
+                    this.SpinUp = uData.getByte((Short)value);
+                    break;
+                case (base+8):
+                    this.CurveUp = uData.getByte((Short)value);
+                    break;
+                case (base+9):
+                    this.BonusType = uData.getByte((Short)value);
+                    break;
+                case (base+10):
+                    this.BonusAmount = uData.getByte((Short)value);
+                    break;
+                case (base+11):
                     this.UString1 = (String)value;
                     break;
-                case (base+16):
+                case (base+12):
                     this.UString2 = (String)value;
                     break;
-                case (base+17):
+                case (base+13):
                     this.UString3 = (String)value;
                     break;
-                case (base+18):
-                    this.U40 = uData.getShort((Integer)value);
+                case (base+14):
+                    this.BonusTime = uData.getShort((Integer)value);
                     break;
-                case (base+19):
-                    this.U41 = uData.getShort((Integer)value);
+                case (base+15):
+                    this.CardPack = uData.getShort((Integer)value);
                     break;
-                case (base+20):
-                    this.U42 = uData.getShort((Integer)value);
+                case (base+16):
+                    this.CardNum = uData.getShort((Integer)value);
                     break;
-                case (base+21):
+                case (base+17):
                     this.U43 = uData.getShort((Integer)value);
                     break;
             }
