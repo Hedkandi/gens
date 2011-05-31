@@ -21,7 +21,7 @@ public class iffCadieMagicBoxRandom {
     String[] colNames = new String[] {  "Num item?",
                                         "Item?",
                                         "Amount?",
-                                        "Price"};
+                                        "Probability"};
     
     public iffCadieMagicBoxRandom(byte[] inData) {
         getItem(inData);
