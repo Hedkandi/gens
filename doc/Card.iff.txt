@@ -1,0 +1,49 @@
+Category description
+
+The "Category" seems to decide what the values in the "Bonus Type" column means.
+The following is guesses of what the numbers in Bonus Type means.
+
+The structure is Category name (category id), the following numbers is the id of
+the effect followed by a description.
+
+Character (0):
+
+0 - Uses Stat and Slot columns
+
+Caddie (16):
+
+1 - Item Success Rate Up
+2 - DriveUp
+3 - Wind - No matter what current wind is
+4 - Pang on Bounce
+5 - PowerShotUp
+6 - ComboUp
+7 - ImpactUp
+8 - TreasurePointUp
+9 - Par gives more Treasure Points
+10 - Birde gives more Treasure Points
+11 - 
+12 - Wind - at 9m
+13 - Wind - -1 at 1-5m and -2 at 6-9m
+
+
+Special (32):
+
+1 - ExpUp Instant
+2 - PangUp (for specified time in minutes)
+3 - ExpUp (for specified time in minutes)
+4 - ??
+5 - PowerUp (for specified time in minutes)
+6 - ControlUp (for specified time in minutes)
+7 - AccuracyUp (for specified time in minutes)
+8 - SpinUp (for specified time in minutes)
+9 - CurveUp (for specified time in minutes)
+10 - ComboUp (for specified time in minutes)
+11 - ItemslotUp (for specified time in minutes)
+12 - ImpactUp (for specified time in minutes)
+13 - ClearBonusSepia (for specified time in minutes)
+14 - ClearBonusWindHill (for specified time in minutes)
+15 - ClearBonusPinkWind (for specified time in minutes)
+16 - ClearBonusBlueMoon (for specified time in minutes)
+17 - RandomPangUp
+18 - TreasurePointsUp (for specified time in minutes)
