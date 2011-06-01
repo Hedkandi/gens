@@ -1,0 +1,9 @@
+Decoration type:
+
+0 - Skin
+16 - Frame
+32 - Sticker
+48 - Slot (Whatever that is)
+80 - CutIn
+96 - Title
+ 
