@@ -37,7 +37,7 @@ public class iffHandler {
             return "TH";
         }
         else if ((Rev == 30319 || Rev == 18 || Rev == 26998 || Rev == 0) && Magic == 12) {
-            stringLength = 40;
+            stringLength = 64;
             longStringLength = 512;
             return "JP";
         }
