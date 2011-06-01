@@ -8,8 +8,6 @@ package iffClasses;
 import gens.uData;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +44,11 @@ public class iffMatch {
                                         "NA"};
     
     public iffMatch(byte[] inData) {
-        getItem(inData);
+        try {
+            getItem(inData);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public iffMatch() {
@@ -61,7 +63,7 @@ public class iffMatch {
         return colNames[titleIndex];
     }
     
-    private void getItem(byte[] inData) {
+    private void getItem(byte[] inData) throws IOException {
         try {
             isValid = uData.getBool(inData[0]);
             ItemID = uData.getInt(new byte[]{inData[4], inData[5], inData[6], inData[7]});
@@ -77,7 +79,7 @@ public class iffMatch {
             U3 = inData[330];
             U4 = inData[331];
         } catch (IOException ex) {
-            Logger.getLogger(iffMatch.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex);
         }
     }
 
