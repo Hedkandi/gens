@@ -23,6 +23,8 @@ public final class iffCourse extends iffBase {
     public String enName = ""; // 40 bytes - bytes 144-184
     public String thName = ""; // 40 bytes - bytes 144-184
     public byte bitFlag = 0;
+    public short U1 = 0;
+    public byte numStars = 0;
     public short Amount = 0; // 2 bytes - byte 110-111
     public String xmlFile = ""; // 2 bytes COM0? - bytes 185-186
     public short U34 = 0; // 2 bytes COM1? - bytes 187-188
@@ -31,7 +33,8 @@ public final class iffCourse extends iffBase {
     public String seqFile = "";
     String[] colNames = new String[] {  "English Short Name",
                                     "Thai Short Name?",
-                                    "Flag",
+                                    "NA",
+                                    "Stars",
                                     "XML-File",
                                     "COM3?",
                                     "COM4?",
@@ -69,8 +72,11 @@ public final class iffCourse extends iffBase {
             super.getItem(inData);
             enName = uData.getString(new ByteArrayInputStream(inData, 144, 40));
             thName = uData.getString(new ByteArrayInputStream(inData, 184, 40));
-            bitFlag = inData[224];
+            // Extracted data from byte 224
+            U1 = (short)(inData[224] >> 4);
+            numStars = (byte)(inData[224] & 0xF);
             xmlFile = uData.getString(new ByteArrayInputStream(inData, 225, 40));
+            // 3 empty bytes: 265-267
             U34 = uData.getShort(new byte[]{inData[265], inData[266]});
             U35 = inData[267];
             U36 = uData.getInt(new byte[]{inData[268], inData[269], inData[270], inData[271]});
@@ -97,16 +103,18 @@ public final class iffCourse extends iffBase {
                 case (base+1):
                     return this.thName;
                 case (base+2):
-                    return this.bitFlag;
+                    return uData.getInt(this.U1);
                 case (base+3):
-                    return this.xmlFile;
+                    return uData.getShort(this.numStars);
                 case (base+4):
-                    return uData.getInt(this.U34);
+                    return this.xmlFile;
                 case (base+5):
-                    return uData.getShort(this.U35);
+                    return uData.getInt(this.U34);
                 case (base+6):
-                    return uData.getLong(this.U36);
+                    return uData.getShort(this.U35);
                 case (base+7):
+                    return uData.getLong(this.U36);
+                case (base+8):
                     return this.seqFile;
                 default:
                     return "&";
