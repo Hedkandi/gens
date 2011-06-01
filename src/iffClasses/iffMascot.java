@@ -23,10 +23,8 @@ public final class iffMascot extends iffBase {
     public String Sprite2Name = ""; 
     public String Sprite3Name = ""; 
     public short price1Day = 0; 
-    public short U33 = 0; 
-    public short U34 = 0; 
-    public short U35 = 0; 
-    public short U36 = 0; 
+    public int price15Days = 0; 
+    public int price30Days = 0; 
     public short U37 = 0; 
     public short U38 = 0; 
     public short U39 = 0; 
@@ -47,19 +45,17 @@ public final class iffMascot extends iffBase {
                                         "JPG",
                                         "Cost 1 Day",
                                         "Cost 15 Days?",
-                                        "May be a part of the 15 day cost",
                                         "Cost 30 Days?",
-                                        "May be a part of the 30 day cost",
                                         "NA",
                                         "NA",
                                         "NA",
                                         "NA",
                                         "NA",
-                                        "Pang or Exp multiplier",
-                                        "Pang or Exp multiplier",
+                                        "PangUp",
+                                        "ExpUp",
                                         "NA",
-                                        "NA",
-                                        "NA",
+                                        "Item Slots",
+                                        "Message board",
                                         "NA",
                                         "NA",
                                         "NA",
@@ -108,10 +104,8 @@ public final class iffMascot extends iffBase {
             Sprite2Name = uData.getString(new ByteArrayInputStream(inData, 144, uData.stringLength));
             Sprite3Name = uData.getString(new ByteArrayInputStream(inData, 184, uData.stringLength));
             price1Day = uData.getShort(new byte[]{inData[224], inData[225]});
-            U33 = uData.getShort(new byte[]{inData[226], inData[227]});
-            U34 = uData.getShort(new byte[]{inData[228], inData[229]});
-            U35 = uData.getShort(new byte[]{inData[230], inData[231]});
-            U36 = uData.getShort(new byte[]{inData[232], inData[233]});
+            price15Days = uData.getInt(new byte[]{inData[226], inData[227], inData[228], inData[229]});
+            price30Days = uData.getInt(new byte[]{inData[230], inData[231], inData[232], inData[233]});
             U37 = uData.getShort(new byte[]{inData[234], inData[235]});
             U38 = uData.getShort(new byte[]{inData[236], inData[237]});
             U39 = uData.getShort(new byte[]{inData[238], inData[239]});
@@ -147,44 +141,40 @@ public final class iffMascot extends iffBase {
                 case (base+2):
                     return uData.getInt(this.price1Day);
                 case (base+3):
-                    return uData.getInt(this.U33);
+                    return uData.getInt(this.price15Days);
                 case (base+4):
-                    return uData.getInt(this.U34);
+                    return uData.getInt(this.price30Days);
                 case (base+5):
-                    return uData.getInt(this.U35);
-                case (base+6):
-                    return uData.getInt(this.U36);
-                case (base+7):
                     return uData.getInt(this.U37);
-                case (base+8):
+                case (base+6):
                     return uData.getInt(this.U38);
-                case (base+9):
+                case (base+7):
                     return uData.getInt(this.U39);
-                case (base+10):
+                case (base+8):
                     return uData.getInt(this.U40);
-                case (base+11):
+                case (base+9):
                     return uData.getInt(this.U41);
-                case (base+12):
+                case (base+10):
                     return uData.getInt(this.U42);
-                case (base+13):
+                case (base+11):
                     return uData.getShort(this.U43);
-                case (base+14):
+                case (base+12):
                     return uData.getShort(this.U44);
-                case (base+15):
+                case (base+13):
                     return uData.getShort(this.U45);
-                case (base+16):
+                case (base+14):
                     return uData.getShort(this.U46);
-                case (base+17):
+                case (base+15):
                     return uData.getShort(this.U47);
-                case (base+18):
+                case (base+16):
                     return uData.getShort(this.U48);
-                case (base+19):
+                case (base+17):
                     return uData.getShort(this.U49);
-                case (base+20):
+                case (base+18):
                     return uData.getShort(this.U50);
-                case (base+21):
+                case (base+19):
                     return uData.getShort(this.U51);
-                case (base+22):
+                case (base+20):
                     return uData.getShort(this.U52);
                 default:
                     return "&";
@@ -209,63 +199,57 @@ public final class iffMascot extends iffBase {
                     this.price1Day = uData.getShort((Integer)value);
                     break;
                 case (base+3):
-                    this.U33 = uData.getShort((Integer)value);
+                    this.price15Days = uData.getShort((Integer)value);
                     break;
                 case (base+4):
-                    this.U34 = uData.getShort((Integer)value);
+                    this.price30Days = uData.getShort((Integer)value);
                     break;
                 case (base+5):
-                    this.U35 = uData.getShort((Integer)value);
-                    break;
-                case (base+6):
-                    this.U36 = uData.getShort((Integer)value);
-                    break;
-                case (base+7):
                     this.U37 = uData.getShort((Integer)value);
                     break;
-                case (base+8):
+                case (base+6):
                     this.U38 = uData.getShort((Integer)value);
                     break;
-                case (base+9):
+                case (base+7):
                     this.U39 = uData.getShort((Integer)value);
                     break;
-                case (base+10):
+                case (base+8):
                     this.U40 = uData.getShort((Integer)value);
                     break;
-                case (base+11):
+                case (base+9):
                     this.U41 = uData.getShort((Integer)value);
                     break;
-                case (base+12):
+                case (base+10):
                     this.U42 = uData.getShort((Integer)value);
                     break;
-                case (base+13):
+                case (base+11):
                     this.U43 = uData.getByte((Short)value);
                     break;
-                case (base+14):
+                case (base+12):
                     this.U44 = uData.getByte((Short)value);
                     break;
-                case (base+15):
+                case (base+13):
                     this.U45 = uData.getByte((Short)value);
                     break;
-                case (base+16):
+                case (base+14):
                     this.U46 = uData.getByte((Short)value);
                     break;
-                case (base+17):
+                case (base+15):
                     this.U47 = uData.getByte((Short)value);
                     break;
-                case (base+18):
+                case (base+16):
                     this.U48 = uData.getByte((Short)value);
                     break;
-                case (base+19):
+                case (base+17):
                     this.U49 = uData.getByte((Short)value);
                     break;
-                case (base+20):
+                case (base+18):
                     this.U50 = uData.getByte((Short)value);
                     break;
-                case (base+21):
+                case (base+19):
                     this.U51 = uData.getByte((Short)value);
                     break;
-                case (base+22):
+                case (base+20):
                     this.U52 = uData.getByte((Short)value);
                     break;
             }
