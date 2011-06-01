@@ -133,6 +133,7 @@ public final class iffCharacter extends iffBase {
         this.colNames = (String[]) temp.toArray(new String[temp.size()]);
         temp.clear();
         temp = null;
+        colNames[7] = "Character ID";
     }
 
     @Override
