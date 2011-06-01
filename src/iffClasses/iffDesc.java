@@ -8,8 +8,6 @@ package iffClasses;
 import gens.uData;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +20,11 @@ public class iffDesc {
                                     "ItemDescription"};
 
     public iffDesc(byte[] inData) {
-        getItem(inData);
+        try {
+            getItem(inData);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public iffDesc() {
@@ -37,12 +39,12 @@ public class iffDesc {
         return colNames[titleIndex];
     }
         
-    private void getItem(byte[] inData) {
+    private void getItem(byte[] inData) throws IOException {
         try {
             itemID = uData.getInt(new byte[]{inData[0], inData[1], inData[2], inData[3]});
-            ItemName = uData.getString(new ByteArrayInputStream(inData, 4, 512));
+            ItemName = uData.getString(new ByteArrayInputStream(inData, 4, iffHandler.longStringLength));
         } catch (IOException ex) {
-            Logger.getLogger(iffDesc.class.getName()).log(Level.SEVERE, null, ex);
+            throw new IOException(ex);
         }
     }
 
