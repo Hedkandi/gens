@@ -30,9 +30,9 @@ public final class iffCard extends iffBase {
     private short BonusType;
     public short BonusAmount = 0;
     public byte U28 = 0; // 2 bytes COM4? - bytes 193-194
-    public String UString1 = ""; // 2 bytes COM4? - bytes 193-194
-    public String UString2 = ""; // 2 bytes COM4? - bytes 193-194
-    public String UString3 = ""; // 2 bytes COM4? - bytes 193-194
+    public String SubIcon = ""; // 2 bytes COM4? - bytes 193-194
+    public String SlotImage = ""; // 2 bytes COM4? - bytes 193-194
+    public String BuffImage = ""; // 2 bytes COM4? - bytes 193-194
     public short BonusTime = 0; // 2 bytes COM4? - bytes 193-194
     public short CardPack = 0; // 2 bytes COM4? - bytes 193-194
     public short CardNum = 0; // 2 bytes COM4? - bytes 193-194
@@ -49,9 +49,9 @@ public final class iffCard extends iffBase {
                                             "Curve Slot Up",
                                             "Bonus Type",
                                             "Bonus Amount",
-                                            "GFX1",
-                                            "GFX2",
-                                            "GFX3",
+                                            "SubIcon",
+                                            "Slot Image",
+                                            "Buff Image",
                                             "Time",
                                             "Card Pack",
                                             "Card Number",
@@ -111,9 +111,9 @@ public final class iffCard extends iffBase {
         CurveUp = uData.getByte(Short.parseShort(inData[45]));
         BonusAmount = uData.getByte(Short.parseShort(inData[47]));
         U28 = uData.getByte(Short.parseShort(inData[48]));
-        UString1 = inData[49];
-        UString2 = inData[50];
-        UString3 = inData[51];
+        SubIcon = inData[49];
+        SlotImage = inData[50];
+        BuffImage = inData[51];
         BonusTime = uData.getShort(Integer.parseInt(inData[52]));
         CardPack = uData.getShort(Integer.parseInt(inData[53]));
         CardNum = uData.getShort(Integer.parseInt(inData[54]));
@@ -134,9 +134,9 @@ public final class iffCard extends iffBase {
             CurveUp = uData.getShort(new byte[]{inData[194], inData[195]});
             BonusType = uData.getShort(new byte[]{inData[196], inData[197]});
             BonusAmount = uData.getShort(new byte[]{inData[198], inData[199]});
-            UString1 = uData.getString(new ByteArrayInputStream(inData, 200, uData.stringLength));
-            UString2 = uData.getString(new ByteArrayInputStream(inData, 240, uData.stringLength));
-            UString3 = uData.getString(new ByteArrayInputStream(inData, 280, uData.stringLength));
+            SubIcon = uData.getString(new ByteArrayInputStream(inData, 200, uData.stringLength));
+            SlotImage = uData.getString(new ByteArrayInputStream(inData, 240, uData.stringLength));
+            BuffImage = uData.getString(new ByteArrayInputStream(inData, 280, uData.stringLength));
             BonusTime = uData.getShort(new byte[]{inData[320], inData[321]});
             CardPack = uData.getShort(new byte[]{inData[322], inData[323]});
             CardNum = uData.getShort(new byte[]{inData[324], inData[325]});
@@ -174,11 +174,11 @@ public final class iffCard extends iffBase {
                 case (base+9):
                     return uData.getInt(this.BonusAmount);
                 case (base+10):
-                    return this.UString1;
+                    return this.SubIcon;
                 case (base+11):
-                    return this.UString2;
+                    return this.SlotImage;
                 case (base+12):
-                    return this.UString3;
+                    return this.BuffImage;
                 case (base+13):
                     return uData.getInt(this.BonusTime);
                 case (base+14):
@@ -234,13 +234,13 @@ public final class iffCard extends iffBase {
                     this.BonusAmount = uData.getByte((Short)value);
                     break;
                 case (base+11):
-                    this.UString1 = (String)value;
+                    this.SubIcon = (String)value;
                     break;
                 case (base+12):
-                    this.UString2 = (String)value;
+                    this.SlotImage = (String)value;
                     break;
                 case (base+13):
-                    this.UString3 = (String)value;
+                    this.BuffImage = (String)value;
                     break;
                 case (base+14):
                     this.BonusTime = uData.getShort((Integer)value);
