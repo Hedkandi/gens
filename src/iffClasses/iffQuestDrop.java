@@ -169,67 +169,67 @@ public final class iffQuestDrop extends iffBase {
             switch (colIndex) {
                 case base:
                     return uData.getInt(this.U20);
-                case (base+2):
+                case (base+1):
                     return uData.getInt(this.U21);
-                case (base+3):
+                case (base+2):
                     return uData.getInt(this.U22);
-                case (base+4):
+                case (base+3):
                     return uData.getInt(this.U23);
-                case (base+5):
+                case (base+4):
                     return uData.getInt(this.U24);
-                case (base+6):
+                case (base+5):
                     return uData.getInt(this.U25);
-                case (base+7):
+                case (base+6):
                     return uData.getInt(this.U26);
-                case (base+8):
+                case (base+7):
                     return uData.getInt(this.U27);
-                case (base+9):
+                case (base+8):
                     return uData.getInt(this.U28);
-                case (base+10):
+                case (base+9):
                     return uData.getInt(this.U29);
-                case (base+11):
+                case (base+10):
                     return uData.getInt(this.U30);
-                case (base+12):
+                case (base+11):
                     return uData.getInt(this.U31);
-                case (base+13):
+                case (base+12):
                     return uData.getInt(this.U32);
-                case (base+14):
+                case (base+13):
                     return uData.getInt(this.U44);
-                case (base+15):
+                case (base+14):
                     return uData.getInt(this.U45);
-                case (base+16):
+                case (base+15):
                     return uData.getInt(this.U46);
-                case (base+17):
+                case (base+16):
                     return this.Sprite2Name;
-                case (base+18):
+                case (base+17):
                     return uData.getInt(this.Amount);
-                case (base+19):
+                case (base+18):
                     return uData.getInt(this.U33);
-                case (base+20):
+                case (base+19):
                     return uData.getInt(this.U34);
-                case (base+21):
+                case (base+20):
                     return uData.getInt(this.U35);
-                case (base+22):
+                case (base+21):
                     return uData.getInt(this.U36);
-                case (base+23):
+                case (base+22):
                     return uData.getInt(this.U37);
-                case (base+24):
+                case (base+23):
                     return uData.getInt(this.U38);
-                case (base+25):
+                case (base+24):
                     return uData.getInt(this.U39);
-                case (base+26):
+                case (base+25):
                     return uData.getInt(this.U40);
-                case (base+27):
+                case (base+26):
                     return uData.getInt(this.U41);
-                case (base+28):
+                case (base+27):
                     return uData.getInt(this.U42);
-                case (base+29):
+                case (base+28):
                     return uData.getShort(this.U43);
-                case (base+30):
+                case (base+29):
                     return uData.getShort(this.U47);
-                case (base+31):
+                case (base+30):
                     return uData.getInt(this.U48);
-                case (base+32):
+                case (base+31):
                     return uData.getInt(this.U49);
                 default:
                     return "&";
