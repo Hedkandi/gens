@@ -21,7 +21,7 @@ public final class iffPart extends iffBase {
     // base should be equal to iffBase.getColNum()
     private static final int base = iffBase.base;
     public String Sprite2Name = ""; 
-    public byte numStat1 = 0; 
+    public byte PartCategory = 0; 
     public byte numStat2 = 0; 
     public byte numStat3 = 0; 
     public byte numStat4 = 0; 
@@ -39,16 +39,16 @@ public final class iffPart extends iffBase {
     public String Sprite6Name = ""; 
     public String Sprite7Name = ""; 
     public String Sprite8Name = ""; 
-    public short U33 = 0; 
-    public short U34 = 0; 
-    public short U35 = 0; 
-    public short U36 = 0; 
-    public short U37 = 0; 
-    public short U38 = 0; 
-    public short U39 = 0; 
-    public short U40 = 0; 
-    public short U41 = 0; 
-    public short U42 = 0; 
+    public short PowerUp = 0; 
+    public short ControlUp = 0; 
+    public short AccuracyUp = 0; 
+    public short SpinUp = 0; 
+    public short CurveUp = 0; 
+    public short PowerSlotUp = 0; 
+    public short ControlSlotUp = 0; 
+    public short AccuracySlotUp = 0; 
+    public short SpinSlotUp = 0; 
+    public short CurveSlotUp = 0; 
     public String UString1 = "";
     public int equipWith1 = 0;
     public int equipWith2 = 0;
@@ -57,9 +57,9 @@ public final class iffPart extends iffBase {
     public short U69 = 0; 
     public short U70 = 0; 
     String[] colNames = new String[] {  "Model",
-                                        "Amount",
-                                        "NA",
-                                        "NA",
+                                        "Part Category",
+                                        "PosMask",
+                                        "HideMask",
                                         "NA",
                                         "NA",
                                         "NA",
@@ -75,19 +75,19 @@ public final class iffPart extends iffBase {
                                         "Texture #4",
                                         "Texture #5",
                                         "Texture #6",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "Equip With #1?",
-                                        "Equip With #2?",
+                                        "Power Up",
+                                        "Control Up",
+                                        "Accuracy Up",
+                                        "Spin Up",
+                                        "Curve Up",
+                                        "Power Slot Up",
+                                        "Control Slot Up",
+                                        "Accuracy Slot Up",
+                                        "Spin Slot Up",
+                                        "Curve Slot Up",
+                                        "Equippable With",
+                                        "Subpart #1",
+                                        "Subpart #2",
                                         "NA",
                                         "NA",
                                         "NA",
@@ -132,7 +132,7 @@ public final class iffPart extends iffBase {
         try {
             super.getItem(inData);
             Sprite2Name = uData.getString(new ByteArrayInputStream(inData, 144, uData.stringLength));
-            numStat1 = inData[184];
+            PartCategory = inData[184];
             numStat2 = inData[185];
             numStat3 = inData[186];
             numStat4 = inData[187];
@@ -150,16 +150,16 @@ public final class iffPart extends iffBase {
             Sprite6Name = uData.getString(new ByteArrayInputStream(inData, 316, uData.stringLength));
             Sprite7Name = uData.getString(new ByteArrayInputStream(inData, 356, uData.stringLength));
             Sprite8Name = uData.getString(new ByteArrayInputStream(inData, 396, uData.stringLength));
-            U33 = uData.getShort(new byte[]{inData[436], inData[437]});
-            U34 = uData.getShort(new byte[]{inData[438], inData[439]});
-            U35 = uData.getShort(new byte[]{inData[440], inData[441]});
-            U36 = uData.getShort(new byte[]{inData[442], inData[443]});
-            U37 = uData.getShort(new byte[]{inData[444], inData[445]});
-            U38 = uData.getShort(new byte[]{inData[446], inData[447]});
-            U39 = uData.getShort(new byte[]{inData[448], inData[449]});
-            U40 = uData.getShort(new byte[]{inData[450], inData[451]});
-            U41 = uData.getShort(new byte[]{inData[452], inData[453]});
-            U42 = uData.getShort(new byte[]{inData[454], inData[455]});
+            PowerUp = uData.getShort(new byte[]{inData[436], inData[437]});
+            ControlUp = uData.getShort(new byte[]{inData[438], inData[439]});
+            AccuracyUp = uData.getShort(new byte[]{inData[440], inData[441]});
+            SpinUp = uData.getShort(new byte[]{inData[442], inData[443]});
+            CurveUp = uData.getShort(new byte[]{inData[444], inData[445]});
+            PowerSlotUp = uData.getShort(new byte[]{inData[446], inData[447]});
+            ControlSlotUp = uData.getShort(new byte[]{inData[448], inData[449]});
+            AccuracySlotUp = uData.getShort(new byte[]{inData[450], inData[451]});
+            SpinSlotUp = uData.getShort(new byte[]{inData[452], inData[453]});
+            CurveSlotUp = uData.getShort(new byte[]{inData[454], inData[455]});
             UString1 = uData.getString(new ByteArrayInputStream(inData, 456, uData.stringLength));
             equipWith1 = uData.getInt(new byte[]{inData[496], inData[497], inData[498], inData[499]});
             equipWith2 = uData.getInt(new byte[]{inData[500], inData[501], inData[502], inData[503]});
@@ -182,7 +182,7 @@ public final class iffPart extends iffBase {
                 case base:
                     return this.Sprite2Name;
                 case (base+1):
-                    return uData.getShort(this.numStat1);
+                    return uData.getShort(this.PartCategory);
                 case (base+2):
                     return uData.getShort(this.numStat2);
                 case (base+3):
@@ -218,25 +218,25 @@ public final class iffPart extends iffBase {
                 case (base+18):
                     return this.Sprite8Name;
                 case (base+19):
-                    return uData.getInt(this.U33);
+                    return uData.getInt(this.PowerUp);
                 case (base+20):
-                    return uData.getInt(this.U34);
+                    return uData.getInt(this.ControlUp);
                 case (base+21):
-                    return uData.getInt(this.U35);
+                    return uData.getInt(this.AccuracyUp);
                 case (base+22):
-                    return uData.getInt(this.U36);
+                    return uData.getInt(this.SpinUp);
                 case (base+23):
-                    return uData.getInt(this.U37);
+                    return uData.getInt(this.CurveUp);
                 case (base+24):
-                    return uData.getInt(this.U38);
+                    return uData.getInt(this.PowerSlotUp);
                 case (base+25):
-                    return uData.getInt(this.U39);
+                    return uData.getInt(this.ControlSlotUp);
                 case (base+26):
-                    return uData.getInt(this.U40);
+                    return uData.getInt(this.AccuracySlotUp);
                 case (base+27):
-                    return uData.getInt(this.U41);
+                    return uData.getInt(this.SpinSlotUp);
                 case (base+28):
-                    return uData.getInt(this.U42);
+                    return uData.getInt(this.CurveSlotUp);
                 case (base+29):
                     return this.UString1;
                 case (base+30):
@@ -268,7 +268,7 @@ public final class iffPart extends iffBase {
                     this.Sprite2Name = (String)value;
                     break;
                 case (base+1):
-                    this.numStat1 = uData.getByte((Short)value);
+                    this.PartCategory = uData.getByte((Short)value);
                     break;
                 case (base+2):
                     this.numStat2 = uData.getByte((Short)value);
@@ -322,34 +322,34 @@ public final class iffPart extends iffBase {
                     this.Sprite8Name = (String)value;
                     break;
                 case (base+19):
-                    this.U33 = uData.getShort((Integer)value);
+                    this.PowerUp = uData.getShort((Integer)value);
                     break;
                 case (base+20):
-                    this.U34 = uData.getShort((Integer)value);
+                    this.ControlUp = uData.getShort((Integer)value);
                     break;
                 case (base+21):
-                    this.U35 = uData.getShort((Integer)value);
+                    this.AccuracyUp = uData.getShort((Integer)value);
                     break;
                 case (base+22):
-                    this.U36 = uData.getShort((Integer)value);
+                    this.SpinUp = uData.getShort((Integer)value);
                     break;
                 case (base+23):
-                    this.U37 = uData.getShort((Integer)value);
+                    this.CurveUp = uData.getShort((Integer)value);
                     break;
                 case (base+24):
-                    this.U38 = uData.getShort((Integer)value);
+                    this.PowerSlotUp = uData.getShort((Integer)value);
                     break;
                 case (base+25):
-                    this.U39 = uData.getShort((Integer)value);
+                    this.ControlSlotUp = uData.getShort((Integer)value);
                     break;
                 case (base+26):
-                    this.U40 = uData.getShort((Integer)value);
+                    this.AccuracySlotUp = uData.getShort((Integer)value);
                     break;
                 case (base+27):
-                    this.U41 = uData.getShort((Integer)value);
+                    this.SpinSlotUp = uData.getShort((Integer)value);
                     break;
                 case (base+28):
-                    this.U42 = uData.getShort((Integer)value);
+                    this.CurveSlotUp = uData.getShort((Integer)value);
                     break;
                 case (base+29):
                     this.UString1 = (String)value;
