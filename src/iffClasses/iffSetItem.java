@@ -19,54 +19,54 @@ public final class iffSetItem extends iffBase {
     
     // base should be equal to iffBase.getColNum()
     private static final int base = iffBase.base;
-    public int numRef = 0;
-    public int refItem1 = 0;
-    public int refItem2 = 0;
-    public int refItem3 = 0;
-    public int refItem4 = 0;
-    public int refItem5 = 0;
-    public int refItem6 = 0;
-    public int refItem7 = 0;
-    public int refItem8 = 0;
-    public int refItem9 = 0;
-    public int refItem10 = 0;
-    public short Amount = 0; 
-    public short U33 = 0; 
-    public short U34 = 0; 
-    public short U35 = 0; 
-    public short U36 = 0; 
-    public short U37 = 0; 
-    public short U38 = 0; 
-    public short U39 = 0; 
-    public short U40 = 0; 
-    public short U41 = 0; 
+    public int numItems = 0;
+    public int Item1 = 0;
+    public int Item2 = 0;
+    public int Item3 = 0;
+    public int Item4 = 0;
+    public int Item5 = 0;
+    public int Item6 = 0;
+    public int Item7 = 0;
+    public int Item8 = 0;
+    public int Item9 = 0;
+    public int Item10 = 0;
+    public short numItem1 = 0; 
+    public short numItem2 = 0; 
+    public short numItem3 = 0; 
+    public short numItem4 = 0; 
+    public short numItem5 = 0; 
+    public short numItem6 = 0; 
+    public short numItem7 = 0; 
+    public short numItem8 = 0; 
+    public short numItem9 = 0; 
+    public short numItem10 = 0; 
     public short U42 = 0; 
     public short U43 = 0; 
     public short U44 = 0; 
     public short U45 = 0; 
     public short U46 = 0; 
     public short U47 = 0; 
-    String[] colNames = new String[] {  "numRef",
-                                        "Ref1",
-                                        "Ref2",
-                                        "Ref3",
-                                        "Ref4",
-                                        "Ref5",
-                                        "Ref6",
-                                        "Ref7",
-                                        "Ref8",
-                                        "Ref9",
-                                        "Ref10",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
-                                        "NA",
+    String[] colNames = new String[] {  "Number of Items",
+                                        "Item 1",
+                                        "Item 2",
+                                        "Item 3",
+                                        "Item 4",
+                                        "Item 5",
+                                        "Item 6",
+                                        "Item 7",
+                                        "Item 8",
+                                        "Item 9",
+                                        "Item 10",
+                                        "Item 1 Amount",
+                                        "Item 2 Amount",
+                                        "Item 3 Amount",
+                                        "Item 4 Amount",
+                                        "Item 5 Amount",
+                                        "Item 6 Amount",
+                                        "Item 7 Amount",
+                                        "Item 8 Amount",
+                                        "Item 9 Amount",
+                                        "Item 10 Amount",
                                         "NA",
                                         "NA",
                                         "NA",
@@ -96,6 +96,8 @@ public final class iffSetItem extends iffBase {
         this.colNames = (String[]) temp.toArray(new String[temp.size()]);
         temp.clear();
         temp = null;
+        colNames[3] = "NA";
+        colNames[4] = "charSerial";
     }
 
     @Override
@@ -107,27 +109,27 @@ public final class iffSetItem extends iffBase {
     public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);
-            numRef = uData.getInt(new byte[]{inData[144], inData[145], inData[146], inData[147]});
-            refItem1 = uData.getInt(new byte[]{inData[148], inData[149], inData[150], inData[151]});
-            refItem2 = uData.getInt(new byte[]{inData[152], inData[153], inData[154], inData[155]});
-            refItem3 = uData.getInt(new byte[]{inData[156], inData[157], inData[158], inData[159]});
-            refItem4 = uData.getInt(new byte[]{inData[160], inData[161], inData[162], inData[163]});
-            refItem5 = uData.getInt(new byte[]{inData[164], inData[165], inData[166], inData[167]});
-            refItem6 = uData.getInt(new byte[]{inData[168], inData[169], inData[170], inData[171]});
-            refItem7 = uData.getInt(new byte[]{inData[172], inData[173], inData[174], inData[175]});
-            refItem8 = uData.getInt(new byte[]{inData[176], inData[177], inData[178], inData[179]});
-            refItem9 = uData.getInt(new byte[]{inData[180], inData[181], inData[182], inData[183]});
-            refItem10 = uData.getInt(new byte[]{inData[184], inData[185], inData[186], inData[187]});
-            Amount = uData.getShort(new byte[]{inData[188], inData[189]});
-            U33 = uData.getShort(new byte[]{inData[190], inData[191]});
-            U34 = uData.getShort(new byte[]{inData[192], inData[193]});
-            U35 = uData.getShort(new byte[]{inData[194], inData[195]});
-            U36 = uData.getShort(new byte[]{inData[196], inData[197]});
-            U37 = uData.getShort(new byte[]{inData[198], inData[199]});
-            U38 = uData.getShort(new byte[]{inData[200], inData[201]});
-            U39 = uData.getShort(new byte[]{inData[202], inData[203]});
-            U40 = uData.getShort(new byte[]{inData[204], inData[205]});
-            U41 = uData.getShort(new byte[]{inData[206], inData[207]});
+            numItems = uData.getInt(new byte[]{inData[144], inData[145], inData[146], inData[147]});
+            Item1 = uData.getInt(new byte[]{inData[148], inData[149], inData[150], inData[151]});
+            Item2 = uData.getInt(new byte[]{inData[152], inData[153], inData[154], inData[155]});
+            Item3 = uData.getInt(new byte[]{inData[156], inData[157], inData[158], inData[159]});
+            Item4 = uData.getInt(new byte[]{inData[160], inData[161], inData[162], inData[163]});
+            Item5 = uData.getInt(new byte[]{inData[164], inData[165], inData[166], inData[167]});
+            Item6 = uData.getInt(new byte[]{inData[168], inData[169], inData[170], inData[171]});
+            Item7 = uData.getInt(new byte[]{inData[172], inData[173], inData[174], inData[175]});
+            Item8 = uData.getInt(new byte[]{inData[176], inData[177], inData[178], inData[179]});
+            Item9 = uData.getInt(new byte[]{inData[180], inData[181], inData[182], inData[183]});
+            Item10 = uData.getInt(new byte[]{inData[184], inData[185], inData[186], inData[187]});
+            numItem1 = uData.getShort(new byte[]{inData[188], inData[189]});
+            numItem2 = uData.getShort(new byte[]{inData[190], inData[191]});
+            numItem3 = uData.getShort(new byte[]{inData[192], inData[193]});
+            numItem4 = uData.getShort(new byte[]{inData[194], inData[195]});
+            numItem5 = uData.getShort(new byte[]{inData[196], inData[197]});
+            numItem6 = uData.getShort(new byte[]{inData[198], inData[199]});
+            numItem7 = uData.getShort(new byte[]{inData[200], inData[201]});
+            numItem8 = uData.getShort(new byte[]{inData[202], inData[203]});
+            numItem9 = uData.getShort(new byte[]{inData[204], inData[205]});
+            numItem10 = uData.getShort(new byte[]{inData[206], inData[207]});
             U42 = uData.getShort(new byte[]{inData[208], inData[209]});
             U43 = uData.getShort(new byte[]{inData[210], inData[211]});
             U44 = uData.getShort(new byte[]{inData[212], inData[213]});
@@ -153,47 +155,47 @@ public final class iffSetItem extends iffBase {
         else {
             switch (colIndex) {
                 case base:
-                    return uData.getLong(this.numRef);
+                    return uData.getLong(this.numItems);
                 case (base+1):
-                    return uData.getLong(this.refItem1);
+                    return uData.getLong(this.Item1);
                 case (base+2):
-                    return uData.getLong(this.refItem2);
+                    return uData.getLong(this.Item2);
                 case (base+3):
-                    return uData.getLong(this.refItem3);
+                    return uData.getLong(this.Item3);
                 case (base+4):
-                    return uData.getLong(this.refItem4);
+                    return uData.getLong(this.Item4);
                 case (base+5):
-                    return uData.getLong(this.refItem5);
+                    return uData.getLong(this.Item5);
                 case (base+6):
-                    return uData.getLong(this.refItem6);
+                    return uData.getLong(this.Item6);
                 case (base+7):
-                    return uData.getLong(this.refItem7);
+                    return uData.getLong(this.Item7);
                 case (base+8):
-                    return uData.getLong(this.refItem8);
+                    return uData.getLong(this.Item8);
                 case (base+9):
-                    return uData.getLong(this.refItem9);
+                    return uData.getLong(this.Item9);
                 case (base+10):
-                    return uData.getLong(this.refItem10);
+                    return uData.getLong(this.Item10);
                 case (base+11):
-                    return uData.getInt(this.Amount);
+                    return uData.getInt(this.numItem1);
                 case (base+12):
-                    return uData.getInt(this.U33);
+                    return uData.getInt(this.numItem2);
                 case (base+13):
-                    return uData.getInt(this.U34);
+                    return uData.getInt(this.numItem3);
                 case (base+14):
-                    return uData.getInt(this.U35);
+                    return uData.getInt(this.numItem4);
                 case (base+15):
-                    return uData.getInt(this.U36);
+                    return uData.getInt(this.numItem5);
                 case (base+16):
-                    return uData.getInt(this.U37);
+                    return uData.getInt(this.numItem6);
                 case (base+17):
-                    return uData.getInt(this.U38);
+                    return uData.getInt(this.numItem7);
                 case (base+18):
-                    return uData.getInt(this.U39);
+                    return uData.getInt(this.numItem8);
                 case (base+19):
-                    return uData.getInt(this.U40);
+                    return uData.getInt(this.numItem9);
                 case (base+20):
-                    return uData.getInt(this.U41);
+                    return uData.getInt(this.numItem10);
                 case (base+21):
                     return uData.getInt(this.U42);
                 case (base+22):
@@ -220,67 +222,67 @@ public final class iffSetItem extends iffBase {
         else {
             switch (colIndex) {
                 case base:
-                    this.numRef = uData.getInt((Long)value);
+                    this.numItems = uData.getInt((Long)value);
                     break;
                 case (base+1):
-                    this.refItem1 = uData.getInt((Long)value);
+                    this.Item1 = uData.getInt((Long)value);
                     break;
                 case (base+2):
-                    this.refItem2 = uData.getInt((Long)value);
+                    this.Item2 = uData.getInt((Long)value);
                     break;
                 case (base+3):
-                    this.refItem3 = uData.getInt((Long)value);
+                    this.Item3 = uData.getInt((Long)value);
                     break;
                 case (base+4):
-                    this.refItem4 = uData.getInt((Long)value);
+                    this.Item4 = uData.getInt((Long)value);
                     break;
                 case (base+5):
-                    this.refItem5 = uData.getInt((Long)value);
+                    this.Item5 = uData.getInt((Long)value);
                     break;
                 case (base+6):
-                    this.refItem6 = uData.getInt((Long)value);
+                    this.Item6 = uData.getInt((Long)value);
                     break;
                 case (base+7):
-                    this.refItem7 = uData.getInt((Long)value);
+                    this.Item7 = uData.getInt((Long)value);
                     break;
                 case (base+8):
-                    this.refItem8 = uData.getInt((Long)value);
+                    this.Item8 = uData.getInt((Long)value);
                     break;
                 case (base+9):
-                    this.refItem9 = uData.getInt((Long)value);
+                    this.Item9 = uData.getInt((Long)value);
                     break;
                 case (base+10):
-                    this.refItem10 = uData.getInt((Long)value);
+                    this.Item10 = uData.getInt((Long)value);
                     break;
                 case (base+11):
-                    this.Amount = uData.getShort((Integer)value);
+                    this.numItem1 = uData.getShort((Integer)value);
                     break;
                 case (base+12):
-                    this.U33 = uData.getShort((Integer)value);
+                    this.numItem2 = uData.getShort((Integer)value);
                     break;
                 case (base+13):
-                    this.U34 = uData.getShort((Integer)value);
+                    this.numItem3 = uData.getShort((Integer)value);
                     break;
                 case (base+14):
-                    this.U35 = uData.getShort((Integer)value);
+                    this.numItem4 = uData.getShort((Integer)value);
                     break;
                 case (base+15):
-                    this.U36 = uData.getShort((Integer)value);
+                    this.numItem5 = uData.getShort((Integer)value);
                     break;
                 case (base+16):
-                    this.U37 = uData.getShort((Integer)value);
+                    this.numItem6 = uData.getShort((Integer)value);
                     break;
                 case (base+17):
-                    this.U38 = uData.getShort((Integer)value);
+                    this.numItem7 = uData.getShort((Integer)value);
                     break;
                 case (base+18):
-                    this.U39 = uData.getShort((Integer)value);
+                    this.numItem8 = uData.getShort((Integer)value);
                     break;
                 case (base+19):
-                    this.U40 = uData.getShort((Integer)value);
+                    this.numItem9 = uData.getShort((Integer)value);
                     break;
                 case (base+20):
-                    this.U41 = uData.getShort((Integer)value);
+                    this.numItem10 = uData.getShort((Integer)value);
                     break;
                 case (base+21):
                     this.U42 = uData.getShort((Integer)value);
