@@ -106,6 +106,39 @@ public final class iffSetItem extends iffBase {
     }
 
     @Override
+    public void getItem(String[] inData) throws IOException {
+        super.getItem(inData);
+        numItems = uData.getInt(inData[28]);
+        Item1 = uData.getInt(inData[29]);
+        Item2 = uData.getInt(inData[30]);
+        Item3 = uData.getInt(inData[31]);
+        Item4 = uData.getInt(inData[32]);
+        Item5 = uData.getInt(inData[33]);
+        Item6 = uData.getInt(inData[34]);
+        Item7 = uData.getInt(inData[35]);
+        Item8 = uData.getInt(inData[36]);
+        Item9 = uData.getInt(inData[37]);
+        Item10 = uData.getInt(inData[38]);
+        numItem1 = uData.getShort(inData[39]);
+        numItem2 = uData.getShort(inData[40]);
+        numItem3 = uData.getShort(inData[41]);
+        numItem4 = uData.getShort(inData[42]);
+        numItem5 = uData.getShort(inData[43]);
+        numItem6 = uData.getShort(inData[44]);
+        numItem7 = uData.getShort(inData[45]);
+        numItem8 = uData.getShort(inData[46]);
+        numItem9 = uData.getShort(inData[47]);
+        numItem10 = uData.getShort(inData[48]);
+        U42 = uData.getShort(inData[49]);
+        U43 = uData.getShort(inData[50]);
+        U44 = uData.getShort(inData[51]);
+        U45 = uData.getShort(inData[52]);
+        U46 = uData.getShort(inData[53]);
+        U47 = uData.getShort(inData[54]);
+        //throw new IOException("not done");
+    }
+    
+    @Override
     public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);
