@@ -13,20 +13,20 @@ import java.io.IOException;
  *
  * @author hedkandi
  */
-public class iffDesc {
+public final class iffDesc {
     public int itemID = 0;
     public String ItemName = "";
     String[] colNames = new String[] {  "ItemID",
                                     "ItemDescription"};
 
-    public iffDesc(byte[] inData) {
-        try {
-            getItem(inData);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+    public iffDesc(byte[] inData) throws Exception {
+        getItem(inData);
     }
 
+    public iffDesc(String[] inData) throws Exception {
+        getItem(inData);
+    }
+        
     public iffDesc() {
         
     }
@@ -39,12 +39,21 @@ public class iffDesc {
         return colNames[titleIndex];
     }
         
-    private void getItem(byte[] inData) throws IOException {
+    public void getItem(String[] inData) throws Exception {
+        try {
+            itemID = uData.getInt(Long.parseLong(inData[0]));
+            ItemName = inData[1];
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
+    private void getItem(byte[] inData) throws Exception {
         try {
             itemID = uData.getInt(new byte[]{inData[0], inData[1], inData[2], inData[3]});
             ItemName = uData.getString(new ByteArrayInputStream(inData, 4, iffHandler.longStringLength));
-        } catch (IOException ex) {
-            throw new IOException(ex);
+        } catch (Exception ex) {
+            throw ex;
         }
     }
 
