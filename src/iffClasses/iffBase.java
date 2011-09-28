@@ -120,45 +120,63 @@ public class iffBase {
         return this.colNames.length;
     }
     
-    public void getItem(String[] inData) {
+    public void getItem(String[] inData) throws IOException {
         try {
             if (inData[0].equals("true")) {
                 isValid = true;
             }
             ItemID = uData.getInt(Long.parseLong(inData[1]));
-            itemName = inData[2];
-            lvlReq = uData.getByte(Short.parseShort(inData[3]));
-            if (inData[4].equals("true")) {
+            iffType = uData.getByte(Short.parseShort(inData[2]));
+            charSerial = uData.getShort(Integer.parseInt(inData[3]));
+            itemPos = uData.getByte(Short.parseShort(inData[4]));
+            itemGroup = uData.getByte(Short.parseShort(inData[5]));
+            itemType = uData.getByte(Short.parseShort(inData[6]));
+            itemSerial = uData.getShort(Integer.parseInt(inData[7]));
+            itemName = inData[8];
+            
+            lvlReq = uData.getByte(Short.parseShort(inData[9]));
+            if (inData[10].equals("true")) {
                 isMaxLVL = true;
             }
-            Icon = inData[5];
-            itemPrice = uData.getInt(Long.parseLong(inData[9]));
-            DiscountPrice = uData.getInt(Long.parseLong(inData[10]));
-            UsedPrice = uData.getInt(Long.parseLong(inData[11]));
+            Icon = inData[11];
+            itemPrice = uData.getInt(Long.parseLong(inData[12]));
+            DiscountPrice = uData.getInt(Long.parseLong(inData[13]));
+            UsedPrice = uData.getInt(Long.parseLong(inData[14]));
+            if (inData[15].equals("true")) {
+                Cookies = true;
+            }
+            if (inData[16].equals("true")) {
+                Pang = true;
+            }
+            if (inData[17].equals("true")) {
+                Free = true;
+            }
+            if (inData[18].equals("true")) {
+                inStock = true;
+            }
+            if (inData[19].equals("true")) {
+                disableGift = true;
+            }
+            if (inData[20].equals("true")) {
+                showSpecial = true;
+            }
+            if (inData[21].equals("true")) {
+                showNew = true;
+            }
+            if (inData[22].equals("true")) {
+                showHot = true;
+            }
             // TODO Read the booleans instead of byte
             //moneyFlag = uData.getByte(Short.parseShort(inData[12]));
             //shopFlag = uData.getByte(Short.parseShort(inData[13]));
-            timeFlag = uData.getByte(Short.parseShort(inData[14]));
-            Time = uData.getByte(Short.parseShort(inData[15]));
-            Point = uData.getInt(Long.parseLong(inData[16]));
-            fYear = uData.getShort(Integer.parseInt(inData[17]));
-            fMonth = uData.getShort(Integer.parseInt(inData[18]));
-            fZero = uData.getShort(Integer.parseInt(inData[19]));
-            fDay = uData.getShort(Integer.parseInt(inData[20]));
-            fHour = uData.getShort(Integer.parseInt(inData[21]));
-            fMinute = uData.getShort(Integer.parseInt(inData[22]));
-            fSecond = uData.getShort(Integer.parseInt(inData[23]));
-            fMSecond = uData.getShort(Integer.parseInt(inData[24]));
-            tYear = uData.getShort(Integer.parseInt(inData[25]));
-            tMonth = uData.getShort(Integer.parseInt(inData[26]));
-            tZero = uData.getShort(Integer.parseInt(inData[27]));
-            tDay = uData.getShort(Integer.parseInt(inData[28]));
-            tHour = uData.getShort(Integer.parseInt(inData[29]));
-            tMinute = uData.getShort(Integer.parseInt(inData[30]));
-            tSecond = uData.getShort(Integer.parseInt(inData[31]));
-            tMSecond = uData.getShort(Integer.parseInt(inData[32]));
+            timeFlag = uData.getByte(Short.parseShort(inData[23]));
+            Time = uData.getByte(Short.parseShort(inData[24]));
+            Point = uData.getInt(Long.parseLong(inData[25]));
+            startDateTime.setTime(inData[26]);
+            endDateTime.setTime(inData[27]);
         } catch (Exception ex) {
-            //throw new IOException("Failed to read base data.");
+            System.exit(1);
+            throw new IOException(ex.getMessage() + "Failed to read base data.");
         }
     }
     
