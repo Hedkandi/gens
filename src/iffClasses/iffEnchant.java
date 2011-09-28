@@ -26,6 +26,10 @@ public class iffEnchant {
         getItem(inData);
     }
 
+    public iffEnchant(String[] inData) throws Exception {
+        getItem(inData);
+    }
+
     public iffEnchant() {
         
     }
@@ -36,6 +40,17 @@ public class iffEnchant {
     
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    public void getItem(String[] inData) throws Exception {
+        try {
+            Valid = uData.getInt(Long.parseLong(inData[0]));
+            EnchantID = uData.getInt(Long.parseLong(inData[1]));
+            Price = uData.getInt(Long.parseLong(inData[2]));
+            U1 = uData.getInt(Long.parseLong(inData[3]));
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
     
     private void getItem(byte[] inData) {
