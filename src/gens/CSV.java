@@ -7,8 +7,10 @@ package gens;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
@@ -18,12 +20,15 @@ final class CSV {
 
     private String sFilename = "";
     private boolean bAppend = false;
+    private boolean bFirstRowTitles = false;
     private String sTargetDir = "";
     private String sColDelimiter = ";";
     private String sTextDelimiter = "";
     private String sRowDelimiter = "\r\n";
     private FileWriter fwStream;
+    private FileReader frStream;
     private BufferedWriter bwOut;
+    private Scanner scanIn;
     private File fileCSV;
     private boolean bDoOverwrite = false;
 
@@ -37,8 +42,63 @@ final class CSV {
         
     }
 
-    public void readCSV() {
-
+    public String[][] readCSV() throws IOException {
+        try {
+            String[][] retData;
+            //System.out.println("init " + this.getFilename());
+            if (!this.getTargetDir().equals("")) {
+                File dir = new File(this.getTargetDir());
+                if (!dir.exists()) {
+                    boolean dirMade = dir.mkdirs();
+                }
+            }
+            fileCSV = new File(this.getTargetDir() + File.separatorChar + this.getFilename());
+            frStream = new FileReader(fileCSV);
+            try {
+                frStream.getEncoding();
+            } catch (Exception ex) {
+                throw new IOException("Failed to get file encoding.");
+            }
+            int i = 0;
+            scanIn = new Scanner(frStream);
+            int rowCount = 0;
+            while (scanIn.hasNextLine()) { scanIn.nextLine(); rowCount++; }
+            scanIn.close();
+            frStream.close();
+            frStream = new FileReader(fileCSV);
+            scanIn = new Scanner(frStream);
+            retData = new String[rowCount][];
+            while (scanIn.hasNextLine()) {
+                if (i <= rowCount-1) {
+                    //System.out.println((isFirstRowTitles() && i > 0));
+                    //System.out.println((!isFirstRowTitles()));
+                    if (isFirstRowTitles() && i < 1) {
+                        scanIn.nextLine();
+                    }
+                    String[] currColumns = scanIn.nextLine().split(";");
+                    retData[i] = new String[currColumns.length];
+                    for (int j=0;j<currColumns.length;j++) {
+                        if (currColumns[j].length() > 2) {
+                            //System.out.println(currColumns[j].substring(1, currColumns[j].length()-1));
+                            retData[i][j] = currColumns[j].substring(1, currColumns[j].length()-1);
+                            //System.out.println(currColumns[j].substring(1, currColumns[j].length()-1));
+                        }
+                        else {
+                            retData[i][j] = "";
+                        }
+                        //System.out.println(retData[i][j]);
+                    }
+                    i++;
+                }
+                else {
+                    break;
+                }
+            }
+            return retData;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            throw new IOException(ex);
+        }
     }
 
     private void initFile() throws IOException {
@@ -51,7 +111,7 @@ final class CSV {
                 }
             }
             fileCSV = new File(this.getTargetDir() + File.separatorChar + this.getFilename());
-            this.fwStream = new FileWriter(fileCSV, isAppend());
+            fwStream = new FileWriter(fileCSV, isAppend());
             fwStream.flush();
             bwOut = new BufferedWriter(fwStream);
         } catch (IOException ex) {
@@ -96,14 +156,22 @@ final class CSV {
             }
         }
         //bwOut.write(getRowDelimiter());
+        //bwOut.write((byte)0xd);
+        //bwOut.write((byte)0xa);
         bwOut.newLine();
         //bwOut.newLine();
     }
 
     public void close() throws IOException {
-        bwOut.flush();
-        bwOut.close();
-        fwStream.close();
+        if (bwOut != null) {
+            bwOut.flush();
+            bwOut.close();
+            fwStream.close();   
+        }
+        if (scanIn != null) {
+            scanIn.close();
+            frStream.close();
+        }
     }
 
     // Getters & Setters
@@ -197,5 +265,19 @@ final class CSV {
      */
     public void setTargetDir(String targetDir) {
         this.sTargetDir = targetDir;
+    }
+
+    /**
+     * @return the bFirstRowTitles
+     */
+    public boolean isFirstRowTitles() {
+        return bFirstRowTitles;
+    }
+
+    /**
+     * @param bFirstRowTitles the bFirstRowTitles to set
+     */
+    public void setFirstRowTitles(boolean bFirstRowTitles) {
+        this.bFirstRowTitles = bFirstRowTitles;
     }
 }
