@@ -61,6 +61,12 @@ public final class iffClubSet extends iffBase {
         }
     }
 
+    public iffClubSet(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
+        
     public iffClubSet() {
         super();
         buildColNames();
@@ -83,6 +89,29 @@ public final class iffClubSet extends iffBase {
     @Override
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            clubWood = uData.getInt(Long.parseLong(inData[28]));
+            clubIron = uData.getInt(Long.parseLong(inData[29]));
+            clubWedge = uData.getInt(Long.parseLong(inData[30]));
+            clubPutter = uData.getInt(Long.parseLong(inData[31]));
+            initPower = uData.getShort(Integer.parseInt(inData[32]));
+            initControl = uData.getShort(Integer.parseInt(inData[33]));
+            initAccuracy = uData.getShort(Integer.parseInt(inData[34]));
+            initSpin = uData.getShort(Integer.parseInt(inData[35]));
+            initCurve = uData.getShort(Integer.parseInt(inData[36]));
+            maxPower = uData.getShort(Integer.parseInt(inData[37]));
+            maxControl = uData.getShort(Integer.parseInt(inData[38]));
+            maxAccuracy = uData.getShort(Integer.parseInt(inData[39]));
+            maxSpin = uData.getShort(Integer.parseInt(inData[40]));
+            maxCurve = uData.getShort(Integer.parseInt(inData[41]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override
