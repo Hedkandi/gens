@@ -6,6 +6,7 @@
 package iffClasses;
 
 import gens.uData;
+import java.io.IOException;
 
 /**
  *
@@ -119,6 +120,55 @@ public class iffTikiRecipe {
 
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    public void getItem(String[] inData) throws IOException {
+        ID = uData.getInt(inData[0]);
+        ItemID = uData.getInt(inData[1]);
+        lvlReq = uData.getByte(inData[2]);
+        U2 = uData.getByte(inData[3]);
+        U3 = uData.getByte(inData[4]);
+        U4 = uData.getByte(inData[5]);
+        U5 = uData.getByte(inData[6]);
+        U6 = uData.getByte(inData[7]);
+        U7 = uData.getByte(inData[8]);
+        U8 = uData.getByte(inData[9]);
+        U9 = uData.getByte(inData[10]);
+        U10 = uData.getByte(inData[11]);
+        U11 = uData.getByte(inData[12]);
+        U12 = uData.getByte(inData[13]);
+        U13 = uData.getByte(inData[14]);
+        U14 = uData.getByte(inData[15]);
+        U15 = uData.getByte(inData[16]);
+        U16 = uData.getByte(inData[17]);
+        U17 = uData.getByte(inData[18]);
+        U18 = uData.getByte(inData[19]);
+        U19 = uData.getByte(inData[20]);
+        U20 = uData.getByte(inData[21]);
+        U21 = uData.getByte(inData[22]);
+        U22 = uData.getByte(inData[23]);
+        U23 = uData.getByte(inData[24]);
+        U24 = uData.getByte(inData[25]);
+        U25 = uData.getByte(inData[26]);
+        U26 = uData.getByte(inData[27]);
+        U27 = uData.getByte(inData[28]);
+        U28 = uData.getByte(inData[29]);
+        U29 = uData.getByte(inData[30]);
+        U30 = uData.getByte(inData[31]);
+        U31 = uData.getByte(inData[32]);
+        U32 = uData.getByte(inData[33]);
+        U33 = uData.getByte(inData[34]);
+        U34 = uData.getByte(inData[35]);
+        U35 = uData.getByte(inData[36]);
+        U36 = uData.getByte(inData[37]);
+        U37 = uData.getByte(inData[38]);
+        U38 = uData.getByte(inData[39]);
+        U39 = uData.getByte(inData[40]);
+        U40 = uData.getByte(inData[41]);
+        U41 = uData.getByte(inData[42]);
+        U42 = uData.getByte(inData[43]);
+        U43 = uData.getByte(inData[44]);
+        U44 = uData.getByte(inData[45]);
+        //throw new IOException("not done");
     }
     
     private void getItem(byte[] inData) {
