@@ -8,6 +8,9 @@ package gens;
 import iffClasses.iffHandler;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 
 /**
@@ -18,9 +21,9 @@ public class Main {
 
     private static boolean bDoOverwrite = true;
     private static boolean bAppend = false;
-    private static boolean bWriteTitles = true;
+    private static boolean bFirstRowTitles = true;
     private static String sFilename = "";
-    private static String sTextDelimiter = "\'";
+    private static String sTextDelimiter = "\"";
     private static String sRowDelimiter = "\r\n";
     private static String sDir = "";
     private static String sVersion = "0.1";
@@ -30,7 +33,7 @@ public class Main {
     public static void main(String[] args) {        
         try {
             long beginTime = System.currentTimeMillis();
-            if (args.length >= 3) {
+            if (args.length >= 2) {
                 if (args[0].equals("-ii") || args[0].equals("--in-iff")) {
                     sFilename = args[1];
                     sDir = sFilename.substring(0, sFilename.indexOf("."));
@@ -45,8 +48,12 @@ public class Main {
                     System.out.println("Total processing took " + uData.getSeconds(System.currentTimeMillis() - beginTime) + " seconds");
                     System.exit(0);
                 }
-                else if (args[1].equals("-ic") || args[1].equals("--in-csv")) {
-
+                else if (args[0].equals("-ic") || args[0].equals("--in-csv")) {
+                    sDir = args[1];
+                    sFilename = "pangya_th_test.zip";
+                    doDirectCSVtoIFF();
+                    System.exit(0);
+                    
                 }
 
                 // Fall through
@@ -105,15 +112,27 @@ public class Main {
     }
 
     public static void doDirectCSVtoIFF() {
-        /*
+        File csvDir = new File(sDir);
+        String[] files = csvDir.list();
+        CSV csv = new CSV();
+        csv.setTargetDir(sDir);
+        csv.setRowDelimiter(sRowDelimiter);
+        csv.setTextDelimiter(sTextDelimiter);
+        csv.setFirstRowTitles(bFirstRowTitles);
+        iffHandler ih = new iffHandler();
+        iffZipper iz = new iffZipper(sFilename);
         try {
-            iffZipper iz = new iffZipper(sFilename, sDir, bDoOverwrite);
-            iz.doCompress(ih.readIff(csv.readCSV()));
-        } catch (ZipException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }*/
+            for (int i=0;i<files.length;i++) {
+                csv.setFilename(files[i]);
+                System.out.println(files[i]);
+                iz.doCompress(ih.readIff(csv.readCSV(), files[i]), files[i]);
+                csv.close();
+            }
+            iz.closeZip();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println(ex.getCause().getMessage());
+        }
     }
     
     public static void doDirectIFFtoCSV() {
@@ -121,7 +140,7 @@ public class Main {
             iffZipper iz = new iffZipper(sFilename);
             String[] t = iz.listZip();
             iffHandler ih = new iffHandler();
-            ih.setWriteTitles(bWriteTitles);
+            ih.setWriteTitles(bFirstRowTitles);
             CSV csv = new CSV();
             csv.setOverwrite(bDoOverwrite);
             csv.setAppend(bAppend);
