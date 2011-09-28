@@ -119,6 +119,43 @@ public final class iffQuestDrop extends iffBase {
         return colNames[titleIndex];
     }
     
+    public void getItem(String[] inData) throws IOException {
+        super.getItem(inData);
+        U20 = uData.getShort(inData[28]);
+        U21 = uData.getShort(inData[29]);
+        U22 = uData.getShort(inData[30]);
+        U23 = uData.getShort(inData[31]);
+        U24 = uData.getShort(inData[32]);
+        U25 = uData.getShort(inData[33]);
+        U26 = uData.getShort(inData[34]);
+        U27 = uData.getShort(inData[35]);
+        U28 = uData.getShort(inData[36]);
+        U29 = uData.getShort(inData[37]);
+        U30 = uData.getShort(inData[38]);
+        U31 = uData.getShort(inData[39]);
+        U32 = uData.getShort(inData[40]);
+        U44 = uData.getShort(inData[41]);
+        U45 = uData.getShort(inData[42]);
+        U46 = uData.getShort(inData[43]);
+        Sprite2Name = inData[44];
+        Amount = uData.getShort(inData[45]);
+        U33 = uData.getShort(inData[46]);
+        U34 = uData.getShort(inData[47]);
+        U35 = uData.getShort(inData[48]);
+        U36 = uData.getShort(inData[49]);
+        U37 = uData.getShort(inData[50]);
+        U38 = uData.getShort(inData[51]);
+        U39 = uData.getShort(inData[52]);
+        U40 = uData.getShort(inData[53]);
+        U41 = uData.getShort(inData[54]);
+        U42 = uData.getShort(inData[55]);
+        U43 = uData.getByte(inData[56]);
+        U47 = uData.getByte(inData[57]);
+        U48 = uData.getShort(inData[58]);
+        U49 = uData.getShort(inData[59]);
+        //throw new IOException("Not done.");
+    }
+    
     @Override
     public void getItem(byte[] inData) throws IOException {
         try {
