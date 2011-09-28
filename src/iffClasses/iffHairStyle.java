@@ -37,6 +37,12 @@ public final class iffHairStyle extends iffBase {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public iffHairStyle(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
 
     public iffHairStyle() {
         super();
@@ -57,6 +63,19 @@ public final class iffHairStyle extends iffBase {
         return this.colNames.length;
     }
 
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            colorID = uData.getByte(Short.parseShort(inData[28]));
+            numChar = uData.getByte(Short.parseShort(inData[29]));
+            U35 = uData.getByte(Short.parseShort(inData[30]));
+            U36 = uData.getByte(Short.parseShort(inData[31]));
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        }
+    }
+    
     @Override
     public void getItem(byte[] inData) throws IOException {
         try {
