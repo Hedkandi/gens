@@ -106,6 +106,6 @@ public class iffDateTime {
     }
 
     void setTime(String string) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        //throw new UnsupportedOperationException("Not yet implemented");
     }
 }
