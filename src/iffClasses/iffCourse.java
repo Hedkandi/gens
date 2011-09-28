@@ -47,6 +47,12 @@ public final class iffCourse extends iffBase {
         getItem(inData);
     }
 
+    public iffCourse(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
+        
     public iffCourse() {
         super();
         buildColNames();
@@ -66,6 +72,23 @@ public final class iffCourse extends iffBase {
         return this.colNames.length;
     }
     
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            enName = inData[28];
+            thName = inData[29];
+            U1 = uData.getShort(Integer.parseInt(inData[30]));
+            numStars = uData.getByte(Short.parseShort(inData[31]));
+            xmlFile = inData[32];
+            U34 = uData.getShort(Integer.parseInt(inData[33]));
+            U35 = uData.getByte(Short.parseShort(inData[34]));
+            U36 = uData.getInt(Long.parseLong(inData[35]));
+            seqFile = inData[36];
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
+    }
     @Override
     public void getItem(byte[] inData) throws IOException {
         try {

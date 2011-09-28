@@ -55,6 +55,10 @@ public final class iffCutinInfomation {
         getItem(inData);
     }
 
+    public iffCutinInfomation(String[] inData) throws IOException {
+        getItem(inData);
+    }
+        
     public iffCutinInfomation() {
         
     }
@@ -65,6 +69,29 @@ public final class iffCutinInfomation {
     
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    public void getItem(String[] inData) throws IOException {
+        try {
+            Valid = uData.getInt(Long.parseLong(inData[0]));
+            ItemID = uData.getInt(Long.parseLong(inData[1]));
+            U3 = uData.getInt(Long.parseLong(inData[2]));
+            U4 = uData.getInt(Long.parseLong(inData[3]));
+            U5 = uData.getInt(Long.parseLong(inData[4]));
+            U6 = uData.getInt(Long.parseLong(inData[5]));
+            CharacterID = uData.getInt(Long.parseLong(inData[6]));
+            picChar = inData[7];
+            picCharLayer = uData.getInt(Long.parseLong(inData[8]));
+            picBG = inData[9];
+            picBGLayer = uData.getInt(Long.parseLong(inData[10]));
+            picOverlay = inData[11];
+            picOverlayLayer = uData.getInt(Long.parseLong(inData[12]));
+            picUnknown = inData[13];
+            U11 = uData.getInt(Long.parseLong(inData[14]));
+            U12 = uData.getInt(Long.parseLong(inData[15]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
     
     public void getItem(byte[] inData) {

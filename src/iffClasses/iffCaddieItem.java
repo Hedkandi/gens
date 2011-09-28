@@ -47,7 +47,7 @@ public final class iffCaddieItem extends iffBase {
         }
     }
 
-    public iffCaddieItem(String[] inData) {
+    public iffCaddieItem(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -78,16 +78,20 @@ public final class iffCaddieItem extends iffBase {
     }
         
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        GFX1 = inData[32];
-        GFX2 = inData[33];
-        price1Day = uData.getShort(Integer.parseInt(inData[34]));
-        U33 = uData.getShort(Integer.parseInt(inData[35]));
-        price7Days = uData.getShort(Integer.parseInt(inData[36]));
-        price30Days = uData.getShort(Integer.parseInt(inData[37]));
-        Amount = uData.getShort(Integer.parseInt(inData[38]));
-        U37 = uData.getShort(Integer.parseInt(inData[39]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            GFX1 = inData[28];
+            GFX2 = inData[29];
+            price1Day = uData.getShort(Integer.parseInt(inData[30]));
+            U33 = uData.getShort(Integer.parseInt(inData[31]));
+            price7Days = uData.getShort(Integer.parseInt(inData[32]));
+            price30Days = uData.getShort(Integer.parseInt(inData[33]));
+            Amount = uData.getShort(Integer.parseInt(inData[34]));
+            U37 = uData.getShort(Integer.parseInt(inData[35]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     @Override

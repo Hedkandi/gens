@@ -82,6 +82,10 @@ public class iffFurnitureAbility {
         getItem(inData);
     }
 
+    public iffFurnitureAbility(String[] inData) throws Exception {
+        getItem(inData);
+    }
+        
     public iffFurnitureAbility() {
         
     }
@@ -92,6 +96,44 @@ public class iffFurnitureAbility {
 
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    public void getItem(String[] inData) throws Exception {
+        try {
+            isValid = uData.getInt(Long.parseLong(inData[0]));
+            itemID = uData.getInt(Long.parseLong(inData[1]));
+            num1 = uData.getInt(Long.parseLong(inData[2]));
+            num2 = uData.getInt(Long.parseLong(inData[3]));
+            num3 = uData.getInt(Long.parseLong(inData[4]));
+            num4 = uData.getInt(Long.parseLong(inData[5]));
+            num5 = uData.getInt(Long.parseLong(inData[6]));
+            numYear = uData.getShort(Integer.parseInt(inData[7]));
+            numMonth = uData.getShort(Integer.parseInt(inData[8]));
+            numZero = uData.getShort(Integer.parseInt(inData[9]));
+            numDay = uData.getShort(Integer.parseInt(inData[10]));
+            numHour = uData.getShort(Integer.parseInt(inData[11]));
+            numMinute = uData.getShort(Integer.parseInt(inData[12]));
+            numSecond = uData.getShort(Integer.parseInt(inData[13]));
+            numMilliSecond = uData.getShort(Integer.parseInt(inData[14]));
+            num6 = uData.getByte(Short.parseShort(inData[15]));
+            num7 = uData.getByte(Short.parseShort(inData[16]));
+            num8 = uData.getByte(Short.parseShort(inData[17]));
+            num9 = uData.getByte(Short.parseShort(inData[18]));
+            num10 = uData.getByte(Short.parseShort(inData[19]));
+            num11 = uData.getByte(Short.parseShort(inData[20]));
+            num12 = uData.getByte(Short.parseShort(inData[21]));
+            num13 = uData.getByte(Short.parseShort(inData[22]));
+            num14 = uData.getByte(Short.parseShort(inData[23]));
+            num15 = uData.getByte(Short.parseShort(inData[24]));
+            num16 = uData.getByte(Short.parseShort(inData[25]));
+            num17 = uData.getByte(Short.parseShort(inData[26]));
+            num18 = uData.getByte(Short.parseShort(inData[27]));
+            num19 = uData.getByte(Short.parseShort(inData[28]));
+            num20 = uData.getByte(Short.parseShort(inData[29]));
+            num21 = uData.getByte(Short.parseShort(inData[30]));
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
     
     private void getItem(byte[] inData) {

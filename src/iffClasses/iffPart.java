@@ -128,6 +128,52 @@ public final class iffPart extends iffBase {
     }
     
     @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            PartCategory = uData.getByte(inData[29]);
+            numStat2 =  uData.getByte(inData[30]);
+            numStat3 =  uData.getByte(inData[31]);
+            numStat4 =  uData.getByte(inData[32]);
+            numStat5 =  uData.getByte(inData[33]);
+            numStat6 =  uData.getByte(inData[34]);
+            numStat7 =  uData.getByte(inData[35]);
+            numStat8 =  uData.getByte(inData[36]);
+            numStat9 =  uData.getByte(inData[37]);
+            numStat10 =  uData.getByte(inData[38]);
+            numStat11 =  uData.getByte(inData[39]);
+            numStat12 =  uData.getByte(inData[40]);
+            Sprite3Name = inData[41];
+            Sprite4Name = inData[42];
+            Sprite5Name = inData[43];
+            Sprite6Name = inData[44];
+            Sprite7Name = inData[45];
+            Sprite8Name = inData[46];
+            PowerUp = uData.getShort(inData[47]);
+            ControlUp = uData.getShort(inData[48]);
+            AccuracyUp = uData.getShort(inData[49]);
+            SpinUp = uData.getShort(inData[50]);
+            CurveUp = uData.getShort(inData[51]);
+            PowerSlotUp = uData.getShort(inData[52]);
+            ControlSlotUp = uData.getShort(inData[53]);
+            AccuracySlotUp = uData.getShort(inData[54]);
+            SpinSlotUp = uData.getShort(inData[55]);
+            CurveSlotUp = uData.getShort(inData[56]);
+            UString1 = inData[57];
+            equipWith1 = uData.getInt(inData[58]);
+            equipWith2 = uData.getInt(inData[59]);
+            U67 = uData.getShort(inData[60]);
+            U68 = uData.getShort(inData[61]);
+            U69 = uData.getShort(inData[62]);
+            U70 = uData.getShort(inData[63]);
+            //throw new IOException("not done");
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        }
+    }
+            
+    @Override
     public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);

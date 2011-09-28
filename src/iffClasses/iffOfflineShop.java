@@ -57,6 +57,12 @@ public final class iffOfflineShop extends iffBase {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public iffOfflineShop(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
 
     public iffOfflineShop() {
         super();
@@ -80,6 +86,29 @@ public final class iffOfflineShop extends iffBase {
     @Override
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            numRef = uData.getInt(Long.parseLong(inData[28]));
+            ref1 = uData.getInt(Long.parseLong(inData[29]));
+            ref2 = uData.getInt(Long.parseLong(inData[30]));
+            ref3 = uData.getInt(Long.parseLong(inData[31]));
+            ref4 = uData.getInt(Long.parseLong(inData[32]));
+            ref5 = uData.getInt(Long.parseLong(inData[33]));
+            ref6 = uData.getInt(Long.parseLong(inData[34]));
+            ref7 = uData.getInt(Long.parseLong(inData[35]));
+            ref8 = uData.getInt(Long.parseLong(inData[36]));
+            ref9 = uData.getInt(Long.parseLong(inData[37]));
+            ref10 = uData.getInt(Long.parseLong(inData[38]));
+            ref11 = uData.getInt(Long.parseLong(inData[39]));
+            ref12 = uData.getInt(Long.parseLong(inData[40]));
+            ref13 = uData.getInt(Long.parseLong(inData[41]));
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override

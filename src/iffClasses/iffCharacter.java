@@ -115,7 +115,7 @@ public final class iffCharacter extends iffBase {
         }
     }
 
-    public iffCharacter(String[] inData) {
+    public iffCharacter(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -147,50 +147,54 @@ public final class iffCharacter extends iffBase {
     }
     
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        Sprite2Name = inData[32];
-        GFX1 = inData[33];
-        GFX2 = inData[34];
-        GFX3 = inData[35];
-        firstPower = uData.getShort(Integer.parseInt(inData[36]));
-        firstControl = uData.getShort(Integer.parseInt(inData[37]));
-        firstAccuracy = uData.getShort(Integer.parseInt(inData[38]));
-        firstSpin = uData.getShort(Integer.parseInt(inData[39]));
-        firstCurve = uData.getShort(Integer.parseInt(inData[40]));
-        U37 = uData.getByte(Short.parseShort(inData[41]));
-        U38 = uData.getByte(Short.parseShort(inData[42]));
-        U39 = uData.getByte(Short.parseShort(inData[43]));
-        U43 = uData.getByte(Short.parseShort(inData[44]));
-        U44 = uData.getByte(Short.parseShort(inData[45]));
-        U45 = uData.getByte(Short.parseShort(inData[46]));
-        U46 = uData.getInt(Long.parseLong(inData[47]));
-        initPower = uData.getByte(Short.parseShort(inData[48]));
-        initControl = uData.getByte(Short.parseShort(inData[49]));
-        initAccuracy = uData.getByte(Short.parseShort(inData[50]));
-        initSpin = uData.getByte(Short.parseShort(inData[51]));
-        initCurve = uData.getByte(Short.parseShort(inData[52]));
-        U52 = uData.getInt(Integer.parseInt(inData[53]));
-        U53 = uData.getByte(Short.parseShort(inData[54]));
-        U55 = uData.getShort(Integer.parseInt(inData[55]));
-        U56 = uData.getShort(Integer.parseInt(inData[56]));
-        U57 = uData.getShort(Integer.parseInt(inData[57]));
-        U58 = uData.getShort(Integer.parseInt(inData[58]));
-        U59 = uData.getShort(Integer.parseInt(inData[59]));
-        U60 = uData.getShort(Integer.parseInt(inData[60]));
-        U61 = uData.getShort(Integer.parseInt(inData[61]));
-        U62 = uData.getShort(Integer.parseInt(inData[62]));
-        U63 = uData.getShort(Integer.parseInt(inData[63]));
-        U64 = uData.getShort(Integer.parseInt(inData[64]));
-        U65 = uData.getShort(Integer.parseInt(inData[65]));
-        U66 = uData.getShort(Integer.parseInt(inData[66]));
-        U67 = uData.getShort(Integer.parseInt(inData[67]));
-        U68 = uData.getShort(Integer.parseInt(inData[68]));
-        U69 = uData.getShort(Integer.parseInt(inData[69]));
-        U70 = uData.getShort(Integer.parseInt(inData[70]));
-        U71 = uData.getShort(Integer.parseInt(inData[71]));
-        U72 = uData.getShort(Integer.parseInt(inData[72]));
-        U73 = uData.getShort(Integer.parseInt(inData[73]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            GFX1 = inData[29];
+            GFX2 = inData[30];
+            GFX3 = inData[31];
+            firstPower = uData.getShort(Integer.parseInt(inData[32]));
+            firstControl = uData.getShort(Integer.parseInt(inData[33]));
+            firstAccuracy = uData.getShort(Integer.parseInt(inData[34]));
+            firstSpin = uData.getShort(Integer.parseInt(inData[35]));
+            firstCurve = uData.getShort(Integer.parseInt(inData[36]));
+            U37 = uData.getByte(Short.parseShort(inData[37]));
+            U38 = uData.getByte(Short.parseShort(inData[38]));
+            U39 = uData.getByte(Short.parseShort(inData[39]));
+            U43 = uData.getByte(Short.parseShort(inData[40]));
+            U44 = uData.getByte(Short.parseShort(inData[41]));
+            U45 = uData.getByte(Short.parseShort(inData[42]));
+            U46 = uData.getInt(Long.parseLong(inData[43]));
+            initPower = uData.getByte(Short.parseShort(inData[44]));
+            initControl = uData.getByte(Short.parseShort(inData[45]));
+            initAccuracy = uData.getByte(Short.parseShort(inData[46]));
+            initSpin = uData.getByte(Short.parseShort(inData[47]));
+            initCurve = uData.getByte(Short.parseShort(inData[48]));
+            U52 = uData.getInt(Integer.parseInt(inData[49]));
+            U53 = uData.getByte(Short.parseShort(inData[50]));
+            U55 = uData.getShort(Integer.parseInt(inData[51]));
+            U56 = uData.getShort(Integer.parseInt(inData[52]));
+            U57 = uData.getShort(Integer.parseInt(inData[53]));
+            U58 = uData.getShort(Integer.parseInt(inData[54]));
+            U59 = uData.getShort(Integer.parseInt(inData[55]));
+            U60 = uData.getShort(Integer.parseInt(inData[56]));
+            U61 = uData.getShort(Integer.parseInt(inData[57]));
+            U62 = uData.getShort(Integer.parseInt(inData[58]));
+            U63 = uData.getShort(Integer.parseInt(inData[59]));
+            U64 = uData.getShort(Integer.parseInt(inData[60]));
+            U65 = uData.getShort(Integer.parseInt(inData[61]));
+            U66 = uData.getShort(Integer.parseInt(inData[62]));
+            U67 = uData.getShort(Integer.parseInt(inData[63]));
+            U68 = uData.getShort(Integer.parseInt(inData[64]));
+            U69 = uData.getShort(Integer.parseInt(inData[65]));
+            U70 = uData.getShort(Integer.parseInt(inData[66]));
+            U71 = uData.getShort(Integer.parseInt(inData[67]));
+            U72 = uData.getShort(Integer.parseInt(inData[68]));
+            U73 = uData.getShort(Integer.parseInt(inData[69]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     @Override

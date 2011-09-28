@@ -81,7 +81,7 @@ public final class iffBall extends iffBase {
         }
     }
 
-    public iffBall(String[] inData) {
+    public iffBall(String[] inData) throws Exception {
         super();
         buildColNames();
         getItem(inData);
@@ -106,33 +106,37 @@ public final class iffBall extends iffBase {
     }
 
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        Sprite2Name = inData[32];
-        U14 = uData.getShort(Integer.parseInt(inData[33]));
-        U33 = uData.getShort(Integer.parseInt(inData[34]));
-        U34 = uData.getShort(Integer.parseInt(inData[35]));
-        U35 = uData.getShort(Integer.parseInt(inData[36]));
-        GFX1 = inData[37];
-        GFX2 = inData[38];
-        GFX3 = inData[39];
-        GFX4 = inData[40];
-        GFX5 = inData[41];
-        GFX6 = inData[42];
-        GFX7 = inData[43];
-        GFX8 = inData[44];
-        GFX9 = inData[45];
-        GFX10 = inData[46];
-        GFX11 = inData[47];
-        GFX12 = inData[48];
-        GFX13 = inData[49];
-        GFX14 = inData[50];
-        U36 = uData.getShort(Integer.parseInt(inData[51]));
-        U37 = uData.getShort(Integer.parseInt(inData[52]));
-        U38 = uData.getShort(Integer.parseInt(inData[53]));
-        U39 = uData.getShort(Integer.parseInt(inData[54]));
-        U40 = uData.getShort(Integer.parseInt(inData[55]));
-        U41 = uData.getShort(Integer.parseInt(inData[56]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            U14 = uData.getShort(Integer.parseInt(inData[29]));
+            U33 = uData.getShort(Integer.parseInt(inData[30]));
+            U34 = uData.getShort(Integer.parseInt(inData[31]));
+            U35 = uData.getShort(Integer.parseInt(inData[32]));
+            GFX1 = inData[33];
+            GFX2 = inData[34];
+            GFX3 = inData[35];
+            GFX4 = inData[36];
+            GFX5 = inData[37];
+            GFX6 = inData[38];
+            GFX7 = inData[39];
+            GFX8 = inData[40];
+            GFX9 = inData[41];
+            GFX10 = inData[42];
+            GFX11 = inData[43];
+            GFX12 = inData[44];
+            GFX13 = inData[45];
+            GFX14 = inData[46];
+            U36 = uData.getShort(Integer.parseInt(inData[47]));
+            U37 = uData.getShort(Integer.parseInt(inData[48]));
+            U38 = uData.getShort(Integer.parseInt(inData[49]));
+            U39 = uData.getShort(Integer.parseInt(inData[50]));
+            U40 = uData.getShort(Integer.parseInt(inData[51]));
+            U41 = uData.getShort(Integer.parseInt(inData[52]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override
