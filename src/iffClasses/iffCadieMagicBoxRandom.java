@@ -6,6 +6,7 @@
 package iffClasses;
 
 import gens.uData;
+import java.io.IOException;
 
 /**
  *
@@ -14,10 +15,10 @@ import gens.uData;
 public class iffCadieMagicBoxRandom {
     
     // All bytes are +1 since hex fiend starts count at 0
-    public int numItemOne = 0; // 4 bytes - 1 or 0 - byte 0-3
-    public int itemOne = 0; // 4 bytes - byte 4-7
-    public int numItemTwo = 0; // 40 bytes - byte 8-47
-    public int itemTwo = 0; // 1 byte - byte 48
+    public int numItemOne = 0;
+    public int itemOne = 0;
+    public int numItemTwo = 0;
+    public int itemTwo = 0;
     String[] colNames = new String[] {  "Num item?",
                                         "Item?",
                                         "Amount?",
@@ -27,7 +28,7 @@ public class iffCadieMagicBoxRandom {
         getItem(inData);
     }
 
-    public iffCadieMagicBoxRandom(String[] inData) {
+    public iffCadieMagicBoxRandom(String[] inData) throws IOException {
         getItem(inData);
     }
 
@@ -43,11 +44,15 @@ public class iffCadieMagicBoxRandom {
         return colNames[titleIndex];
     }
     
-    private void getItem(String[] inData) {
-        numItemOne = uData.getInt(Long.parseLong(inData[0]));
-        itemOne = uData.getInt(Long.parseLong(inData[1]));
-        numItemTwo = uData.getInt(Long.parseLong(inData[2]));
-        itemTwo = uData.getInt(Long.parseLong(inData[3]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            numItemOne = uData.getInt(Long.parseLong(inData[0]));
+            itemOne = uData.getInt(Long.parseLong(inData[1]));
+            numItemTwo = uData.getInt(Long.parseLong(inData[2]));
+            itemTwo = uData.getInt(Long.parseLong(inData[3]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     private void getItem(byte[] inData) {
