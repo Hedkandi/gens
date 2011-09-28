@@ -73,6 +73,12 @@ public final class iffMascot extends iffBase {
         }
     }
 
+    public iffMascot(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
+    
     public iffMascot() {
         super();
         buildColNames();
@@ -95,6 +101,36 @@ public final class iffMascot extends iffBase {
     @Override
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            Sprite3Name = inData[29];
+            price1Day = uData.getShort(Integer.parseInt(inData[30]));
+            price15Days = uData.getInt(Long.parseLong(inData[31]));
+            price30Days = uData.getInt(Long.parseLong(inData[32]));
+            U37 = uData.getShort(Integer.parseInt(inData[33]));
+            U38 = uData.getShort(Integer.parseInt(inData[34]));
+            U39 = uData.getShort(Integer.parseInt(inData[35]));
+            U40 = uData.getShort(Integer.parseInt(inData[36]));
+            U41 = uData.getShort(Integer.parseInt(inData[37]));
+            U42 = uData.getShort(Integer.parseInt(inData[38]));
+            U43 = uData.getByte(Short.parseShort(inData[39]));
+            U44 = uData.getByte(Short.parseShort(inData[40]));
+            U45 = uData.getByte(Short.parseShort(inData[41]));
+            U46 = uData.getByte(Short.parseShort(inData[42]));
+            U47 = uData.getByte(Short.parseShort(inData[43]));
+            U48 = uData.getByte(Short.parseShort(inData[44]));
+            U49 = uData.getByte(Short.parseShort(inData[45]));
+            U50 = uData.getByte(Short.parseShort(inData[46]));
+            U51 = uData.getByte(Short.parseShort(inData[47]));
+            U52 = uData.getByte(Short.parseShort(inData[48]));
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override
