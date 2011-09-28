@@ -6,6 +6,7 @@
 package iffClasses;
 
 import gens.uData;
+import java.io.IOException;
 
 /**
  *
@@ -70,7 +71,7 @@ public class iffCadieMagicBox {
         getItem(inData);
     }
 
-    public iffCadieMagicBox(String[] inData) {
+    public iffCadieMagicBox(String[] inData) throws IOException {
         getItem(inData);
     }
 
@@ -86,34 +87,37 @@ public class iffCadieMagicBox {
         return colNames[titleIndex];
     }
     
-    private void getItem(String[] inData) {
-        Index = uData.getInt(Long.parseLong(inData[0]));
-        Valid = uData.getInt(Long.parseLong(inData[1]));
-        showOnPage = uData.getInt(Long.parseLong(inData[2]));
-        U4 = uData.getInt(Long.parseLong(inData[3]));
-        levelReq = uData.getInt(Long.parseLong(inData[4]));
-        prodItem = uData.getInt(Long.parseLong(inData[5]));
-        numProdItem = uData.getInt(Long.parseLong(inData[6]));
-        itemOne = uData.getInt(Long.parseLong(inData[7]));
-        itemTwo = uData.getInt(Long.parseLong(inData[8]));
-        itemThree = uData.getInt(Long.parseLong(inData[9]));
-        itemFour = uData.getInt(Long.parseLong(inData[10]));
-        numItemOne = uData.getInt(Long.parseLong(inData[11]));
-        numItemTwo = uData.getInt(Long.parseLong(inData[12]));
-        numItemThree = uData.getInt(Long.parseLong(inData[13]));
-        numItemFour = uData.getInt(Long.parseLong(inData[14]));
-        U16 = uData.getInt(Long.parseLong(inData[15]));
-        U17 = uData.getInt(Long.parseLong(inData[16]));
-        U18 = uData.getInt(Long.parseLong(inData[17]));
-        U19 = uData.getInt(Long.parseLong(inData[18]));
-        U20 = uData.getInt(Long.parseLong(inData[19]));
-        U21 = uData.getInt(Long.parseLong(inData[20]));
-        U22 = uData.getInt(Long.parseLong(inData[21]));
-        U23 = uData.getInt(Long.parseLong(inData[22]));
-        U24 = uData.getInt(Long.parseLong(inData[23]));
-        U25 = uData.getInt(Long.parseLong(inData[24]));
-        U26 = uData.getInt(Long.parseLong(inData[25]));
-
+    public void getItem(String[] inData) throws IOException {
+        try {
+            Index = uData.getInt(Long.parseLong(inData[0]));
+            Valid = uData.getInt(Long.parseLong(inData[1]));
+            showOnPage = uData.getInt(Long.parseLong(inData[2]));
+            U4 = uData.getInt(Long.parseLong(inData[3]));
+            levelReq = uData.getInt(Long.parseLong(inData[4]));
+            prodItem = uData.getInt(Long.parseLong(inData[5]));
+            numProdItem = uData.getInt(Long.parseLong(inData[6]));
+            itemOne = uData.getInt(Long.parseLong(inData[7]));
+            itemTwo = uData.getInt(Long.parseLong(inData[8]));
+            itemThree = uData.getInt(Long.parseLong(inData[9]));
+            itemFour = uData.getInt(Long.parseLong(inData[10]));
+            numItemOne = uData.getInt(Long.parseLong(inData[11]));
+            numItemTwo = uData.getInt(Long.parseLong(inData[12]));
+            numItemThree = uData.getInt(Long.parseLong(inData[13]));
+            numItemFour = uData.getInt(Long.parseLong(inData[14]));
+            U16 = uData.getInt(Long.parseLong(inData[15]));
+            U17 = uData.getInt(Long.parseLong(inData[16]));
+            U18 = uData.getInt(Long.parseLong(inData[17]));
+            U19 = uData.getInt(Long.parseLong(inData[18]));
+            U20 = uData.getInt(Long.parseLong(inData[19]));
+            U21 = uData.getInt(Long.parseLong(inData[20]));
+            U22 = uData.getInt(Long.parseLong(inData[21]));
+            U23 = uData.getInt(Long.parseLong(inData[22]));
+            U24 = uData.getInt(Long.parseLong(inData[23]));
+            U25 = uData.getInt(Long.parseLong(inData[24]));
+            U26 = uData.getInt(Long.parseLong(inData[25]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     private void getItem(byte[] inData) {
