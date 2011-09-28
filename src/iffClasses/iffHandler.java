@@ -16,6 +16,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author hedkandi
@@ -46,6 +48,102 @@ public class iffHandler {
         }
     }
 
+    public byte[] getRegion(String region) throws Exception {
+        if (region.equals("TH")) {
+            return new byte[] { 0x0 };
+        }
+        else {
+            throw new Exception("");
+        }
+    }
+    
+    public byte[] buildIff(String[][] inData, String sFilename) {
+        byte[] retData = new byte[] {};
+        return retData;
+    }
+    
+    public byte[] readIff(String[][] inData, String sFilename) throws Exception {
+        String classPath = "iffClasses.iff" + sFilename.substring(0, sFilename.indexOf("."));
+        byte[] retData = new byte[] {};
+        // Add row count
+        retData = uData.addToEnd(retData, uData.getBytes(new Long(inData.length-1)));
+        //retData = uData.addToEnd(retData, uData.getBytes(0));
+        retData = uData.addToEnd(retData, uData.getBytes(new Long(11)));
+        // Add magic
+        for (int j=0;j<inData.length-1;j++) {
+        try {
+            //System.out.println(j);
+            Constructor iffConstructor;
+            Object newInstance = null;
+            try {
+                iffConstructor = Class.forName(classPath).getConstructor();
+                newInstance = iffConstructor.newInstance();
+            } catch (ClassNotFoundException ce) {
+                System.out.println("ERROR!\nClass: " + classPath + " wasnt found.");
+                System.exit(1);
+            }
+            //final Method mthdColNum = newInstance.getClass().getDeclaredMethod("getColNum");
+            //Method mthdSetValue = newInstance.getClass().getMethod("setValue", Integer.TYPE, Object.class.newInstance().getClass());
+            //Method mthdGetBytes = newInstance.getClass().getMethod("getItem");
+            Method mthdGetItem = newInstance.getClass().getMethod("getItem", Array.newInstance("".getClass(),0).getClass());
+            Method mthdGetValue = newInstance.getClass().getMethod("getValue", Integer.TYPE);
+            Method mthdGetColNum = newInstance.getClass().getMethod("getColNum");
+            mthdGetItem.invoke(newInstance, (Object) inData[j]);
+            int colNum = (Integer)mthdGetColNum.invoke(newInstance);
+
+            for (int i=0;i<colNum;i++) {
+                Object currObject = mthdGetValue.invoke(newInstance,i);
+                if (currObject instanceof Long) {
+                    retData = uData.addToEnd(retData, uData.getBytes((Long)currObject));
+                }
+                else if (currObject instanceof Integer) {
+                    retData = uData.addToEnd(retData, uData.getBytes((Integer)currObject));
+                }
+                else if (currObject instanceof Short) {
+                    retData = uData.addToEnd(retData, new byte[] { uData.getByte((Short)currObject) });
+                }
+                else if (currObject instanceof Boolean) {
+                    retData = uData.addToEnd(retData, uData.getBytes((Boolean)currObject));
+                }
+                else if (currObject instanceof Byte) {
+                    retData = uData.addToEnd(retData, new byte[] { (Byte)currObject });
+                }
+                else if (currObject instanceof String) {
+                    retData = uData.addToEnd(retData,uData.getBytes(((String)currObject)));
+                }
+                //System.out.println(retData.length);
+            }
+            /*
+            int colLength = (Integer) mthdColNum.invoke(newInstance);
+            if (colLength > 0 && inData[j].length == colLength) {
+                for(int n=0;n<colLength;n++) {
+                    try {
+                        if (inData[j][n] != null) {
+                            mthdSetValue.invoke(newInstance, n, inData[j][n]);
+                        }
+                        else {
+                            System.out.println("null value: " + j + " - " + n);
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Failed to set value: " + inData[j][n]);
+                    }
+                }
+                retData = (byte[])mthdGetBytes.invoke(newInstance);
+            }
+            else {
+                throw new IOException("Not enough columns.");
+            }
+             * */
+             
+            newInstance = null;
+            iffConstructor = null;
+        } catch (Exception ex) {
+            throw new Exception(ex);
+        }
+    }
+        return retData;
+    }
+    
     public String[][] readIff(byte[] extractedData, String sFilename) throws Exception {
         String[][] retData;
         short numRecords = uData.getShort(new byte[]{extractedData[0], extractedData[1]});
