@@ -47,7 +47,7 @@ public final class iffCaddie extends iffBase {
         }
     }
 
-    public iffCaddie(String[] inData) {
+    public iffCaddie(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -73,16 +73,22 @@ public final class iffCaddie extends iffBase {
     }
 
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        Salary = uData.getInt(Long.parseLong(inData[32]));
-        Icon2 = inData[33];
-        Power = uData.getShort(Integer.parseInt(inData[34]));
-        Control = uData.getShort(Integer.parseInt(inData[35]));
-        Accuracy = uData.getShort(Integer.parseInt(inData[36]));
-        Spin = uData.getShort(Integer.parseInt(inData[37]));
-        Curve = uData.getShort(Integer.parseInt(inData[38]));
-        U39 = uData.getShort(Integer.parseInt(inData[39]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Salary = uData.getInt(Long.parseLong(inData[28]));
+            Icon2 = inData[29];
+            Power = uData.getShort(Integer.parseInt(inData[30]));
+            Control = uData.getShort(Integer.parseInt(inData[31]));
+            Accuracy = uData.getShort(Integer.parseInt(inData[32]));
+            Spin = uData.getShort(Integer.parseInt(inData[33]));
+            Curve = uData.getShort(Integer.parseInt(inData[34]));
+            U39 = uData.getShort(Integer.parseInt(inData[35]));
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IOException("Too many columns");
+        }
     }
 
     @Override
