@@ -73,7 +73,7 @@ public final class iffAuxPart extends iffClasses.iffBase {
         }
     }
 
-    public iffAuxPart(String[] inData) {
+    public iffAuxPart(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -94,24 +94,33 @@ public final class iffAuxPart extends iffClasses.iffBase {
     }
 
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        this.Amount = uData.getShort(Integer.parseInt(inData[33]));
-        this.U33 = uData.getShort(Integer.parseInt(inData[34]));
-        this.U34 = uData.getShort(Integer.parseInt(inData[35]));
-        this.U35 = uData.getShort(Integer.parseInt(inData[36]));
-        this.U36 = uData.getShort(Integer.parseInt(inData[37]));
-        //this.U37 = uData.getShort(Integer.parseInt(inData[38]));
-        //this.U38 = uData.getShort(Integer.parseInt(inData[39]));
-        //this.U39 = uData.getShort(Integer.parseInt(inData[40]));
-        //this.U40 = uData.getShort(Integer.parseInt(inData[41]));
-        //this.U41 = uData.getShort(Integer.parseInt(inData[42]));
-        this.DriveUp = uData.getShort(Integer.parseInt(inData[43]));
-        this.ItemDropUp = uData.getShort(Integer.parseInt(inData[44]));
-        this.ComboUp = uData.getShort(Integer.parseInt(inData[45]));
-        this.PangUp = uData.getShort(Integer.parseInt(inData[46]));
-        this.Exp = uData.getShort(Integer.parseInt(inData[47]));
-        this.U47 = uData.getShort(Integer.parseInt(inData[48]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            this.Amount = uData.getShort(Integer.parseInt(inData[28]));
+            this.U33 = uData.getShort(Integer.parseInt(inData[29]));
+            this.U34 = uData.getShort(Integer.parseInt(inData[30]));
+            this.U35 = uData.getShort(Integer.parseInt(inData[31]));
+            this.U36 = uData.getShort(Integer.parseInt(inData[32]));
+            this.Power = uData.getByte(Short.parseShort(inData[33]));
+            this.Control = uData.getByte(Short.parseShort(inData[34]));
+            this.Accuracy = uData.getByte(Short.parseShort(inData[35]));
+            this.Spin = uData.getByte(Short.parseShort(inData[36]));
+            this.Curve = uData.getByte(Short.parseShort(inData[37]));
+            this.PowerSlot = uData.getByte(Short.parseShort(inData[38]));
+            this.ControlSlot = uData.getByte(Short.parseShort(inData[39]));
+            this.AccuracySlot = uData.getByte(Short.parseShort(inData[40]));
+            this.SpinSlot = uData.getByte(Short.parseShort(inData[41]));
+            this.CurveSlot = uData.getByte(Short.parseShort(inData[42]));
+            this.DriveUp = uData.getShort(Integer.parseInt(inData[43]));
+            this.ItemDropUp = uData.getShort(Integer.parseInt(inData[44]));
+            this.ComboUp = uData.getShort(Integer.parseInt(inData[45]));
+            this.PangUp = uData.getShort(Integer.parseInt(inData[46]));
+            this.Exp = uData.getShort(Integer.parseInt(inData[47]));
+            this.U47 = uData.getShort(Integer.parseInt(inData[48]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     @Override
@@ -141,6 +150,8 @@ public final class iffAuxPart extends iffClasses.iffBase {
             this.U47 = uData.getShort(new byte[]{inData[174], inData[175]});
         } catch (IOException ex) {
             throw new IOException(ex);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IOException("Too many columns");
         }
     }
 
@@ -156,7 +167,10 @@ public final class iffAuxPart extends iffClasses.iffBase {
         
     @Override
     public Object getValue(int colIndex) {
-        if (colIndex < super.getColNum()) {
+        if (colIndex == 2 || colIndex == 3 || colIndex == 4 || colIndex == 5 || colIndex == 6 || colIndex == 7) {
+            return new Object();
+        }
+        else if (colIndex < super.getColNum()) {
             return super.getValue(colIndex);
         }
         else {
