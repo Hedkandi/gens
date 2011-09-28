@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author hedkandi
  */
-public class iffMatch {
+public final class iffMatch {
     public boolean isValid = false;
     public int ItemID = 0; 
     public String ItemName = ""; 
@@ -50,6 +50,10 @@ public class iffMatch {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public iffMatch(String[] inData) throws Exception {
+        getItem(inData);
+    }
 
     public iffMatch() {
         
@@ -63,18 +67,40 @@ public class iffMatch {
         return colNames[titleIndex];
     }
     
+    public void getItem(String[] inData) throws Exception {
+        try {
+            if (inData[0].equals("true")) {
+                isValid = true;
+            }
+            ItemID = uData.getInt(Long.parseLong(inData[1]));
+            ItemName = inData[2];
+            lvlReq = uData.getByte(Short.parseShort(inData[3]));
+            Icon = inData[4];
+            Icon2 = inData[5];
+            Icon3 = inData[6];
+            Icon4 = inData[7];
+            Icon5 = inData[8];
+            Icon6 = inData[9];
+            U2 = uData.getByte(Short.parseShort(inData[10]));
+            U3 = uData.getByte(Short.parseShort(inData[11]));
+            U4 = uData.getByte(Short.parseShort(inData[12]));
+        } catch (Exception ex) {
+            throw ex;
+        }
+    }
+    
     private void getItem(byte[] inData) throws IOException {
         try {
             isValid = uData.getBool(inData[0]);
             ItemID = uData.getInt(new byte[]{inData[4], inData[5], inData[6], inData[7]});
             ItemName = uData.getString(new ByteArrayInputStream(inData, 8, 80));
             lvlReq = inData[88];
-            Icon = uData.getString(new ByteArrayInputStream(inData, 89, 40));
-            Icon2 = uData.getString(new ByteArrayInputStream(inData, 129, 40));
-            Icon3 = uData.getString(new ByteArrayInputStream(inData, 169, 40));
-            Icon4 = uData.getString(new ByteArrayInputStream(inData, 209, 40));
-            Icon5 = uData.getString(new ByteArrayInputStream(inData, 249, 40));
-            Icon6 = uData.getString(new ByteArrayInputStream(inData, 289, 40));
+            Icon = uData.getString(new ByteArrayInputStream(inData, 89, uData.stringLength));
+            Icon2 = uData.getString(new ByteArrayInputStream(inData, 129, uData.stringLength));
+            Icon3 = uData.getString(new ByteArrayInputStream(inData, 169, uData.stringLength));
+            Icon4 = uData.getString(new ByteArrayInputStream(inData, 209, uData.stringLength));
+            Icon5 = uData.getString(new ByteArrayInputStream(inData, 249, uData.stringLength));
+            Icon6 = uData.getString(new ByteArrayInputStream(inData, 289, uData.stringLength));
             U2 = inData[329];
             U3 = inData[330];
             U4 = inData[331];
