@@ -44,6 +44,12 @@ public final class iffItem extends iffBase {
             System.out.println(ex.getMessage());
         }
     }
+    
+    public iffItem(String[] inData) throws IOException {
+        super();
+        buildColNames();
+        getItem(inData);
+    }
 
     public iffItem() {
         super();
@@ -67,6 +73,22 @@ public final class iffItem extends iffBase {
     @Override
     public String getTitle(int titleIndex) {
         return colNames[titleIndex];
+    }
+    
+    @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            Amount = uData.getShort(Integer.parseInt(inData[29]));
+            U33 = uData.getShort(Integer.parseInt(inData[30]));
+            U34 = uData.getShort(Integer.parseInt(inData[31]));
+            U35 = uData.getShort(Integer.parseInt(inData[32]));
+            U36 = uData.getShort(Integer.parseInt(inData[33]));
+            U37 = uData.getShort(Integer.parseInt(inData[34]));
+        } catch (IOException ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override
