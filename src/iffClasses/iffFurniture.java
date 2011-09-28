@@ -128,6 +128,51 @@ public final class iffFurniture extends iffBase {
     }
     
     @Override
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            Amount = uData.getShort(Integer.parseInt(inData[29]));
+            U33 = uData.getByte(Short.parseShort(inData[30]));
+            U60 = uData.getByte(Short.parseShort(inData[31]));
+            U34 = uData.getShort(Integer.parseInt(inData[32]));
+            U35 = uData.getShort(Integer.parseInt(inData[33]));
+            U36 = uData.getShort(Integer.parseInt(inData[34]));
+            U37 = uData.getShort(Integer.parseInt(inData[35]));
+            U38 = uData.getByte(Short.parseShort(inData[36]));
+            U39 = uData.getByte(Short.parseShort(inData[37]));
+            U40 = uData.getByte(Short.parseShort(inData[38]));
+            U41 = uData.getByte(Short.parseShort(inData[39]));
+            U42 = uData.getByte(Short.parseShort(inData[40]));
+            U43 = uData.getByte(Short.parseShort(inData[41]));
+            U44 = uData.getByte(Short.parseShort(inData[42]));
+            U45 = uData.getByte(Short.parseShort(inData[43]));
+            U46 = uData.getByte(Short.parseShort(inData[44]));
+            U47 = uData.getByte(Short.parseShort(inData[45]));
+            U48 = uData.getByte(Short.parseShort(inData[46]));
+            U49 = uData.getByte(Short.parseShort(inData[47]));
+            U50 = uData.getByte(Short.parseShort(inData[48]));
+            U51 = uData.getByte(Short.parseShort(inData[49]));
+            U52 = uData.getByte(Short.parseShort(inData[50]));
+            U53 = uData.getByte(Short.parseShort(inData[51]));
+            Sprite3Name = inData[52];
+            Sprite4Name = inData[53];
+            Sprite5Name = inData[54];
+            Sprite6Name = inData[55];
+            Sprite7Name = inData[56];
+            Sprite8Name = inData[57];
+            U54 = uData.getShort(Integer.parseInt(inData[58]));
+            U55 = uData.getShort(Integer.parseInt(inData[59]));
+            U56 = uData.getShort(Integer.parseInt(inData[60]));
+            U57 = uData.getShort(Integer.parseInt(inData[61]));
+            U58 = uData.getShort(Integer.parseInt(inData[62]));
+            U59 = uData.getShort(Integer.parseInt(inData[63]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
+    }
+    
+    @Override
     public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);
