@@ -79,6 +79,19 @@ public final class iffSkin extends iffBase {
     }
     
     @Override
+    public void getItem(String[] inData) throws IOException {
+        super.getItem(inData);
+        Sprite2Name = inData[28];
+        Amount = uData.getInt(inData[29]);
+        U35 = uData.getInt(inData[30]);
+        U39 = uData.getInt(inData[31]);
+        U43 = uData.getInt(inData[32]);
+        U47 = uData.getInt(inData[33]);
+        U49 = uData.getInt(inData[34]);
+        //throw new IOException("not done.");
+    }
+    
+    @Override
     public void getItem(byte[] inData) throws IOException {
         try {
             super.getItem(inData);
