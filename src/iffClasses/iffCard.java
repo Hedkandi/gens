@@ -67,7 +67,7 @@ public final class iffCard extends iffBase {
         }
     }
 
-    public iffCard(String[] inData) {
+    public iffCard(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -99,25 +99,29 @@ public final class iffCard extends iffBase {
     }
     
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        cardType = uData.getByte(Short.parseShort(inData[32]));
-        Sprite2Name = inData[33];
-        PowerUp = uData.getByte(Short.parseShort(inData[34]));
-        ControlUp = uData.getByte(Short.parseShort(inData[36]));
-        BonusType = uData.getByte(Short.parseShort(inData[39]));
-        AccuracyUp = uData.getByte(Short.parseShort(inData[40]));
-        SpinUp = uData.getByte(Short.parseShort(inData[43]));
-        CurveUp = uData.getByte(Short.parseShort(inData[45]));
-        BonusAmount = uData.getByte(Short.parseShort(inData[47]));
-        U28 = uData.getByte(Short.parseShort(inData[48]));
-        SubIcon = inData[49];
-        SlotImage = inData[50];
-        BuffImage = inData[51];
-        BonusTime = uData.getShort(Integer.parseInt(inData[52]));
-        CardPack = uData.getShort(Integer.parseInt(inData[53]));
-        CardNum = uData.getShort(Integer.parseInt(inData[54]));
-        U43 = uData.getShort(Integer.parseInt(inData[55]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            cardType = uData.getByte(Short.parseShort(inData[28]));
+            Sprite2Name = inData[29];
+            U28 = uData.getByte(Short.parseShort(inData[30]));
+            PowerUp = uData.getShort(Integer.parseInt(inData[31]));
+            ControlUp = uData.getShort(Integer.parseInt(inData[32]));
+            BonusType = uData.getShort(Integer.parseInt(inData[33]));
+            AccuracyUp = uData.getShort(Integer.parseInt(inData[34]));
+            SpinUp = uData.getShort(Integer.parseInt(inData[35]));
+            CurveUp = uData.getShort(Integer.parseInt(inData[36]));
+            BonusAmount = uData.getShort(Integer.parseInt(inData[37]));
+            SubIcon = inData[38];
+            SlotImage = inData[39];
+            BuffImage = inData[40];
+            BonusTime = uData.getShort(Integer.parseInt(inData[41]));
+            CardPack = uData.getShort(Integer.parseInt(inData[42]));
+            CardNum = uData.getShort(Integer.parseInt(inData[43]));
+            U43 = uData.getShort(Integer.parseInt(inData[44]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
     
     @Override
