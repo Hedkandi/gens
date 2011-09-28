@@ -12,6 +12,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -122,20 +125,47 @@ public class uData {
     }
 
     public static byte[] getBytes(Object buf) {
-        if (buf instanceof Integer) {
-            ByteBuffer bb = ByteBuffer.allocateDirect(4).order(ByteOrder.LITTLE_ENDIAN);
-            bb.putInt((Integer)buf);
-            return bb.array();
+        if (buf instanceof Long) {
+            byte[] val = new byte[4];
+            val[3] = (byte)((Long)buf & 0xff000000);
+            val[2] = (byte)((Long)buf & 0x00ff0000);
+            val[1] = (byte)((Long)buf & 0x0000ff00);
+            val[0] = (byte)((Long)buf & 0x000000ff);
+            return val;
+        }
+        else if (buf instanceof Integer) {
+            byte[] val = new byte[2];
+            val[1] = (byte)((Integer)buf & 0xff00);
+            val[0] = (byte)((Integer)buf & 0xff);
+            return val;
         }
         else if (buf instanceof Short) {
-            ByteBuffer bb = ByteBuffer.allocateDirect(2).order(ByteOrder.LITTLE_ENDIAN);
-            bb.putShort((Short)buf);
-            return bb.array();
+            byte[] val = new byte[1];
+            val[0] = (byte)((Short)buf & 0xff);
+            return val;
+        }
+        else if (buf instanceof String) {
+            byte[] val = new byte[uData.stringLength];
+            for (int i=0;i<uData.stringLength;i++) {
+                if (i<((String)buf).length()) {
+                    val[i] = (byte)((String)buf).charAt(i);
+                }
+                else {
+                    val[i] = 0x0;
+                }
+            }
+            //System.out.println("String");
+            return val;
         }
         else if (buf instanceof Boolean) {
-            ByteBuffer bb = ByteBuffer.allocateDirect(4).order(ByteOrder.LITTLE_ENDIAN);
-            bb.putInt((Integer)1);
-            return bb.array();
+            byte[] val = new byte[4];
+            if ((Boolean)buf) {
+                val[0] = 0x1;
+            }
+            else {
+                val[0] = 0x0;
+            }
+            return val;
         }
         else {
             return null;
@@ -154,13 +184,52 @@ public class uData {
 
         //bytesout.toString("TH");
         //System.out.println(bytes);
-        for (int m=0;m<temp.length;m++) {
+        for (int m=0;m<temp.length-1;m++) {
             if (temp[m] != 0x0) {
-                retString += (char)temp[m];
+                if (temp[m] == 0xd && temp[m+1] == 0xa) {
+                    retString += "<br>";
+                }
+                else if (temp[m] == 0xa) {
+                    retString += "<br>";
+                }
+                else {
+                    retString += new String(new byte[] {temp[m]}, "cp874");
+                }
             }
         }
-        return retString;
+        return new String(retString.getBytes(),"UTF-8");
     }
+    
+    public static byte[] addToEnd(byte[] in, byte[] out) {
+        byte[] temp = new byte[] {};
+        //System.out.println(in.length + " - " + out.length);
+        if (in.length > 0) {
+             temp = new byte[in.length + out.length];
+        }
+        else {
+            temp = new byte[out.length];
+        }
+        for (int i=0;i<in.length;i++) {
+            temp[i] = in[i];
+            //System.out.println(i);
+        }
+        for (int i=in.length;i<temp.length;i++) {
+            temp[i] = out[i-in.length];
+            //System.out.println(i);
+        }
+        return temp;
+    }
+    
+    public static byte[] addToEnd(byte[] in, byte out) {
+        byte[] temp = new byte[in.length + 1];
+        for (int i=0;i<in.length;i++) {
+            temp[i] = in[i];
+            //System.out.println(i);
+        }
+        temp[temp.length-1] = out;
+        return temp;
+    }
+    
     static final byte[] HEX_CHAR_TABLE = {
         (byte)'0', (byte)'1', (byte)'2', (byte)'3',
         (byte)'4', (byte)'5', (byte)'6', (byte)'7',
