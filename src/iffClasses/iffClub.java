@@ -42,7 +42,7 @@ public final class iffClub extends iffBase {
         }
     }
 
-    public iffClub(String[] inData) {
+    public iffClub(String[] inData) throws IOException {
         super();
         buildColNames();
         getItem(inData);
@@ -73,14 +73,18 @@ public final class iffClub extends iffBase {
     }
     
     @Override
-    public void getItem(String[] inData) {
-        super.getItem(inData);
-        Sprite2Name = inData[32];
-        clubNum = uData.getShort(Integer.parseInt(inData[33]));
-        U33 = uData.getShort(Integer.parseInt(inData[34]));
-        U34 = uData.getShort(Integer.parseInt(inData[35]));
-        U35 = uData.getShort(Integer.parseInt(inData[36]));
-        U36 = uData.getShort(Integer.parseInt(inData[37]));
+    public void getItem(String[] inData) throws IOException {
+        try {
+            super.getItem(inData);
+            Sprite2Name = inData[28];
+            clubNum = uData.getShort(Integer.parseInt(inData[29]));
+            U33 = uData.getShort(Integer.parseInt(inData[30]));
+            U34 = uData.getShort(Integer.parseInt(inData[31]));
+            U35 = uData.getShort(Integer.parseInt(inData[32]));
+            U36 = uData.getShort(Integer.parseInt(inData[33]));
+        } catch (Exception ex) {
+            throw new IOException(ex);
+        }
     }
 
     @Override
